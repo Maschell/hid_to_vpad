@@ -37,5 +37,8 @@ ZL = Shift<br />
 ZR = N<br />
 
 ##Credits##
-A big thanks goes out to <b>dimok</b> for creating the HBL, the dynamic libs and every stuff he made. The "enviroment" of this app is copied from ddd, turned out to be a "hello world" with useful extra stuff.<br />
+A big thanks goes out to <b>dimok</b> for creating the HBL, the dynamic libs and every stuff he made. The "environment" of this app is copied from ddd, turned out to be a "hello world" with useful extra stuff.
 Also huge thanks to <b>FIX94</b> who initally created his gc-to-vpad. Helped me a lot! Thanks!
+And of course big thanks to everyone who has helped me testing! (dimok, dibas, EclipseSin,FunThomas,n1ghty etc.)
+     
+
