@@ -203,7 +203,6 @@ void PatchMethodHooks(void)
 void RestoreInstructions(void)
 {
     bat_table_t table;
-    KernelSetDBATs(&table);
     log_printf("Restore functions!\n");
     int method_hooks_count = sizeof(method_hooks) / sizeof(struct hooks_magic_t);
     for(int i = 0; i < method_hooks_count; i++)
