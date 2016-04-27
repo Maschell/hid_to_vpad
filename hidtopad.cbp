@@ -3,6 +3,7 @@
 	<FileVersion major="1" minor="6" />
 	<Project>
 		<Option title="hidtopad" />
+		<Option makefile_is_custom="1" />
 		<Option pch_mode="2" />
 		<Option compiler="ppc-gcc" />
 		<Build>
@@ -19,6 +20,180 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="build/ColorShader.d" />
+		<Unit filename="build/FXAAShader.d" />
+		<Unit filename="build/Shader3D.d" />
+		<Unit filename="build/ShaderFractalColor.d" />
+		<Unit filename="build/Texture2DShader.d" />
+		<Unit filename="build/acp_functions.d" />
+		<Unit filename="build/aoc_functions.d" />
+		<Unit filename="build/ax_functions.d" />
+		<Unit filename="build/controller_patcher.d" />
+		<Unit filename="build/cpp_to_c_util.d" />
+		<Unit filename="build/curl_functions.d" />
+		<Unit filename="build/dynamic_function_hooks.d" />
+		<Unit filename="build/entry.d" />
+		<Unit filename="build/exception_handler.d" />
+		<Unit filename="build/fs_functions.d" />
+		<Unit filename="build/fs_utils.d" />
+		<Unit filename="build/function_hooks.d" />
+		<Unit filename="build/gx2_functions.d" />
+		<Unit filename="build/kernel_functions.d" />
+		<Unit filename="build/kernel_hooks.d" />
+		<Unit filename="build/logger.d" />
+		<Unit filename="build/main.d" />
+		<Unit filename="build/memory.d" />
+		<Unit filename="build/memory_area_table.d" />
+		<Unit filename="build/net.d" />
+		<Unit filename="build/os_functions.d" />
+		<Unit filename="build/padscore_functions.d" />
+		<Unit filename="build/retain_vars.d" />
+		<Unit filename="build/rpx_rpl_table.d" />
+		<Unit filename="build/saviine.d" />
+		<Unit filename="build/sd_fat_devoptab.d" />
+		<Unit filename="build/socket_functions.d" />
+		<Unit filename="build/start.d" />
+		<Unit filename="build/sys_functions.d" />
+		<Unit filename="build/syscalls.d" />
+		<Unit filename="build/syscalls_asm.d" />
+		<Unit filename="build/syshid_functions.d" />
+		<Unit filename="build/vpad_functions.d" />
+		<Unit filename="src/common/common.h" />
+		<Unit filename="src/common/fs_defs.h" />
+		<Unit filename="src/common/kernel_defs.h" />
+		<Unit filename="src/common/loader_defs.h" />
+		<Unit filename="src/common/os_defs.h" />
+		<Unit filename="src/common/types.h" />
+		<Unit filename="src/controller_patcher/controller_patcher.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/controller_patcher/controller_patcher.h" />
+		<Unit filename="src/controller_patcher/cp_retain_vars.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/controller_patcher/cp_retain_vars.h" />
+		<Unit filename="src/dynamic_libs/acp_functions.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/dynamic_libs/acp_functions.h" />
+		<Unit filename="src/dynamic_libs/aoc_functions.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/dynamic_libs/aoc_functions.h" />
+		<Unit filename="src/dynamic_libs/ax_functions.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/dynamic_libs/ax_functions.h" />
+		<Unit filename="src/dynamic_libs/curl_functions.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/dynamic_libs/curl_functions.h" />
+		<Unit filename="src/dynamic_libs/fs_functions.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/dynamic_libs/fs_functions.h" />
+		<Unit filename="src/dynamic_libs/gx2_functions.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/dynamic_libs/gx2_functions.h" />
+		<Unit filename="src/dynamic_libs/gx2_types.h" />
+		<Unit filename="src/dynamic_libs/os_functions.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/dynamic_libs/os_functions.h" />
+		<Unit filename="src/dynamic_libs/padscore_functions.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/dynamic_libs/padscore_functions.h" />
+		<Unit filename="src/dynamic_libs/socket_functions.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/dynamic_libs/socket_functions.h" />
+		<Unit filename="src/dynamic_libs/sys_functions.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/dynamic_libs/sys_functions.h" />
+		<Unit filename="src/dynamic_libs/syshid_functions.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/dynamic_libs/syshid_functions.h" />
+		<Unit filename="src/dynamic_libs/vpad_functions.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/dynamic_libs/vpad_functions.h" />
+		<Unit filename="src/entry.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/fs/fs_utils.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/fs/fs_utils.h" />
+		<Unit filename="src/fs/sd_fat_devoptab.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/fs/sd_fat_devoptab.h" />
+		<Unit filename="src/game/memory_area_table.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/game/memory_area_table.h" />
+		<Unit filename="src/game/rpx_rpl_table.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/game/rpx_rpl_table.h" />
+		<Unit filename="src/kernel/kernel_functions.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/kernel/kernel_functions.h" />
+		<Unit filename="src/kernel/kernel_hooks.S" />
+		<Unit filename="src/kernel/syscalls.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/kernel/syscalls.h" />
+		<Unit filename="src/kernel/syscalls_asm.S" />
+		<Unit filename="src/main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/main.h" />
+		<Unit filename="src/patcher/cpp_to_c_util.cpp" />
+		<Unit filename="src/patcher/function_hooks.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/patcher/function_hooks.h" />
+		<Unit filename="src/start.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/start.h" />
+		<Unit filename="src/system/exception_handler.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/system/exception_handler.h" />
+		<Unit filename="src/system/memory.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/system/memory.h" />
+		<Unit filename="src/utils/logger.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/utils/logger.h" />
+		<Unit filename="src/utils/net.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/utils/net.h" />
+		<Unit filename="src/utils/utils.h" />
+		<Unit filename="src/video/shaders/ColorShader.cpp" />
+		<Unit filename="src/video/shaders/ColorShader.h" />
+		<Unit filename="src/video/shaders/FXAAShader.cpp" />
+		<Unit filename="src/video/shaders/FXAAShader.h" />
+		<Unit filename="src/video/shaders/FetchShader.h" />
+		<Unit filename="src/video/shaders/PixelShader.h" />
+		<Unit filename="src/video/shaders/Shader.h" />
+		<Unit filename="src/video/shaders/Shader3D.cpp" />
+		<Unit filename="src/video/shaders/Shader3D.h" />
+		<Unit filename="src/video/shaders/ShaderFractalColor.cpp" />
+		<Unit filename="src/video/shaders/ShaderFractalColor.h" />
+		<Unit filename="src/video/shaders/Texture2DShader.cpp" />
+		<Unit filename="src/video/shaders/Texture2DShader.h" />
+		<Unit filename="src/video/shaders/VertexShader.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
