@@ -56,6 +56,7 @@ DECL(int, VPADRead, int chan, VPADData *buffer, u32 buffer_size, s32 *error) {
     if(gHIDAttached){
         setControllerDataFromHID(buffer,gHIDCurrentDevice);
     }
+    //log_printf("%08X %08X %08X\n",buffer->btns_h,buffer->btns_r,buffer->btns_d);
 
     return result;
 }
