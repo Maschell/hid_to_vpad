@@ -1,3 +1,4 @@
+# Created by dimok
 # This stuff may need a change in different kernel versions
 # This is only needed when launched directly through browser and not SD card.
 

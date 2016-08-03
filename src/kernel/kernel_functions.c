@@ -3,7 +3,6 @@
 #include "common/kernel_defs.h"
 #include "kernel/kernel_functions.h"
 #include "kernel/syscalls.h"
-#include "start.h"
 
 /* our retain data */
 ReducedCosAppXmlInfo cosAppXmlInfoStruct __attribute__((section(".data")));
@@ -41,9 +40,6 @@ void my_PrepareTitle(CosAppXmlInfo *xmlKernelInfo)
     cosAppXmlInfoStruct.exception_stack2_size = xmlKernelInfo->exception_stack2_size;
     cosAppXmlInfoStruct.sdk_version = xmlKernelInfo->sdk_version;
     cosAppXmlInfoStruct.title_version = xmlKernelInfo->title_version;
-
-    // on title switch reset the dumper
-    Reset();
 }
 
 void SetupKernelCallback(void)

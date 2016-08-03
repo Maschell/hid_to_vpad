@@ -1,38 +1,31 @@
+/****************************************************************************
+ * Copyright (C) 2016 Maschell
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ ****************************************************************************/
+
 #ifndef _FUNCTION_HOOKS_H_
 #define _FUNCTION_HOOKS_H_
-
-#include "dynamic_libs/syshid_functions.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-
-
-/* Forward declarations */
-#define MAX_CLIENT 32
-
-struct bss_t {
-    int global_sock;
-    int socket_fs[MAX_CLIENT];
-    void *pClient_fs[MAX_CLIENT];
-    volatile int lock;
-    char mount_base[255];
-    char save_base[255];
-	void* file_replacer;
-	char update_path[50];
-	char save_dir_common[7];
-    char save_dir_user[9];
-};
-
-#define bss_ptr (*(struct bss_t **)0x100000e4)
-#define bss (*bss_ptr)
-
 void PatchMethodHooks(void);
 void RestoreInstructions(void);
 unsigned int GetAddressOfFunction(const char * functionName,unsigned int library);
 int isDynamicFunction(unsigned int physicalAddress);
-void PatchSDK(void);
 
 #ifdef __cplusplus
 }

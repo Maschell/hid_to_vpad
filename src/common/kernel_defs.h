@@ -2,7 +2,7 @@
 #define __KERNEL_DEFS_H_
 
 #include "types.h"
-#include "fs_defs.h"
+#include "dynamic_libs/fs_functions.h"
 
 #ifdef __cplusplus
 extern "C" {

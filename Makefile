@@ -34,7 +34,6 @@ BUILD_DBG	:=	$(TARGET)_dbg
 SOURCES		:=	src \
 				src/dynamic_libs \
 				src/controller_patcher \
-				src/fs \
 				src/game \
 				src/kernel \
 				src/patcher \

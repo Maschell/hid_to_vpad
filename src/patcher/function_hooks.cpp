@@ -1,11 +1,26 @@
+/****************************************************************************
+ * Copyright (C) 2016 Maschell
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ ****************************************************************************/
+
 #include <stdio.h>
 #include <malloc.h>
 #include <string.h>
-#include "common/common.h"
-#include "common/fs_defs.h"
-#include "common/loader_defs.h"
+#include <gctypes.h>
+#include "function_hooks.h"
 #include "controller_patcher/cp_retain_vars.h"
-#include "game/rpx_rpl_table.h"
 #include "dynamic_libs/aoc_functions.h"
 #include "dynamic_libs/ax_functions.h"
 #include "dynamic_libs/fs_functions.h"
@@ -18,13 +33,8 @@
 #include "dynamic_libs/acp_functions.h"
 #include "dynamic_libs/syshid_functions.h"
 #include "kernel/kernel_functions.h"
-#include "system/exception_handler.h"
-#include "function_hooks.h"
-#include "fs/fs_utils.h"
 #include "utils/logger.h"
-#include "system/memory.h"
-
-#include "cpp_to_c_util.h"
+#include "video/CursorDrawer.h"
 
 #define LIB_CODE_RW_BASE_OFFSET                         0xC1000000
 #define CODE_RW_BASE_OFFSET                             0x00000000
@@ -37,26 +47,27 @@
         res my_ ## name(__VA_ARGS__)
 
 DECL(void, GX2CopyColorBufferToScanBuffer, const GX2ColorBuffer *colorBuffer, s32 scan_target){
-
-    if(gHIDCurrentDevice & HID_LIST_MOUSE && gHID_Mouse_Mode == HID_MOUSE_MODE_TOUCH) {
-        draw_Cursor_at(gHID_Mouse.pad_data[0].data[0].X, gHID_Mouse.pad_data[0].data[0].Y);
+    if(gHIDCurrentDevice & gHID_LIST_MOUSE && gHID_Mouse_Mode == HID_MOUSE_MODE_TOUCH) {
+        CursorDrawer::draw(gHID_Mouse.pad_data[0].data[0].X, gHID_Mouse.pad_data[0].data[0].Y);
     }
     real_GX2CopyColorBufferToScanBuffer(colorBuffer,scan_target);
 }
 
 DECL(void, _Exit, void){
-    draw_Cursor_destroy();
+    CursorDrawer::destroyInstance();
     real__Exit();
 }
 
 DECL(int, VPADRead, int chan, VPADData *buffer, u32 buffer_size, s32 *error) {
-
     int result = real_VPADRead(chan, buffer, buffer_size, error);
-
     if(gHIDAttached){
-        setControllerDataFromHID(buffer,gHIDCurrentDevice);
+        setControllerDataFromHID(buffer,HID_ALL_CONNECTED_DEVICES);
     }
-    //log_printf("%08X %08X %08X\n",buffer->btns_h,buffer->btns_r,buffer->btns_d);
+
+    if(gButtonRemappingConfigDone){
+        buttonRemapping(buffer);
+        if (HID_DEBUG) printButtons(buffer);
+    }
 
     return result;
 }
@@ -89,7 +100,7 @@ volatile unsigned int dynamic_method_calls[sizeof(method_hooks) / sizeof(struct 
 
 /*
 *Patches a function that is loaded at the start of each application. Its not required to restore, at least when they are really dynamic.
-* "normal" functions should be patch with the normal patcher.
+* "normal" functions should be patch with the normal patcher. Current Code by Maschell with the help of dimok.
 */
 void PatchMethodHooks(void)
 {
@@ -104,12 +115,13 @@ void PatchMethodHooks(void)
     u32 flush_len = 4*instr_len;
     for(int i = 0; i < method_hooks_count; i++)
     {
+        log_printf("Patching %s ...",method_hooks[i].functionName);
         if(method_hooks[i].functionType == STATIC_FUNCTION && method_hooks[i].alreadyPatched == 1){
             if(isDynamicFunction((u32)OSEffectiveToPhysical((void*)method_hooks[i].realAddr))){
-                log_printf("The function %s is a dynamic function. Please fix that <3\n", method_hooks[i].functionName);
+                log_printf(" The function %s is a dynamic function. Please fix that <3 ... ", method_hooks[i].functionName);
                 method_hooks[i].functionType = DYNAMIC_FUNCTION;
             }else{
-                log_printf("Skipping %s, its already patched\n", method_hooks[i].functionName);
+                log_printf(" skipped. Its already patched\n", method_hooks[i].functionName);
                 space += instr_len;
                 continue;
             }
@@ -122,7 +134,7 @@ void PatchMethodHooks(void)
         unsigned int real_addr = GetAddressOfFunction(method_hooks[i].functionName,method_hooks[i].library);
 
         if(!real_addr){
-            log_printf("OSDynLoad_FindExport failed for %s\n", method_hooks[i].functionName);
+            log_printf("Error. OSDynLoad_FindExport failed for %s\n", method_hooks[i].functionName);
             space += instr_len;
             continue;
         }
@@ -131,7 +143,7 @@ void PatchMethodHooks(void)
 
         physical = (u32)OSEffectiveToPhysical((void*)real_addr);
         if(!physical){
-             log_printf("Something is wrong with the physical address\n");
+             log_printf("Error. Something is wrong with the physical address\n");
              space += instr_len;
              continue;
         }
@@ -159,7 +171,7 @@ void PatchMethodHooks(void)
             method_hooks[i].realAddr = real_addr;
             method_hooks[i].restoreInstruction = *(volatile unsigned int*)(physical);
         }else{
-            log_printf("Can't save %s for restoring!\n", method_hooks[i].functionName);
+            log_printf("Error. Can't save %s for restoring!\n", method_hooks[i].functionName);
         }
 
         //adding jump to real function
@@ -194,6 +206,8 @@ void PatchMethodHooks(void)
         KernelRestoreDBATs(&my_dbat_table);
 
         method_hooks[i].alreadyPatched = 1;
+
+        log_printf("done!\n");
     }
     log_print("Done with patching all functions!\n");
 }
@@ -208,33 +222,34 @@ void RestoreInstructions(void)
     int method_hooks_count = sizeof(method_hooks) / sizeof(struct hooks_magic_t);
     for(int i = 0; i < method_hooks_count; i++)
     {
+        log_printf("Restoring %s ...",method_hooks[i].functionName);
         if(method_hooks[i].restoreInstruction == 0 || method_hooks[i].realAddr == 0){
-            log_printf("I dont have the information for the restore =( skip\n");
+            log_printf("Error. I dont have the information for the restore =( skip\n");
             continue;
         }
 
         unsigned int real_addr = GetAddressOfFunction(method_hooks[i].functionName,method_hooks[i].library);
 
         if(!real_addr){
-            log_printf("OSDynLoad_FindExport failed for %s\n", method_hooks[i].functionName);
+            //log_printf("Error. OSDynLoad_FindExport failed for %s\n", method_hooks[i].functionName);
             continue;
         }
 
         u32 physical = (u32)OSEffectiveToPhysical((void*)real_addr);
         if(!physical){
-            log_printf("Something is wrong with the physical address\n");
+            log_printf("Error. Something is wrong with the physical address\n");
             continue;
         }
 
         if(isDynamicFunction(physical)){
-             log_printf("Its a dynamic function. We don't need to restore it! %s\n",method_hooks[i].functionName);
+             log_printf("Error. Its a dynamic function. We don't need to restore it! %s\n",method_hooks[i].functionName);
         }else{
             KernelSetDBATs(&table);
 
             *(volatile unsigned int *)(LIB_CODE_RW_BASE_OFFSET + method_hooks[i].realAddr) = method_hooks[i].restoreInstruction;
             DCFlushRange((void*)(LIB_CODE_RW_BASE_OFFSET + method_hooks[i].realAddr), 4);
             ICInvalidateRange((void*)method_hooks[i].realAddr, 4);
-            log_printf("Restored %s\n",method_hooks[i].functionName);
+            log_printf(" done\n");
             KernelRestoreDBATs(&table);
         }
         method_hooks[i].alreadyPatched = 0; // In case a
@@ -255,72 +270,72 @@ unsigned int GetAddressOfFunction(const char * functionName,unsigned int library
 
     unsigned int rpl_handle = 0;
     if(library == LIB_CORE_INIT){
-        log_printf("FindExport of %s! From LIB_CORE_INIT\n", functionName);
+        if(DEBUG_LOG_DYN)log_printf("FindExport of %s! From LIB_CORE_INIT\n", functionName);
         if(coreinit_handle == 0){log_print("LIB_CORE_INIT not aquired\n"); return 0;}
         rpl_handle = coreinit_handle;
     }
     else if(library == LIB_NSYSNET){
-        log_printf("FindExport of %s! From LIB_NSYSNET\n", functionName);
+        if(DEBUG_LOG_DYN)log_printf("FindExport of %s! From LIB_NSYSNET\n", functionName);
         if(nsysnet_handle == 0){log_print("LIB_NSYSNET not aquired\n"); return 0;}
         rpl_handle = nsysnet_handle;
     }
     else if(library == LIB_GX2){
-        log_printf("FindExport of %s! From LIB_GX2\n", functionName);
+        if(DEBUG_LOG_DYN)log_printf("FindExport of %s! From LIB_GX2\n", functionName);
         if(gx2_handle == 0){log_print("LIB_GX2 not aquired\n"); return 0;}
         rpl_handle = gx2_handle;
     }
     else if(library == LIB_AOC){
-        log_printf("FindExport of %s! From LIB_AOC\n", functionName);
+        if(DEBUG_LOG_DYN)log_printf("FindExport of %s! From LIB_AOC\n", functionName);
         if(aoc_handle == 0){log_print("LIB_AOC not aquired\n"); return 0;}
         rpl_handle = aoc_handle;
     }
     else if(library == LIB_AX){
-        log_printf("FindExport of %s! From LIB_AX\n", functionName);
+        if(DEBUG_LOG_DYN)log_printf("FindExport of %s! From LIB_AX\n", functionName);
         if(sound_handle == 0){log_print("LIB_AX not aquired\n"); return 0;}
         rpl_handle = sound_handle;
     }
     else if(library == LIB_FS){
-        log_printf("FindExport of %s! From LIB_FS\n", functionName);
+        if(DEBUG_LOG_DYN)log_printf("FindExport of %s! From LIB_FS\n", functionName);
         if(coreinit_handle == 0){log_print("LIB_FS not aquired\n"); return 0;}
         rpl_handle = coreinit_handle;
     }
     else if(library == LIB_OS){
-        log_printf("FindExport of %s! From LIB_OS\n", functionName);
+        if(DEBUG_LOG_DYN)log_printf("FindExport of %s! From LIB_OS\n", functionName);
         if(coreinit_handle == 0){log_print("LIB_OS not aquired\n"); return 0;}
         rpl_handle = coreinit_handle;
     }
     else if(library == LIB_PADSCORE){
-        log_printf("FindExport of %s! From LIB_PADSCORE\n", functionName);
+        if(DEBUG_LOG_DYN)log_printf("FindExport of %s! From LIB_PADSCORE\n", functionName);
         if(padscore_handle == 0){log_print("LIB_PADSCORE not aquired\n"); return 0;}
         rpl_handle = padscore_handle;
     }
     else if(library == LIB_SOCKET){
-        log_printf("FindExport of %s! From LIB_SOCKET\n", functionName);
+        if(DEBUG_LOG_DYN)log_printf("FindExport of %s! From LIB_SOCKET\n", functionName);
         if(nsysnet_handle == 0){log_print("LIB_SOCKET not aquired\n"); return 0;}
         rpl_handle = nsysnet_handle;
     }
     else if(library == LIB_SYS){
-        log_printf("FindExport of %s! From LIB_SYS\n", functionName);
+        if(DEBUG_LOG_DYN)log_printf("FindExport of %s! From LIB_SYS\n", functionName);
         if(sysapp_handle == 0){log_print("LIB_SYS not aquired\n"); return 0;}
         rpl_handle = sysapp_handle;
     }
     else if(library == LIB_VPAD){
-        log_printf("FindExport of %s! From LIB_VPAD\n", functionName);
+        if(DEBUG_LOG_DYN)log_printf("FindExport of %s! From LIB_VPAD\n", functionName);
         if(vpad_handle == 0){log_print("LIB_VPAD not aquired\n"); return 0;}
         rpl_handle = vpad_handle;
     }
     else if(library == LIB_NN_ACP){
-        log_printf("FindExport of %s! From LIB_NN_ACP\n", functionName);
+        if(DEBUG_LOG_DYN)log_printf("FindExport of %s! From LIB_NN_ACP\n", functionName);
         if(acp_handle == 0){log_print("LIB_NN_ACP not aquired\n"); return 0;}
         rpl_handle = acp_handle;
     }
     else if(library == LIB_SYSHID){
-        log_printf("FindExport of %s! From LIB_SYSHID\n", functionName);
+        if(DEBUG_LOG_DYN)log_printf("FindExport of %s! From LIB_SYSHID\n", functionName);
         if(syshid_handle == 0){log_print("LIB_SYSHID not aquired\n"); return 0;}
         rpl_handle = syshid_handle;
     }
     else if(library == LIB_VPADBASE){
-        log_printf("FindExport of %s! From LIB_VPADBASE\n", functionName);
+        if(DEBUG_LOG_DYN)log_printf("FindExport of %s! From LIB_VPADBASE\n", functionName);
         if(vpadbase_handle == 0){log_print("LIB_VPADBASE not aquired\n"); return 0;}
         rpl_handle = vpadbase_handle;
     }
