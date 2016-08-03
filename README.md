@@ -14,6 +14,7 @@ sd:/wiiu/controller
 ##Supported devices##
 The official GC Adapter, PS3/PS4 Pad, Mouse, Keyboard have built in support. Other devices can be added when a valid config file in provided.  
 Check out the [controller_patcher](https://github.com/Maschell/controller_patcher) repository for more details.  
+
 You can find deep information for creating own config files, the default mapping, in the [controller patcher wiki](https://github.com/Maschell/controller_patcher/wiki)
 
 Default button mapping:  
