@@ -115,7 +115,7 @@ void SplashScreen(int time){
     char* msg = (char*) malloc(80);
     PRINT_TEXT2(0,0, "HID to VPAD %s - %s %s - by Maschell",APP_VERION,__DATE__,__TIME__);
 
-    int readFiles = 0;//ConfigReader::getNumberOfLoadedFiles();
+    int readFiles = ConfigReader::getNumberOfLoadedFiles();
     int i = 2;
 
     PRINT_TEXT1(0,i, " - Reading SD Card."); i++;
