@@ -15,20 +15,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ****************************************************************************/
 
-#ifndef _FUNCTION_HOOKS_H_
-#define _FUNCTION_HOOKS_H_
+#ifndef _HID_CONTROLLER_FUNCTION_PATCHER_H
+#define _HID_CONTROLLER_FUNCTION_PATCHER_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-void PatchMethodHooks(void);
-void RestoreInstructions(void);
-unsigned int GetAddressOfFunction(const char * functionName,unsigned int library);
-int isDynamicFunction(unsigned int physicalAddress);
+#include "utils/function_patcher.h"
+
+extern hooks_magic_t method_hooks_hid_controller[];
+extern u32 method_hooks_size_hid_controller;
+extern volatile unsigned int method_calls_hid_controller[];
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* _FS_H */
+#endif /* _HID_CONTROLLER_FUNCTION_PATCHER_H */

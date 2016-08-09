@@ -51,18 +51,6 @@ extern "C" {
 #define EXIT_HBL_EXIT               0xFFFFFFFE
 #define EXIT_RELAUNCH_ON_LOAD       0xFFFFFFFD
 
-#define RESTORE_INSTR_MAGIC         0xC001C0DE
-#define RESTORE_INSTR_ADDR          ((restore_instructions_t*)(MEM_BASE + 0x1600))
-
-typedef struct _restore_instructions_t {
-    unsigned int magic;
-    unsigned int instr_count;
-    struct {
-        unsigned int addr;
-        unsigned int instr;
-    } data[0];
-} restore_instructions_t;
-
 #ifdef __cplusplus
 }
 #endif

@@ -4,6 +4,8 @@
 #include <malloc.h>
 #include "main.h"
 #include "version.h"
+#include "common/common.h"
+
 #include "dynamic_libs/os_functions.h"
 #include "dynamic_libs/gx2_functions.h"
 #include "dynamic_libs/syshid_functions.h"
@@ -13,7 +15,8 @@
 #include "controller_patcher/controller_patcher.h"
 #include "controller_patcher/config_reader.h"
 #include "controller_patcher/cp_retain_vars.h"
-#include "patcher/function_hooks.h"
+#include "utils/function_patcher.h"
+#include "patcher/hid_controller_patcher.h"
 #include "kernel/kernel_functions.h"
 #include "video/CursorDrawer.h"
 #include "utils/logger.h"
@@ -67,7 +70,7 @@ extern "C" int Menu_Main(void)
     //!                        Patching functions                        *
     //!*******************************************************************
     log_print("Patching functions\n");
-    PatchMethodHooks();
+    ApplyPatches();
 
     if(strlen(cosAppXmlInfoStruct.rpx_name) > 0 && strcasecmp("ffl_app.rpx", cosAppXmlInfoStruct.rpx_name) != 0)
     {
@@ -83,10 +86,12 @@ extern "C" int Menu_Main(void)
     deInit();
     return EXIT_SUCCESS;
 }
-
+void ApplyPatches(){
+    PatchInvidualMethodHooks(method_hooks_hid_controller,   method_hooks_size_hid_controller,   method_calls_hid_controller);
+}
 void deInit(){
     CursorDrawer::destroyInstance();
-    RestoreInstructions();
+    RestoreInvidualInstructions(method_hooks_hid_controller,method_hooks_size_hid_controller);
     deinit_config_controller();
     log_deinit();
 }

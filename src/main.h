@@ -13,6 +13,7 @@ extern "C" {
 int Menu_Main(void);
 void SplashScreen(int time);
 void deInit(void);
+void ApplyPatches(void);
 
 #ifdef __cplusplus
 }
