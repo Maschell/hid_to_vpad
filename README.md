@@ -1,10 +1,9 @@
 # HID to VPAD
-This is a little tool that let you use a hid device instead of the WiiU Gamepad. <br />
-Currently its experimental and result in random crashes at exiting an application or attaching/detaching a device.<br />
+This is a little tool that let you use a hid device on the WiiU. <br />
 It's based on the [controller_patcher](https://github.com/Maschell/controller_patcher) engine. 
 
 ## Usage
-Start the .elf with the homebrew launcher. The system menu will be loaded and you can use your device. You can attach and detach devices at any time, but maybe it will result in a random crash.
+Start the .elf with the homebrew launcher. A GUI will open where you can assign your controller. You can attach and detach devices at any time. To change the mapping, open the Mii Maker.
 
 Place the config files into the following folder:
 ```
@@ -24,18 +23,15 @@ Default button mapping:
 - [Dualshock 3](https://github.com/Maschell/controller_patcher/wiki/5.b-Controller-%7C-Configurate-the-Dualshock-3-controller#default-button-mapping)
 - [Dualshock 4](https://github.com/Maschell/controller_patcher/wiki/5.c-Controller-%7C-Configurate-the-Dualshock-4-controller#default-button-mapping)
 
+In combination with the Network Client, more controllers are supported. You can find more information [here](http://gbatemp.net/threads/hid-to-vpad-network-client.466150/).
+
 # FAQ
-### I'm getting this annoying screen at the beginning
-Just press A to skip it.
 
 ### What about XBOX controller
-The Xbox controller are no HID devices. Its not possible to use them with this method.
+The Xbox controller are no HID devices. But it can be used in combination with the [Network Client](http://gbatemp.net/threads/hid-to-vpad-network-client.466150/)!
 
 ### Is my controller supported?
 Take a  look at this [repo](https://github.com/Maschell/controller_patcher_configs)
-
-### Can I really use my Mouse and Keyboard
-Yes. Just plug in you mouse and keyboard. The mouse has 2 mode, switch between them with "F1" on the keyboard.
 
 ### ???
 Do you have an other question? First take a look at:
