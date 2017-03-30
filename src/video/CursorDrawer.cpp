@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (C) 2016 Maschell
+ * Copyright (C) 2016,2017 Maschell
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,6 +20,10 @@
 
 #include "dynamic_libs/gx2_functions.h"
 #include "video/shaders/ColorShader.h"
+#include "video/shaders/FXAAShader.h"
+#include "video/shaders/Shader3D.h"
+#include "video/shaders/ShaderFractalColor.h"
+#include "video/shaders/Texture2DShader.h"
 #include "CursorDrawer.h"
 
 CursorDrawer *CursorDrawer::instance = NULL;
@@ -33,6 +37,10 @@ CursorDrawer::~CursorDrawer()
 {
     //! destroy shaders
     ColorShader::destroyInstance();
+    FXAAShader::destroyInstance();
+    Shader3D::destroyInstance();
+    ShaderFractalColor::destroyInstance();
+    Texture2DShader::destroyInstance();
     if(this->colorVtxs){
         free(this->colorVtxs);
         this->colorVtxs = NULL;

@@ -6,6 +6,14 @@
 		<Option makefile_is_custom="1" />
 		<Option pch_mode="2" />
 		<Option compiler="ppc-gcc" />
+		<MakeCommands>
+			<Build command="$make -f $makefile $target -j8" />
+			<CompileFile command="$make -f $makefile $file" />
+			<Clean command="make clean " />
+			<DistClean command="$make -f $makefile distclean$target" />
+			<AskRebuildNeeded command="$make -q -f $makefile $target" />
+			<SilentBuild command="$make -f $makefile $target -j8 &gt; $(CMD_NULL)" />
+		</MakeCommands>
 		<Build>
 			<Target title="build">
 				<Option output="bin/Release/hidtopad" prefix_auto="1" extension_auto="1" />
@@ -15,63 +23,145 @@
 				<Compiler>
 					<Add option="-O2" />
 				</Compiler>
+				<MakeCommands>
+					<Build command="$make -f $makefile $target -j8" />
+					<CompileFile command="$make -f $makefile $file" />
+					<Clean command="$make -f $makefile clean$target" />
+					<DistClean command="$make -f $makefile distclean$target" />
+					<AskRebuildNeeded command="$make -q -f $makefile $target" />
+					<SilentBuild command="$make -f $makefile $target -j8 &gt; $(CMD_NULL)" />
+				</MakeCommands>
 			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="build/Application.d" />
+		<Unit filename="build/AsyncDeleter.d" />
+		<Unit filename="build/BufferCircle.d" />
+		<Unit filename="build/CFile.d" />
+		<Unit filename="build/CPLogger.d" />
+		<Unit filename="build/CPRetainVars.d" />
+		<Unit filename="build/CPStringTools.d" />
+		<Unit filename="build/CVideo.d" />
 		<Unit filename="build/ColorShader.d" />
+		<Unit filename="build/ConfigParser.d" />
+		<Unit filename="build/ConfigReader.d" />
+		<Unit filename="build/ConfigValues.d" />
+		<Unit filename="build/ContentAbout.d" />
+		<Unit filename="build/ContentController.d" />
+		<Unit filename="build/ContentHelp.d" />
+		<Unit filename="build/ContentHome.d" />
+		<Unit filename="build/ControllerPatcher.d" />
+		<Unit filename="build/ControllerPatcherHID.d" />
+		<Unit filename="build/ControllerPatcherNet.d" />
+		<Unit filename="build/ControllerPatcherUtils.d" />
+		<Unit filename="build/CursorDrawer.d" />
+		<Unit filename="build/DirList.d" />
 		<Unit filename="build/FXAAShader.d" />
+		<Unit filename="build/FreeTypeGX.d" />
+		<Unit filename="build/GameBgImage.d" />
+		<Unit filename="build/GameIcon.d" />
+		<Unit filename="build/GridBackground.d" />
+		<Unit filename="build/GuiButton.d" />
+		<Unit filename="build/GuiCheckBox.d" />
+		<Unit filename="build/GuiControllerInputDisplay.d" />
+		<Unit filename="build/GuiDragListener.d" />
+		<Unit filename="build/GuiElement.d" />
+		<Unit filename="build/GuiFrame.d" />
+		<Unit filename="build/GuiImage.d" />
+		<Unit filename="build/GuiImageAsync.d" />
+		<Unit filename="build/GuiImageData.d" />
+		<Unit filename="build/GuiParticleImage.d" />
+		<Unit filename="build/GuiSelectBox.d" />
+		<Unit filename="build/GuiSound.d" />
+		<Unit filename="build/GuiSwitch.d" />
+		<Unit filename="build/GuiText.d" />
+		<Unit filename="build/GuiToggle.d" />
+		<Unit filename="build/GuiTrigger.d" />
+		<Unit filename="build/InputGetterMenu.d" />
+		<Unit filename="build/MainWindow.d" />
+		<Unit filename="build/MainWindowContent.d" />
+		<Unit filename="build/MainWindowDRC.d" />
+		<Unit filename="build/MainWindowTV.d" />
+		<Unit filename="build/MenuElement.d" />
+		<Unit filename="build/MenuElementController.d" />
+		<Unit filename="build/MenuElementInfo.d" />
+		<Unit filename="build/MenuListDRC.d" />
+		<Unit filename="build/MenuSeperator.d" />
+		<Unit filename="build/Mp3Decoder.d" />
+		<Unit filename="build/OggDecoder.d" />
+		<Unit filename="build/PadConst.d" />
+		<Unit filename="build/Resources.d" />
+		<Unit filename="build/Scrollbar.d" />
 		<Unit filename="build/Shader3D.d" />
 		<Unit filename="build/ShaderFractalColor.d" />
+		<Unit filename="build/SoundDecoder.d" />
+		<Unit filename="build/SoundHandler.d" />
+		<Unit filename="build/StringTools.d" />
+		<Unit filename="build/TCPServer.d" />
+		<Unit filename="build/TVButtonController.d" />
+		<Unit filename="build/TVControllerBanner.d" />
 		<Unit filename="build/Texture2DShader.d" />
+		<Unit filename="build/UDPServer.d" />
+		<Unit filename="build/WavDecoder.d" />
 		<Unit filename="build/acp_functions.d" />
 		<Unit filename="build/aoc_functions.d" />
 		<Unit filename="build/ax_functions.d" />
-		<Unit filename="build/controller_patcher.d" />
-		<Unit filename="build/cpp_to_c_util.d" />
 		<Unit filename="build/curl_functions.d" />
-		<Unit filename="build/dynamic_function_hooks.d" />
 		<Unit filename="build/entry.d" />
 		<Unit filename="build/exception_handler.d" />
 		<Unit filename="build/fs_functions.d" />
 		<Unit filename="build/fs_utils.d" />
-		<Unit filename="build/function_hooks.d" />
+		<Unit filename="build/function_patcher.d" />
 		<Unit filename="build/gx2_functions.d" />
+		<Unit filename="build/hid_controller_function_patcher.d" />
 		<Unit filename="build/kernel_functions.d" />
-		<Unit filename="build/kernel_hooks.d" />
 		<Unit filename="build/logger.d" />
 		<Unit filename="build/main.d" />
 		<Unit filename="build/memory.d" />
-		<Unit filename="build/memory_area_table.d" />
-		<Unit filename="build/net.d" />
 		<Unit filename="build/os_functions.d" />
 		<Unit filename="build/padscore_functions.d" />
-		<Unit filename="build/retain_vars.d" />
-		<Unit filename="build/rpx_rpl_table.d" />
-		<Unit filename="build/saviine.d" />
 		<Unit filename="build/sd_fat_devoptab.d" />
 		<Unit filename="build/socket_functions.d" />
-		<Unit filename="build/start.d" />
 		<Unit filename="build/sys_functions.d" />
 		<Unit filename="build/syscalls.d" />
 		<Unit filename="build/syscalls_asm.d" />
 		<Unit filename="build/syshid_functions.d" />
 		<Unit filename="build/vpad_functions.d" />
+		<Unit filename="src/Application.cpp" />
+		<Unit filename="src/Application.h" />
 		<Unit filename="src/common/common.h" />
-		<Unit filename="src/common/fs_defs.h" />
 		<Unit filename="src/common/kernel_defs.h" />
 		<Unit filename="src/common/loader_defs.h" />
 		<Unit filename="src/common/os_defs.h" />
 		<Unit filename="src/common/types.h" />
-		<Unit filename="src/controller_patcher/controller_patcher.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="src/controller_patcher/controller_patcher.h" />
-		<Unit filename="src/controller_patcher/cp_retain_vars.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="src/controller_patcher/cp_retain_vars.h" />
+		<Unit filename="src/controller_patcher/ConfigReader.cpp" />
+		<Unit filename="src/controller_patcher/ConfigReader.hpp" />
+		<Unit filename="src/controller_patcher/ControllerPatcher.cpp" />
+		<Unit filename="src/controller_patcher/ControllerPatcher.hpp" />
+		<Unit filename="src/controller_patcher/config/ConfigParser.cpp" />
+		<Unit filename="src/controller_patcher/config/ConfigParser.hpp" />
+		<Unit filename="src/controller_patcher/config/ConfigValues.cpp" />
+		<Unit filename="src/controller_patcher/config/ConfigValues.hpp" />
+		<Unit filename="src/controller_patcher/network/ControllerPatcherNet.cpp" />
+		<Unit filename="src/controller_patcher/network/ControllerPatcherNet.hpp" />
+		<Unit filename="src/controller_patcher/network/TCPServer.cpp" />
+		<Unit filename="src/controller_patcher/network/TCPServer.hpp" />
+		<Unit filename="src/controller_patcher/network/UDPServer.cpp" />
+		<Unit filename="src/controller_patcher/network/UDPServer.hpp" />
+		<Unit filename="src/controller_patcher/patcher/ControllerPatcherDefs.h" />
+		<Unit filename="src/controller_patcher/patcher/ControllerPatcherHID.cpp" />
+		<Unit filename="src/controller_patcher/patcher/ControllerPatcherHID.hpp" />
+		<Unit filename="src/controller_patcher/patcher/ControllerPatcherUtils.cpp" />
+		<Unit filename="src/controller_patcher/patcher/ControllerPatcherUtils.hpp" />
+		<Unit filename="src/controller_patcher/utils/CPRetainVars.cpp" />
+		<Unit filename="src/controller_patcher/utils/CPRetainVars.hpp" />
+		<Unit filename="src/controller_patcher/utils/CPStringTools.cpp" />
+		<Unit filename="src/controller_patcher/utils/CPStringTools.hpp" />
+		<Unit filename="src/controller_patcher/utils/ControllerPatcherThread.hpp" />
+		<Unit filename="src/controller_patcher/utils/PadConst.cpp" />
+		<Unit filename="src/controller_patcher/utils/PadConst.hpp" />
 		<Unit filename="src/dynamic_libs/acp_functions.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -88,6 +178,7 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src/dynamic_libs/curl_functions.h" />
+		<Unit filename="src/dynamic_libs/fs_defs.h" />
 		<Unit filename="src/dynamic_libs/fs_functions.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -101,6 +192,7 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src/dynamic_libs/os_functions.h" />
+		<Unit filename="src/dynamic_libs/os_types.h" />
 		<Unit filename="src/dynamic_libs/padscore_functions.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -124,6 +216,10 @@
 		<Unit filename="src/entry.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="src/fs/CFile.cpp" />
+		<Unit filename="src/fs/CFile.hpp" />
+		<Unit filename="src/fs/DirList.cpp" />
+		<Unit filename="src/fs/DirList.h" />
 		<Unit filename="src/fs/fs_utils.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -132,37 +228,124 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src/fs/sd_fat_devoptab.h" />
-		<Unit filename="src/game/memory_area_table.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="src/game/memory_area_table.h" />
-		<Unit filename="src/game/rpx_rpl_table.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="src/game/rpx_rpl_table.h" />
+		<Unit filename="src/gui/FreeTypeGX.cpp" />
+		<Unit filename="src/gui/FreeTypeGX.h" />
+		<Unit filename="src/gui/GameBgImage.cpp" />
+		<Unit filename="src/gui/GameBgImage.h" />
+		<Unit filename="src/gui/GameIcon.cpp" />
+		<Unit filename="src/gui/GameIcon.h" />
+		<Unit filename="src/gui/GameIconModel.h" />
+		<Unit filename="src/gui/GridBackground.cpp" />
+		<Unit filename="src/gui/GridBackground.h" />
+		<Unit filename="src/gui/Gui.h" />
+		<Unit filename="src/gui/GuiButton.cpp" />
+		<Unit filename="src/gui/GuiButton.h" />
+		<Unit filename="src/gui/GuiCheckBox.cpp" />
+		<Unit filename="src/gui/GuiCheckBox.h" />
+		<Unit filename="src/gui/GuiConfigurationScreen.h" />
+		<Unit filename="src/gui/GuiController.h" />
+		<Unit filename="src/gui/GuiControllerInputDisplay.cpp" />
+		<Unit filename="src/gui/GuiControllerInputDisplay.h" />
+		<Unit filename="src/gui/GuiDragListener.cpp" />
+		<Unit filename="src/gui/GuiDragListener.h" />
+		<Unit filename="src/gui/GuiElement.cpp" />
+		<Unit filename="src/gui/GuiElement.h" />
+		<Unit filename="src/gui/GuiFrame.cpp" />
+		<Unit filename="src/gui/GuiFrame.h" />
+		<Unit filename="src/gui/GuiImage.cpp" />
+		<Unit filename="src/gui/GuiImage.h" />
+		<Unit filename="src/gui/GuiImageAsync.cpp" />
+		<Unit filename="src/gui/GuiImageAsync.h" />
+		<Unit filename="src/gui/GuiImageData.cpp" />
+		<Unit filename="src/gui/GuiImageData.h" />
+		<Unit filename="src/gui/GuiParticleImage.cpp" />
+		<Unit filename="src/gui/GuiParticleImage.h" />
+		<Unit filename="src/gui/GuiSelectBox.cpp" />
+		<Unit filename="src/gui/GuiSelectBox.h" />
+		<Unit filename="src/gui/GuiSound.cpp" />
+		<Unit filename="src/gui/GuiSound.h" />
+		<Unit filename="src/gui/GuiSwitch.cpp" />
+		<Unit filename="src/gui/GuiSwitch.h" />
+		<Unit filename="src/gui/GuiText.cpp" />
+		<Unit filename="src/gui/GuiText.h" />
+		<Unit filename="src/gui/GuiToggle.cpp" />
+		<Unit filename="src/gui/GuiToggle.h" />
+		<Unit filename="src/gui/GuiTrigger.cpp" />
+		<Unit filename="src/gui/GuiTrigger.h" />
+		<Unit filename="src/gui/Scrollbar.cpp" />
+		<Unit filename="src/gui/Scrollbar.h" />
+		<Unit filename="src/gui/VPadController.h" />
+		<Unit filename="src/gui/WPadController.h" />
+		<Unit filename="src/gui/sigslot.h" />
 		<Unit filename="src/kernel/kernel_functions.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src/kernel/kernel_functions.h" />
-		<Unit filename="src/kernel/kernel_hooks.S" />
 		<Unit filename="src/kernel/syscalls.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src/kernel/syscalls.h" />
 		<Unit filename="src/kernel/syscalls_asm.S" />
-		<Unit filename="src/main.c">
-			<Option compilerVar="CC" />
-		</Unit>
+		<Unit filename="src/main.cpp" />
 		<Unit filename="src/main.h" />
-		<Unit filename="src/patcher/cpp_to_c_util.cpp" />
-		<Unit filename="src/patcher/function_hooks.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="src/patcher/function_hooks.h" />
-		<Unit filename="src/start.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="src/start.h" />
+		<Unit filename="src/menu/ControllerDefs.h" />
+		<Unit filename="src/menu/InputGetterMenu.cpp" />
+		<Unit filename="src/menu/InputGetterMenu.h" />
+		<Unit filename="src/menu/MainWindow.cpp" />
+		<Unit filename="src/menu/MainWindow.h" />
+		<Unit filename="src/menu/drc/MainWindowContent.cpp" />
+		<Unit filename="src/menu/drc/MainWindowContent.h" />
+		<Unit filename="src/menu/drc/MainWindowDRC.cpp" />
+		<Unit filename="src/menu/drc/MainWindowDRC.h" />
+		<Unit filename="src/menu/drc/MenuElement.cpp" />
+		<Unit filename="src/menu/drc/MenuElement.h" />
+		<Unit filename="src/menu/drc/MenuElementController.cpp" />
+		<Unit filename="src/menu/drc/MenuElementController.h" />
+		<Unit filename="src/menu/drc/MenuElementInfo.cpp" />
+		<Unit filename="src/menu/drc/MenuElementInfo.h" />
+		<Unit filename="src/menu/drc/MenuListDRC.cpp" />
+		<Unit filename="src/menu/drc/MenuListDRC.h" />
+		<Unit filename="src/menu/drc/MenuSeperator.cpp" />
+		<Unit filename="src/menu/drc/MenuSeperator.h" />
+		<Unit filename="src/menu/drc/content/ContentAbout.cpp" />
+		<Unit filename="src/menu/drc/content/ContentAbout.h" />
+		<Unit filename="src/menu/drc/content/ContentController.cpp" />
+		<Unit filename="src/menu/drc/content/ContentController.h" />
+		<Unit filename="src/menu/drc/content/ContentHelp.cpp" />
+		<Unit filename="src/menu/drc/content/ContentHelp.h" />
+		<Unit filename="src/menu/drc/content/ContentHome.cpp" />
+		<Unit filename="src/menu/drc/content/ContentHome.h" />
+		<Unit filename="src/menu/drc/content/ContentNetworkHelp.cpp" />
+		<Unit filename="src/menu/drc/content/ContentNetworkHelp.h" />
+		<Unit filename="src/menu/drc/content/ContentTemplate.h" />
+		<Unit filename="src/menu/tv/MainWindowTV.cpp" />
+		<Unit filename="src/menu/tv/MainWindowTV.h" />
+		<Unit filename="src/menu/tv/TVButtonController.cpp" />
+		<Unit filename="src/menu/tv/TVButtonController.h" />
+		<Unit filename="src/menu/tv/TVControllerBanner.cpp" />
+		<Unit filename="src/menu/tv/TVControllerBanner.h" />
+		<Unit filename="src/patcher/hid_controller_function_patcher.cpp" />
+		<Unit filename="src/patcher/hid_controller_function_patcher.hpp" />
+		<Unit filename="src/resources/Resources.cpp" />
+		<Unit filename="src/resources/Resources.h" />
+		<Unit filename="src/resources/filelist.h" />
+		<Unit filename="src/sounds/BufferCircle.cpp" />
+		<Unit filename="src/sounds/BufferCircle.hpp" />
+		<Unit filename="src/sounds/Mp3Decoder.cpp" />
+		<Unit filename="src/sounds/Mp3Decoder.hpp" />
+		<Unit filename="src/sounds/OggDecoder.cpp" />
+		<Unit filename="src/sounds/OggDecoder.hpp" />
+		<Unit filename="src/sounds/SoundDecoder.cpp" />
+		<Unit filename="src/sounds/SoundDecoder.hpp" />
+		<Unit filename="src/sounds/SoundHandler.cpp" />
+		<Unit filename="src/sounds/SoundHandler.hpp" />
+		<Unit filename="src/sounds/Voice.h" />
+		<Unit filename="src/sounds/WavDecoder.cpp" />
+		<Unit filename="src/sounds/WavDecoder.hpp" />
+		<Unit filename="src/system/AsyncDeleter.cpp" />
+		<Unit filename="src/system/AsyncDeleter.h" />
+		<Unit filename="src/system/CMutex.h" />
+		<Unit filename="src/system/CThread.h" />
 		<Unit filename="src/system/exception_handler.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -171,15 +354,20 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src/system/memory.h" />
+		<Unit filename="src/utils/StringTools.cpp" />
+		<Unit filename="src/utils/StringTools.h" />
+		<Unit filename="src/utils/function_patcher.cpp" />
+		<Unit filename="src/utils/function_patcher.h" />
 		<Unit filename="src/utils/logger.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src/utils/logger.h" />
-		<Unit filename="src/utils/net.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="src/utils/net.h" />
 		<Unit filename="src/utils/utils.h" />
+		<Unit filename="src/version.h" />
+		<Unit filename="src/video/CVideo.cpp" />
+		<Unit filename="src/video/CVideo.h" />
+		<Unit filename="src/video/CursorDrawer.cpp" />
+		<Unit filename="src/video/CursorDrawer.h" />
 		<Unit filename="src/video/shaders/ColorShader.cpp" />
 		<Unit filename="src/video/shaders/ColorShader.h" />
 		<Unit filename="src/video/shaders/FXAAShader.cpp" />

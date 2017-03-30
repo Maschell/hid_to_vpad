@@ -1,5 +1,6 @@
 /****************************************************************************
  * Copyright (C) 2016 Maschell
+ * With code from chadderz and dimok
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,99 +16,33 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ****************************************************************************/
 
+#include <vector>
+#include <algorithm>
 #include <stdio.h>
 #include <malloc.h>
 #include <string.h>
 #include <gctypes.h>
-#include "function_hooks.h"
-#include "controller_patcher/cp_retain_vars.h"
-#include "dynamic_libs/aoc_functions.h"
-#include "dynamic_libs/ax_functions.h"
-#include "dynamic_libs/fs_functions.h"
-#include "dynamic_libs/gx2_functions.h"
-#include "dynamic_libs/os_functions.h"
-#include "dynamic_libs/padscore_functions.h"
-#include "dynamic_libs/socket_functions.h"
-#include "dynamic_libs/sys_functions.h"
-#include "dynamic_libs/vpad_functions.h"
-#include "dynamic_libs/acp_functions.h"
-#include "dynamic_libs/syshid_functions.h"
-#include "kernel/kernel_functions.h"
+#include "function_patcher.h"
 #include "utils/logger.h"
-#include "video/CursorDrawer.h"
+#include "common/kernel_defs.h"
+#include "kernel/kernel_functions.h"
 
 #define LIB_CODE_RW_BASE_OFFSET                         0xC1000000
 #define CODE_RW_BASE_OFFSET                             0x00000000
 #define DEBUG_LOG_DYN                                   0
 
-#define USE_EXTRA_LOG_FUNCTIONS   0
-
-#define DECL(res, name, ...) \
-        res (* real_ ## name)(__VA_ARGS__) __attribute__((section(".data"))); \
-        res my_ ## name(__VA_ARGS__)
-
-DECL(void, GX2CopyColorBufferToScanBuffer, const GX2ColorBuffer *colorBuffer, s32 scan_target){
-    if(gHIDCurrentDevice & gHID_LIST_MOUSE && gHID_Mouse_Mode == HID_MOUSE_MODE_TOUCH) {
-        CursorDrawer::draw(gHID_Mouse.pad_data[0].data[0].X, gHID_Mouse.pad_data[0].data[0].Y);
-    }
-    real_GX2CopyColorBufferToScanBuffer(colorBuffer,scan_target);
-}
-
-DECL(void, _Exit, void){
-    CursorDrawer::destroyInstance();
-    real__Exit();
-}
-
-DECL(int, VPADRead, int chan, VPADData *buffer, u32 buffer_size, s32 *error) {
-    int result = real_VPADRead(chan, buffer, buffer_size, error);
-    if(gHIDAttached){
-        setControllerDataFromHID(buffer,HID_ALL_CONNECTED_DEVICES);
-    }
-
-    if(gButtonRemappingConfigDone){
-        buttonRemapping(buffer);
-        if (HID_DEBUG) printButtons(buffer);
-    }
-
-    return result;
-}
-
-/* *****************************************************************************
- * Creates function pointer array
- * ****************************************************************************/
-#define MAKE_MAGIC(x, lib,functionType) { (unsigned int) my_ ## x, (unsigned int) &real_ ## x, lib, # x,0,0,functionType,0}
-
-static struct hooks_magic_t {
-    const unsigned int replaceAddr;
-    const unsigned int replaceCall;
-    const unsigned int library;
-    const char functionName[50];
-    unsigned int realAddr;
-    unsigned int restoreInstruction;
-    unsigned char functionType;
-    unsigned char alreadyPatched;
-} method_hooks[] = {
-     // Common FS functions
-    MAKE_MAGIC(VPADRead,                           LIB_VPAD,STATIC_FUNCTION),
-    MAKE_MAGIC(GX2CopyColorBufferToScanBuffer,     LIB_GX2,STATIC_FUNCTION),
-    MAKE_MAGIC(_Exit,                              LIB_CORE_INIT,STATIC_FUNCTION),
-};
-
-//! buffer to store our 7 instructions needed for our replacements
-//! the code will be placed in the address of that buffer - CODE_RW_BASE_OFFSET
-//! avoid this buffer to be placed in BSS and reset on start up
-volatile unsigned int dynamic_method_calls[sizeof(method_hooks) / sizeof(struct hooks_magic_t) * 7] __attribute__((section(".data")));
 
 /*
-*Patches a function that is loaded at the start of each application. Its not required to restore, at least when they are really dynamic.
-* "normal" functions should be patch with the normal patcher. Current Code by Maschell with the help of dimok.
+* Patches a function that is loaded at the start of each application. Its not required to restore, at least when they are really dynamic.
+* "normal" functions should be patch with the normal patcher. Current Code by Maschell with the help of dimok. Orignal code by Chadderz.
 */
-void PatchMethodHooks(void)
+void PatchInvidualMethodHooks(hooks_magic_t method_hooks[],int hook_information_size, volatile unsigned int dynamic_method_calls[])
 {
+     log_printf("Patching %d given functions\n",hook_information_size);
     /* Patch branches to it.  */
     volatile unsigned int *space = &dynamic_method_calls[0];
 
-    int method_hooks_count = sizeof(method_hooks) / sizeof(struct hooks_magic_t);
+    int method_hooks_count = hook_information_size;
 
     u32 skip_instr = 1;
     u32 my_instr_len = 6;
@@ -118,10 +53,10 @@ void PatchMethodHooks(void)
         log_printf("Patching %s ...",method_hooks[i].functionName);
         if(method_hooks[i].functionType == STATIC_FUNCTION && method_hooks[i].alreadyPatched == 1){
             if(isDynamicFunction((u32)OSEffectiveToPhysical((void*)method_hooks[i].realAddr))){
-                log_printf(" The function %s is a dynamic function. Please fix that <3 ... ", method_hooks[i].functionName);
+                log_printf("The function %s is a dynamic function. Please fix that <3\n", method_hooks[i].functionName);
                 method_hooks[i].functionType = DYNAMIC_FUNCTION;
             }else{
-                log_printf(" skipped. Its already patched\n", method_hooks[i].functionName);
+                log_printf("Skipping %s, its already patched\n", method_hooks[i].functionName);
                 space += instr_len;
                 continue;
             }
@@ -134,7 +69,7 @@ void PatchMethodHooks(void)
         unsigned int real_addr = GetAddressOfFunction(method_hooks[i].functionName,method_hooks[i].library);
 
         if(!real_addr){
-            log_printf("Error. OSDynLoad_FindExport failed for %s\n", method_hooks[i].functionName);
+            log_printf("OSDynLoad_FindExport failed for %s\n", method_hooks[i].functionName);
             space += instr_len;
             continue;
         }
@@ -150,31 +85,25 @@ void PatchMethodHooks(void)
 
         if(DEBUG_LOG_DYN)log_printf("%s physical is located at %08X!\n", method_hooks[i].functionName,physical);
 
-        bat_table_t my_dbat_table;
-        if(DEBUG_LOG_DYN)log_printf("Setting up DBAT\n");
-        KernelSetDBATsForDynamicFuction(&my_dbat_table,physical);
-
-        //log_printf("Setting call_addr to %08X\n",(unsigned int)(space) - CODE_RW_BASE_OFFSET);
         *(volatile unsigned int *)(call_addr) = (unsigned int)(space) - CODE_RW_BASE_OFFSET;
 
-        // copy instructions from real function.
-        u32 offset_ptr = 0;
-        for(offset_ptr = 0;offset_ptr<skip_instr*4;offset_ptr +=4){
-             if(DEBUG_LOG_DYN)log_printf("(real_)%08X = %08X\n",space,*(volatile unsigned int*)(physical+offset_ptr));
-            *space = *(volatile unsigned int*)(physical+offset_ptr);
-            space++;
-        }
+
+        SC0x25_KernelCopyData((u32)space, physical, 4);
+        space++;
 
         //Only works if skip_instr == 1
         if(skip_instr == 1){
             // fill the restore instruction section
             method_hooks[i].realAddr = real_addr;
-            method_hooks[i].restoreInstruction = *(volatile unsigned int*)(physical);
-        }else{
+            method_hooks[i].restoreInstruction = *(space-1);
+             if(DEBUG_LOG_DYN)log_printf("method_hooks[i].realAddr = %08X!\n", method_hooks[i].realAddr);
+             if(DEBUG_LOG_DYN)log_printf("method_hooks[i].restoreInstruction = %08X!\n",method_hooks[i].restoreInstruction) ;
+        }
+        else{
             log_printf("Error. Can't save %s for restoring!\n", method_hooks[i].functionName);
         }
 
-        //adding jump to real function
+        //adding jump to real function thx @ dimok for the assembler code
         /*
             90 61 ff e0     stw     r3,-32(r1)
             3c 60 12 34     lis     r3,4660
@@ -199,63 +128,62 @@ void PatchMethodHooks(void)
 
         //setting jump back
         unsigned int replace_instr = 0x48000002 | (repl_addr & 0x03fffffc);
-        *(volatile unsigned int *)(physical) = replace_instr;
+        DCFlushRange(&replace_instr, 4);
+
+        SC0x25_KernelCopyData(physical, (u32)OSEffectiveToPhysical(&replace_instr), 4);
         ICInvalidateRange((void*)(real_addr), 4);
 
-        //restore my dbat stuff
-        KernelRestoreDBATs(&my_dbat_table);
-
         method_hooks[i].alreadyPatched = 1;
-
         log_printf("done!\n");
+
     }
-    log_print("Done with patching all functions!\n");
+    log_print("Done with patching given functions!\n");
 }
 
 /* ****************************************************************** */
 /*                  RESTORE ORIGINAL INSTRUCTIONS                     */
 /* ****************************************************************** */
-void RestoreInstructions(void)
+void RestoreInvidualInstructions(hooks_magic_t method_hooks[],int hook_information_size)
 {
-    bat_table_t table;
-    log_printf("Restore functions!\n");
-    int method_hooks_count = sizeof(method_hooks) / sizeof(struct hooks_magic_t);
+    log_printf("Restoring given functions!\n");
+    int method_hooks_count = hook_information_size;
     for(int i = 0; i < method_hooks_count; i++)
     {
-        log_printf("Restoring %s ...",method_hooks[i].functionName);
+        log_printf("Restoring %s... ",method_hooks[i].functionName);
         if(method_hooks[i].restoreInstruction == 0 || method_hooks[i].realAddr == 0){
-            log_printf("Error. I dont have the information for the restore =( skip\n");
+            log_printf("I dont have the information for the restore =( skip\n");
             continue;
         }
 
         unsigned int real_addr = GetAddressOfFunction(method_hooks[i].functionName,method_hooks[i].library);
 
         if(!real_addr){
-            //log_printf("Error. OSDynLoad_FindExport failed for %s\n", method_hooks[i].functionName);
+            log_printf("OSDynLoad_FindExport failed for %s\n", method_hooks[i].functionName);
             continue;
         }
 
         u32 physical = (u32)OSEffectiveToPhysical((void*)real_addr);
         if(!physical){
-            log_printf("Error. Something is wrong with the physical address\n");
+            log_printf("Something is wrong with the physical address\n");
             continue;
         }
 
-        if(isDynamicFunction(physical)){
-             log_printf("Error. Its a dynamic function. We don't need to restore it! %s\n",method_hooks[i].functionName);
-        }else{
-            KernelSetDBATs(&table);
-
-            *(volatile unsigned int *)(LIB_CODE_RW_BASE_OFFSET + method_hooks[i].realAddr) = method_hooks[i].restoreInstruction;
-            DCFlushRange((void*)(LIB_CODE_RW_BASE_OFFSET + method_hooks[i].realAddr), 4);
+        if(isDynamicFunction(physical))
+        {
+             log_printf("Its a dynamic function. We don't need to restore it!\n",method_hooks[i].functionName);
+        }
+        else
+        {
+            physical = (u32)OSEffectiveToPhysical((void*)method_hooks[i].realAddr); //When its an static function, we need to use the old location
+            if(DEBUG_LOG_DYN)log_printf("Restoring %08X to %08X\n",(u32)method_hooks[i].restoreInstruction,physical);
+            SC0x25_KernelCopyData(physical,(u32)&method_hooks[i].restoreInstruction , 4);
+            if(DEBUG_LOG_DYN)log_printf("ICInvalidateRange %08X\n",(void*)method_hooks[i].realAddr);
             ICInvalidateRange((void*)method_hooks[i].realAddr, 4);
-            log_printf(" done\n");
-            KernelRestoreDBATs(&table);
+            log_printf("done\n");
         }
         method_hooks[i].alreadyPatched = 0; // In case a
     }
-    KernelRestoreInstructions();
-    log_print("Done with restoring all functions!\n");
+    log_print("Done with restoring given functions!\n");
 }
 
 int isDynamicFunction(unsigned int physicalAddress){
@@ -267,6 +195,27 @@ int isDynamicFunction(unsigned int physicalAddress){
 
 unsigned int GetAddressOfFunction(const char * functionName,unsigned int library){
     unsigned int real_addr = 0;
+
+    if(strcmp(functionName, "OSDynLoad_Acquire") == 0)
+    {
+        memcpy(&real_addr, &OSDynLoad_Acquire, 4);
+        return real_addr;
+    }
+    else if(strcmp(functionName, "LiWaitOneChunk") == 0)
+    {
+        real_addr = (unsigned int)addr_LiWaitOneChunk;
+        return real_addr;
+    }
+    else if(strcmp(functionName, "LiBounceOneChunk") == 0)
+    {
+        //! not required on firmwares above 3.1.0
+        if(OS_FIRMWARE >= 400)
+            return 0;
+
+        unsigned int addr_LiBounceOneChunk = 0x010003A0;
+        real_addr = (unsigned int)addr_LiBounceOneChunk;
+        return real_addr;
+    }
 
     unsigned int rpl_handle = 0;
     if(library == LIB_CORE_INIT){
@@ -352,12 +301,20 @@ unsigned int GetAddressOfFunction(const char * functionName,unsigned int library
         return 0;
     }
 
-    if((u32)(*(volatile unsigned int*)(real_addr) & 0xFF000000) == 0x48000000){
-        real_addr += (u32)(*(volatile unsigned int*)(real_addr) & 0x0000FFFF);
-        if((u32)(*(volatile unsigned int*)(real_addr) & 0xFF000000) == 0x48000000){
+    if((u32)(*(volatile unsigned int*)(real_addr) & 0x48000002) == 0x48000000)
+    {
+        unsigned int address_diff = (u32)(*(volatile unsigned int*)(real_addr) & 0x03FFFFFC);
+        if((address_diff & 0x03000000) == 0x03000000) {
+            address_diff |=  0xFC000000;
+        }
+        real_addr += (int)address_diff;
+        if((u32)(*(volatile unsigned int*)(real_addr) & 0x48000002) == 0x48000000){
             return 0;
         }
     }
+
+
+
 
     return real_addr;
 }

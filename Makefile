@@ -32,17 +32,32 @@ TARGET		:=	hidtovpad
 BUILD		:=	build
 BUILD_DBG	:=	$(TARGET)_dbg
 SOURCES		:=	src \
-				src/dynamic_libs \
-				src/controller_patcher \
-				src/game \
-				src/kernel \
-				src/patcher \
 				src/common \
+				src/controller_patcher \
+				src/controller_patcher/utils \
+				src/controller_patcher/network \
+				src/controller_patcher/patcher \
+				src/controller_patcher/config \
+				src/dynamic_libs \
+				src/fs \
+				src/game \
+				src/gui \
+				src/kernel \
+				src/menu \
+				src/menu/tv \
+				src/menu/drc \
+				src/menu/drc/content \
+				src/patcher \
+				src/resources \
+				src/sounds \
 				src/system \
 				src/utils \
 				src/video \
-				src/video/shaders 
-DATA		:=	
+				src/video/shaders
+DATA		:=	data \
+				data/images \
+				data/fonts \
+				data/sounds
 
 INCLUDES	:=  src
 
@@ -62,7 +77,7 @@ MAKEFLAGS += --no-print-directory
 #---------------------------------------------------------------------------------
 # any extra libraries we wish to link with the project
 #---------------------------------------------------------------------------------
-LIBS	:=
+LIBS	:= -lgcc -lgd -lpng -ljpeg -lz -lfreetype -lmad -lvorbisidec
 
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing
@@ -88,6 +103,7 @@ export DEPSDIR	:=	$(CURDIR)/$(BUILD)
 #---------------------------------------------------------------------------------
 # automatically build a list of object files for our project
 #---------------------------------------------------------------------------------
+FILELIST	:=	$(shell bash ./filelist.sh)
 CFILES		:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.c)))
 CPPFILES	:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.cpp)))
 sFILES		:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.s)))
