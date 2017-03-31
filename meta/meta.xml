@@ -2,8 +2,8 @@
 <app version="1">
     <name>HID to VPAD</name>
     <coder>Maschell</coder>
-    <version>0.9f</version>
-    <release_date>20170330200000</release_date>
+    <version>0.9g</version>
+    <release_date>20170331164900</release_date>
     <short_description>USB HID to gamepad input</short_description>
     <long_description>Emulate input using various USB HID devices.</long_description>
 </app>

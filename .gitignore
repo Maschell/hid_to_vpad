@@ -48,3 +48,6 @@ Temporary Items
 
 /build/*
 hidtopad.cbp
+wiiu/*
+hidtovpad.elf
+hidtovpad_dbg.elf
