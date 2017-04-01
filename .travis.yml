@@ -65,8 +65,8 @@ before_deploy:
 - git config --global user.name "Travis CI"
 - export GIT_TAG=HIDtoVPAD-$versiontag
 - commitLog="$(git log -1 --pretty=%B)"
-- commitMessage="$(echo -e "-\n" && echo "HID to VPAD nightly build. Not a stable release. Expect bugs!" && echo -e "\nCommitlog:\n" && echo $commitLog)"
-- git tag $GIT_TAG -a -m "$commitMessage"
+- commitMessage="$(echo -e "-\n" && echo "HID to VPAD nightly build. Not a stable release. Expect bugs!" && echo -e "\nCommitlog:\n")"
+- git tag $GIT_TAG -a -m "$commitMessage" -m "$commitLog"
 - git push --quiet https://$GITHUBKEY@github.com/Maschell/hid_to_vpad $GIT_TAG > /dev/null 2>&1
 
 deploy:
