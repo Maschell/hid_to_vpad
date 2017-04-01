@@ -1,4 +1,7 @@
-# HID to VPAD
+[Current Stable Release](https://github.com/Maschell/hid_to_vpad/releases/latest) | [Nightly builds](https://github.com/Maschell/hid_to_vpad/releases) | [Issue Tracker](https://github.com/Maschell/hid_to_vpad/issues) | [Support Thread](https://gbatemp.net/threads/hid-to-vpad.424127/)
+# HID to VPAD  [![Build Status](https://api.travis-ci.org/Maschell/hid_to_vpad.svg?branch=master)](https://circleci.com/gh/Maschell/hid_to_vpad)
+
+
 This is a little tool that let you use a hid device on the WiiU. <br />
 It's based on the [controller_patcher](https://github.com/Maschell/controller_patcher) engine. 
 
