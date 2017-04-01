@@ -1,9 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="true"?>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <app version="1">
-    <name>HID to VPAD</name>
-    <coder>Maschell</coder>
-    <version>0.9g</version>
-    <release_date>20170331164900</release_date>
-    <short_description>USB HID to gamepad input</short_description>
-    <long_description>Emulate input using various USB HID devices.</long_description>
+  <name>HID to VPAD</name>
+  <coder>Maschell</coder>
+  <version>v0.9g</version>
+  <release_date>20170331173100</release_date>
+  <short_description>USB HID to gamepad input</short_description>
+  <long_description>Emulate input using various USB HID devices.
+  </long_description>
 </app>

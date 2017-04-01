@@ -1,5 +1,2 @@
-#define MAJOR_VERION    "0"
-#define MINOR_VERSION   "9"
-#define EXTRA_VERSION   "g"
-#define APP_VERION "v" MAJOR_VERION "." MINOR_VERSION EXTRA_VERSION
+#define APP_VERION "v0.9g"
 
