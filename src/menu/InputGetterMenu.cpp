@@ -122,7 +122,7 @@ void InputGetterMenu::GetInputs(CThread *thread, void *arg){
         if(result > 0){
             //log_printf("got %d results\n",result);
             for(int i =0;i<result;i++){
-                for(int j = 0;j<hiddata[i].device_info.pad_count;j++){
+                for(int j = 0;j<HID_MAX_PADS_COUNT;j++){
                     //log_printf("check pad %d. %08X\n",j,hiddata[i].button_data[j].btn_h);
                     if(hiddata[i].button_data[j].btn_h != 0){
                         //log_printf("It pressed a buttons!\n",result);
