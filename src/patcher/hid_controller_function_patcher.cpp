@@ -73,7 +73,7 @@ DECL(int, VPADRead, int chan, VPADData *buffer, u32 buffer_size, s32 *error) {
 
     if(gButtonRemappingConfigDone){
         ControllerPatcher::buttonRemapping(buffer,result);
-        ControllerPatcher::printVPADButtons(buffer); //Leads to random crashes on app transitions.
+        //ControllerPatcher::printVPADButtons(buffer); //Leads to random crashes on app transitions.
     }
 
     return result;
