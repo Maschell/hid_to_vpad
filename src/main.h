@@ -16,7 +16,7 @@ void ApplyPatches(void);
 void RestorePatches(void);
 
 int isInMiiMakerHBL();
-void SplashScreen(int time,char * message);
+void SplashScreen(int time,const char * message);
 #ifdef __cplusplus
 }
 #endif

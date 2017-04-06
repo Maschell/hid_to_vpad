@@ -29,8 +29,8 @@ ContentNetworkHelp::ContentNetworkHelp(): ContentTemplate(){
 
     f32 positionY = 200.0f;
     f32 positionX = 40.0f;
-    f32 positionX2 = 250.0f;
-    f32 positionX3 = 80.0f;
+    //f32 positionX2 = 250.0f;
+    //f32 positionX3 = 80.0f;
 
     int fontSize = 35;
     int fontSize2 = 24;

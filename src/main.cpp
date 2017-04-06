@@ -59,7 +59,7 @@ extern "C" int Menu_Main(void){
     log_print("Initializing the controller data\n");
     bool res = ControllerPatcher::Init();
     if(!res){
-        SplashScreen(5, "Error. The app starts in 5 seconds without patches.");
+        SplashScreen(5, std::string("Error. The app starts in 5 seconds without patches.").c_str());
         RestorePatches();
         return EXIT_RELAUNCH_ON_LOAD;
     }
@@ -138,7 +138,7 @@ int isInMiiMakerHBL(){
 }
 
 
-void SplashScreen(int time,char * message){
+void SplashScreen(int time,const char * message){
     // Prepare screen
     int screen_buf0_size = 0;
 

@@ -158,7 +158,7 @@ void MenuListDRC::addToTotalOffset(f32 added_offset){
 void MenuListDRC::update(GuiController * c){
     if(dpad_selection_changed && (lastSelectedItem != selectedItem)){
         lastSelectedItem = selectedItem;
-        if(selectedItem >= 0 && selectedItem < listElementsButtons.size()){
+        if(selectedItem >= 0 && (u32) selectedItem < listElementsButtons.size()){
             int i = 0;
             MenuElement * element = NULL;
             for (std::vector<MenuElement*>::iterator it = listElementsButtons.begin() ; it != listElementsButtons.end(); ++it){
@@ -185,7 +185,7 @@ void MenuListDRC::update(GuiController * c){
                         addToTotalOffset(-1*(offset));
                         scroll_needs_update = true;
                     }else if(-1*(element->getOffsetY() - element->getHeight()) > this->getHeight()){
-                        if(i+1 < listElementsButtons.size()){
+                        if(i >=0 && (u32)i+1 < listElementsButtons.size()){
                             MenuElement *  nextElement = listElementsButtons[i+1];
                             if(nextElement != NULL){
                                 addToTotalOffset(-1*(nextElement->getOffsetY()) - this->getHeight());
