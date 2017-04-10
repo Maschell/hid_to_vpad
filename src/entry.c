@@ -5,7 +5,7 @@
 #include "utils/utils.h"
 #include "main.h"
 
-int __entry_menu(int argc, char **argv)
+int __entry_menu(s32 argc, char **argv)
 {
     //! *******************************************************************
     //! *                 Jump to our application                    *

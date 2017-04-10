@@ -10,13 +10,13 @@ extern "C" {
 #endif
 
 //! C wrapper for our C++ functions
-int Menu_Main(void);
+s32 Menu_Main(void);
 void deInit(void);
 void ApplyPatches(void);
 void RestorePatches(void);
 
-int isInMiiMakerHBL();
-void SplashScreen(int time,const char * message);
+s32 isInMiiMakerHBL();
+void SplashScreen(s32 time,const char * message);
 #ifdef __cplusplus
 }
 #endif

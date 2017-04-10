@@ -26,11 +26,11 @@
 
 MainWindow * MainWindow::instance = NULL;
 
-MainWindow::MainWindow(int w, int h)
+MainWindow::MainWindow(s32 w, s32 h)
     : width(w)
     , height(h)
 {
-    for(int i = 0; i < 4; i++)
+    for(s32 i = 0; i < 4; i++)
     {
         std::string filename = strfmt("player%i_point.png", i+1);
         pointerImgData[i] = Resources::GetImageData(filename.c_str());
@@ -55,7 +55,7 @@ MainWindow::~MainWindow()
         delete drcElements[0];
         remove(drcElements[0]);
     }
-    for(int i = 0; i < 4; i++)
+    for(s32 i = 0; i < 4; i++)
     {
         delete pointerImg[i];
         Resources::RemoveImageData(pointerImgData[i]);
@@ -159,7 +159,7 @@ void MainWindow::update(GuiController *controller)
 
     if(controller->chanIdx >= 1 && controller->chanIdx <= 4 && controller->data.validPointer)
     {
-        int wpadIdx = controller->chanIdx - 1;
+        s32 wpadIdx = controller->chanIdx - 1;
         f32 posX = controller->data.x;
         f32 posY = controller->data.y;
         pointerImg[wpadIdx]->setPosition(posX, posY);
@@ -175,7 +175,7 @@ void MainWindow::drawDrc(CVideo *video)
         drcElements[i]->draw(video);
     }
 
-    for(int i = 0; i < 4; i++)
+    for(s32 i = 0; i < 4; i++)
     {
         if(pointerValid[i])
         {
@@ -193,7 +193,7 @@ void MainWindow::drawTv(CVideo *video)
         tvElements[i]->draw(video);
     }
 
-    for(int i = 0; i < 4; i++)
+    for(s32 i = 0; i < 4; i++)
     {
         if(pointerValid[i])
         {
@@ -224,7 +224,7 @@ bool MainWindow::checkForRealProController(){
     u32 type;
     bool changed = false;
 
-    for(int i = 0;i<4;i++){
+    for(s32 i = 0;i<4;i++){
         if(WPADProbe(i,&type) == 0){
 
             UController_Type controller_type = UController_Type_Pro1;
@@ -291,7 +291,7 @@ void MainWindow::removeFromAllElements(GuiElement * element){
 }
 
 
-void MainWindow::setState(int val, int c){
+void MainWindow::setState(s32 val, s32 c){
     u32 drcSize = drcElements.size();
     for(u32 i = 0; (i < drcSize) && (i < drcElements.size()); ++i)
     {
@@ -305,7 +305,7 @@ void MainWindow::setState(int val, int c){
     }
 }
 
-void MainWindow::clearState(int val, int c){
+void MainWindow::clearState(s32 val, s32 c){
     u32 drcSize = drcElements.size();
     for(u32 i = 0; (i < drcSize) && (i < drcElements.size()); ++i)
     {

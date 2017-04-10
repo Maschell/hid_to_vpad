@@ -16,7 +16,7 @@
  ****************************************************************************/
 #include "MainWindowContent.h"
 
-MainWindowContent::MainWindowContent(int w, int h)
+MainWindowContent::MainWindowContent(s32 w, s32 h)
     : GuiFrame(w, h)
     , width(w)
     , height(h)

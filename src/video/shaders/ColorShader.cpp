@@ -145,7 +145,7 @@ ColorShader::ColorShader()
     if(positionVtxs)
     {
         //! position vertex structure
-        int i = 0;
+        s32 i = 0;
         positionVtxs[i++] = -1.0f; positionVtxs[i++] = -1.0f; positionVtxs[i++] = 0.0f;
         positionVtxs[i++] =  1.0f; positionVtxs[i++] = -1.0f; positionVtxs[i++] = 0.0f;
         positionVtxs[i++] =  1.0f; positionVtxs[i++] =  1.0f; positionVtxs[i++] = 0.0f;

@@ -17,8 +17,8 @@
 #include "GuiElement.h"
 
 //! TODO remove this!
-static int screenwidth = 1280;
-static int screenheight = 720;
+static s32 screenwidth = 1280;
+static s32 screenheight = 720;
 
 /**
  * Constructor for the Object class.
@@ -34,7 +34,7 @@ GuiElement::GuiElement()
 	scaleX = 1.0f;
 	scaleY = 1.0f;
 	scaleZ = 1.0f;
-	for(int i = 0; i < 4; i++)
+	for(s32 i = 0; i < 4; i++)
         state[i] = STATE_DEFAULT;
 	stateChan = -1;
 	parentElement = NULL;
@@ -130,7 +130,7 @@ f32 GuiElement::getTop()
 	return y + yoffset;
 }
 
-void GuiElement::setEffect(int eff, int amount, int target)
+void GuiElement::setEffect(s32 eff, s32 amount, s32 target)
 {
 	if(eff & EFFECT_SLIDE_IN)
 	{
@@ -138,28 +138,28 @@ void GuiElement::setEffect(int eff, int amount, int target)
 		if(eff & EFFECT_SLIDE_TOP)
 		{
 			if(eff & EFFECT_SLIDE_FROM)
-				yoffsetDyn = (int) -getHeight()*scaleY;
+				yoffsetDyn = (s32) -getHeight()*scaleY;
 			else
 				yoffsetDyn = -screenheight;
 		}
 		else if(eff & EFFECT_SLIDE_LEFT)
 		{
 			if(eff & EFFECT_SLIDE_FROM)
-				xoffsetDyn = (int) -getWidth()*scaleX;
+				xoffsetDyn = (s32) -getWidth()*scaleX;
 			else
 				xoffsetDyn = -screenwidth;
 		}
 		else if(eff & EFFECT_SLIDE_BOTTOM)
 		{
 			if(eff & EFFECT_SLIDE_FROM)
-				yoffsetDyn = (int) getHeight()*scaleY;
+				yoffsetDyn = (s32) getHeight()*scaleY;
 			else
 				yoffsetDyn = screenheight;
 		}
 		else if(eff & EFFECT_SLIDE_RIGHT)
 		{
 			if(eff & EFFECT_SLIDE_FROM)
-				xoffsetDyn = (int) getWidth()*scaleX;
+				xoffsetDyn = (s32) getWidth()*scaleX;
 			else
 				xoffsetDyn = screenwidth;
 		}
@@ -181,7 +181,7 @@ void GuiElement::setEffect(int eff, int amount, int target)
 //!\param e Effect to enable
 //!\param a Amount of the effect (usage varies on effect)
 //!\param t Target amount of the effect (usage varies on effect)
-void GuiElement::setEffectOnOver(int e, int a, int t)
+void GuiElement::setEffectOnOver(s32 e, s32 a, s32 t)
 {
 	effectsOver |= e;
 	effectAmountOver = a;

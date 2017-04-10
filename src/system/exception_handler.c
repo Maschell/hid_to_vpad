@@ -80,7 +80,7 @@ static const char exception_print_formats[18][45] = {
 
 static unsigned char exception_cb(void * c, unsigned char exception_type) {
     char buf[850];
-    int pos = 0;
+    s32 pos = 0;
 
     OSContext *context = (OSContext *) c;
     /*

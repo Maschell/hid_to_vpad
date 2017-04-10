@@ -118,7 +118,7 @@ void GuiFrame::resetState()
     }
 }
 
-void GuiFrame::setState(int s, int c)
+void GuiFrame::setState(s32 s, s32 c)
 {
     GuiElement::setState(s, c);
 
@@ -128,7 +128,7 @@ void GuiFrame::setState(int s, int c)
     }
 }
 
-void GuiFrame::clearState(int s, int c)
+void GuiFrame::clearState(s32 s, s32 c)
 {
     GuiElement::clearState(s, c);
 
@@ -148,10 +148,10 @@ void GuiFrame::setVisible(bool v)
     }
 }
 
-int GuiFrame::getSelected()
+s32 GuiFrame::getSelected()
 {
     // find selected element
-    int found = -1;
+    s32 found = -1;
     for (u32 i = 0; i < elements.size(); ++i)
     {
         if(elements[i]->isStateSet(STATE_SELECTED | STATE_OVER))

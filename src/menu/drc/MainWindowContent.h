@@ -24,7 +24,7 @@
 
 class MainWindowContent : public GuiFrame, public sigslot::has_slots<>{
 public:
-    MainWindowContent(int w, int h);
+    MainWindowContent(s32 w, s32 h);
     virtual ~MainWindowContent();
 
     void SetScreen(ContentTemplate * new_content);
@@ -32,7 +32,7 @@ public:
     ContentTemplate * getContent();
 
 private:
-    int width, height;
+    s32 width, height;
     GuiImage bgImageColor;
 
     GuiImageData * footer_imgdata;

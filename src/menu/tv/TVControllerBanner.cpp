@@ -27,7 +27,7 @@
 #include "utils/StringTools.h"
 
 
-TVControllerBanner::TVControllerBanner(int w, int h)
+TVControllerBanner::TVControllerBanner(s32 w, s32 h)
     : GuiFrame(w, h)
     , background_imgdata(Resources::GetImageData("MainWindowTVBackgroundBanner.png"))
     , background_img(background_imgdata)

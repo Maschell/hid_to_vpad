@@ -329,7 +329,7 @@ ShaderFractalColor::ShaderFractalColor()
     colorVtxs = (u8*)memalign(GX2_VERTEX_BUFFER_ALIGNMENT, ciColorVtxsSize);
 
     //! position vertex structure and texture coordinate vertex structure
-    int i = 0;
+    s32 i = 0;
     posVtxs[i++] = -1.0f; posVtxs[i++] = -1.0f; posVtxs[i++] = 0.0f;
     posVtxs[i++] =  1.0f; posVtxs[i++] = -1.0f; posVtxs[i++] = 0.0f;
     posVtxs[i++] =  1.0f; posVtxs[i++] =  1.0f; posVtxs[i++] = 0.0f;
@@ -344,7 +344,7 @@ ShaderFractalColor::ShaderFractalColor()
     GX2Invalidate(GX2_INVALIDATE_CPU_ATTRIB_BUFFER, texCoords, ciTexCoordsVtxsSize);
 
 
-    for(i = 0; i < (int)ciColorVtxsSize; i++)
+    for(i = 0; i < (s32)ciColorVtxsSize; i++)
         colorVtxs[i] = 0xff;
 
     GX2Invalidate(GX2_INVALIDATE_CPU_ATTRIB_BUFFER, colorVtxs, ciColorVtxsSize);

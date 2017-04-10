@@ -8,8 +8,8 @@
 #include "logger.h"
 
 #ifdef DEBUG_LOGGER
-static int log_socket = -1;
-static volatile int log_lock = 0;
+static s32 log_socket = -1;
+static volatile s32 log_lock = 0;
 
 
 void log_init(const char * ipString)
@@ -51,10 +51,10 @@ void log_print(const char *str)
         usleep(1000);
     log_lock = 1;
 
-    int len = strlen(str);
-    int ret;
+    s32 len = strlen(str);
+    s32 ret;
     while (len > 0) {
-        int block = len < 1400 ? len : 1400; // take max 1400 bytes per UDP packet
+        s32 block = len < 1400 ? len : 1400; // take max 1400 bytes per UDP packet
         ret = send(log_socket, str, block, 0);
         if(ret < 0)
             break;

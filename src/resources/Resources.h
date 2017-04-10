@@ -27,8 +27,8 @@ private:
     Resources() {}
     ~Resources() {}
 
-    std::map<std::string, std::pair<unsigned int, GuiImageData *> > imageDataMap;
-    std::map<std::string, std::pair<unsigned int, GuiSound *> > soundDataMap;
+    std::map<std::string, std::pair<u32, GuiImageData *> > imageDataMap;
+    std::map<std::string, std::pair<u32, GuiSound *> > soundDataMap;
 };
 
 #endif

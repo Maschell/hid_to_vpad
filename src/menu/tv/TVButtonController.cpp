@@ -65,7 +65,7 @@ TVButtonController::TVButtonController(UController_Type controllertype)
     notAttachedLabel.setColor(glm::vec4(0.2f,0.2f,0.2f,1.0f));
     notAttachedLabel.setParent(this);
 
-    for(int i = 0;i<4;i++){
+    for(s32 i = 0;i<4;i++){
         ledImages.ledon[i] = new GuiImage(ledon_imgdata);
         ledImages.ledoff[i] = new GuiImage(ledoff_imgdata);
 
@@ -130,7 +130,7 @@ TVButtonController::~TVButtonController()
     Resources::RemoveImageData(ledon_imgdata);
     Resources::RemoveImageData(ledoff_imgdata);
 
-    for(int i = 0;i<4;i++){
+    for(s32 i = 0;i<4;i++){
         if(ledImages.ledon[i]) delete ledImages.ledon[i];
         if(ledImages.ledoff[i]) delete ledImages.ledoff[i];
     }
@@ -166,14 +166,14 @@ void TVButtonController::draw(CVideo *v){
     std::string name ="";
 
     controllerConnected = 0;
-    int found = ControllerPatcher::getActiveMappingSlot(getControllerType());
+    s32 foundSlot = ControllerPatcher::getActiveMappingSlot(getControllerType());
 
-    if(found == -1){
+    if(foundSlot == -1){
         name = "No device";
     }else{
         controllerConnected = 1;
 
-        ControllerMappingPADInfo * info = ControllerPatcher::getControllerMappingInfo(getControllerType(),found);
+        ControllerMappingPADInfo * info = ControllerPatcher::getControllerMappingInfo(getControllerType(),foundSlot);
         if(info !=NULL){
             if(info->type == CM_Type_Controller){
                 drawControllerName(v,info->vidpid.vid,info->vidpid.pid);
@@ -187,14 +187,14 @@ void TVButtonController::draw(CVideo *v){
     notAttachedLabel.setText(name.c_str());
     notAttachedLabel.draw(v);
 
-    int pad_active = 0;
+    bool pad_active = false;
 
     ControllerMappingPADInfo * info = ControllerPatcher::getControllerMappingInfo(getControllerType(),0);
 
-    for(int i = 0;i<4;i++){
+    for(s32 i = 0;i<4;i++){
        if(info != NULL && (info->pad == i && info->active)){
             ledImages.ledon[i]->draw(v);
-            pad_active = 1;
+            pad_active = true;
         }else{
             ledImages.ledoff[i]->draw(v);
         }
@@ -204,7 +204,7 @@ void TVButtonController::draw(CVideo *v){
     if(pad_active){
         alpha = 1.0f;
     }
-    for(int i = 0;i<4;i++){
+    for(s32 i = 0;i<4;i++){
         ledImages.ledon[i]->setAlpha(alpha);
         ledImages.ledoff[i]->setAlpha(alpha);
     }

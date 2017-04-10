@@ -32,11 +32,11 @@
 
 const char * fmt(const char * format, ...);
 const wchar_t * wfmt(const char * format, ...);
-int strprintf(std::string &str, const char * format, ...);
+s32 strprintf(std::string &str, const char * format, ...);
 std::string strfmt(const char * format, ...);
 bool char2wchar_t(const char * src, wchar_t * dest);
-int strtokcmp(const char * string, const char * compare, const char * separator);
-int strextcmp(const char * string, const char * extension, char seperator);
+s32 strtokcmp(const char * string, const char * compare, const char * separator);
+s32 strextcmp(const char * string, const char * extension, char seperator);
 
 inline const char * FullpathToFilename(const char *path)
 {

@@ -239,7 +239,7 @@ class GuiElement : public AsyncDeleter::Element
         //!Sets the element's state
         //!\param s State (STATE_DEFAULT, STATE_SELECTED, STATE_CLICKED, STATE_DISABLED)
         //!\param c Controller channel (0-3, -1 = none)
-        virtual void setState(int s, int c = -1)
+        virtual void setState(s32 s, s32 c = -1)
         {
             if(c >= 0 && c < 4)
             {
@@ -247,13 +247,13 @@ class GuiElement : public AsyncDeleter::Element
             }
             else
             {
-                for(int i = 0; i < 4; i++)
+                for(s32 i = 0; i < 4; i++)
                     state[i] |= s;
             }
             stateChan = c;
             stateChanged(this, s, c);
         }
-        virtual void clearState(int s, int c = -1)
+        virtual void clearState(s32 s, s32 c = -1)
         {
             if(c >= 0 && c < 4)
             {
@@ -261,13 +261,13 @@ class GuiElement : public AsyncDeleter::Element
             }
             else
             {
-                for(int i = 0; i < 4; i++)
+                for(s32 i = 0; i < 4; i++)
                     state[i] &= ~s;
             }
             stateChan = c;
             stateChanged(this, s, c);
         }
-        virtual bool isStateSet(int s, int c = -1) const
+        virtual bool isStateSet(s32 s, s32 c = -1) const
         {
             if(c >= 0 && c < 4)
             {
@@ -275,7 +275,7 @@ class GuiElement : public AsyncDeleter::Element
             }
             else
             {
-                for(int i = 0; i < 4; i++)
+                for(s32 i = 0; i < 4; i++)
                    if((state[i] & s) != 0)
                         return true;
 
@@ -284,14 +284,14 @@ class GuiElement : public AsyncDeleter::Element
         }
         //!Gets the element's current state
         //!\return state
-        virtual int getState(int c = 0) { return state[c]; };
+        virtual s32 getState(s32 c = 0) { return state[c]; };
         //!Gets the controller channel that last changed the element's state
         //!\return Channel number (0-3, -1 = no channel)
-        virtual int getStateChan() { return stateChan; };
+        virtual s32 getStateChan() { return stateChan; };
         //!Resets the element's state to STATE_DEFAULT
         virtual void resetState()
         {
-            for(int i = 0; i < 4; i++)
+            for(s32 i = 0; i < 4; i++)
                 state[i] = STATE_DEFAULT;
             stateChan = -1;
         }
@@ -386,19 +386,19 @@ class GuiElement : public AsyncDeleter::Element
         //!\param e Effect to enable
         //!\param a Amount of the effect (usage varies on effect)
         //!\param t Target amount of the effect (usage varies on effect)
-        virtual void setEffect(int e, int a, int t=0);
+        virtual void setEffect(s32 e, s32 a, s32 t=0);
         //!Sets an effect to be enabled on wiimote cursor over
         //!\param e Effect to enable
         //!\param a Amount of the effect (usage varies on effect)
         //!\param t Target amount of the effect (usage varies on effect)
-        virtual void setEffectOnOver(int e, int a, int t=0);
+        virtual void setEffectOnOver(s32 e, s32 a, s32 t=0);
         //!Shortcut to SetEffectOnOver(EFFECT_SCALE, 4, 110)
         virtual void setEffectGrow() { setEffectOnOver(EFFECT_SCALE, 4, 110); }
         //!Reset all applied effects
         virtual void resetEffects();
         //!Gets the current element effects
         //!\return element effects
-        virtual int getEffect() const { return effects; }
+        virtual s32 getEffect() const { return effects; }
         //!\return true if element animation is on going
         virtual bool isAnimated() const { return (parentElement != 0) && (getEffect() > 0); }
         //!Checks whether the specified coordinates are within the element's boundaries
@@ -432,13 +432,13 @@ class GuiElement : public AsyncDeleter::Element
         }
         //!Gets whether or not the element is in STATE_SELECTED
         //!\return true if selected, false otherwise
-        virtual int getSelected() { return -1; }
+        virtual s32 getSelected() { return -1; }
         //!Sets the element's alignment respective to its parent element
         //!Bitwise ALIGN_LEFT | ALIGN_RIGHT | ALIGN_CENTRE, ALIGN_TOP, ALIGN_BOTTOM, ALIGN_MIDDLE)
         //!\param align Alignment
-        virtual void setAlignment(int a) { alignment = a; }
+        virtual void setAlignment(s32 a) { alignment = a; }
         //!Gets the element's alignment
-        virtual int getAlignment() const { return alignment; }
+        virtual s32 getAlignment() const { return alignment; }
         //!Angle of the object
         virtual void setAngle(f32 a) { angle = a; }
         //!Angle of the object
@@ -489,7 +489,7 @@ class GuiElement : public AsyncDeleter::Element
         }
         //! Signals
         sigslot::signal2<GuiElement *, bool> visibleChanged;
-        sigslot::signal3<GuiElement *, int, int> stateChanged;
+        sigslot::signal3<GuiElement *, s32, s32> stateChanged;
         sigslot::signal1<GuiElement *> effectFinished;
     protected:
         bool rumble; //!< Wiimote rumble (on/off) - set to on when this element requests a rumble event
@@ -508,22 +508,22 @@ class GuiElement : public AsyncDeleter::Element
         f32 scaleX; //!< Element scale (1 = 100%)
         f32 scaleY; //!< Element scale (1 = 100%)
         f32 scaleZ; //!< Element scale (1 = 100%)
-        int alignment; //!< Horizontal element alignment, respective to parent element
-        int state[4]; //!< Element state (DEFAULT, SELECTED, CLICKED, DISABLED)
-        int stateChan; //!< Which controller channel is responsible for the last change in state
+        s32 alignment; //!< Horizontal element alignment, respective to parent element
+        s32 state[4]; //!< Element state (DEFAULT, SELECTED, CLICKED, DISABLED)
+        s32 stateChan; //!< Which controller channel is responsible for the last change in state
         GuiElement * parentElement; //!< Parent element
 
         //! TODO: Move me to some Animator class
-        int xoffsetDyn; //!< Element X offset, dynamic (added to xoffset value for animation effects)
-        int yoffsetDyn; //!< Element Y offset, dynamic (added to yoffset value for animation effects)
+        s32 xoffsetDyn; //!< Element X offset, dynamic (added to xoffset value for animation effects)
+        s32 yoffsetDyn; //!< Element Y offset, dynamic (added to yoffset value for animation effects)
         f32 alphaDyn; //!< Element alpha, dynamic (multiplied by alpha value for blending/fading effects)
         f32 scaleDyn; //!< Element scale, dynamic (multiplied by alpha value for blending/fading effects)
-        int effects; //!< Currently enabled effect(s). 0 when no effects are enabled
-        int effectAmount; //!< Effect amount. Used by different effects for different purposes
-        int effectTarget; //!< Effect target amount. Used by different effects for different purposes
-        int effectsOver; //!< Effects to enable when wiimote cursor is over this element. Copied to effects variable on over event
-        int effectAmountOver; //!< EffectAmount to set when wiimote cursor is over this element
-        int effectTargetOver; //!< EffectTarget to set when wiimote cursor is over this element
+        s32 effects; //!< Currently enabled effect(s). 0 when no effects are enabled
+        s32 effectAmount; //!< Effect amount. Used by different effects for different purposes
+        s32 effectTarget; //!< Effect target amount. Used by different effects for different purposes
+        s32 effectsOver; //!< Effects to enable when wiimote cursor is over this element. Copied to effects variable on over event
+        s32 effectAmountOver; //!< EffectAmount to set when wiimote cursor is over this element
+        s32 effectTargetOver; //!< EffectTarget to set when wiimote cursor is over this element
 };
 
 #endif

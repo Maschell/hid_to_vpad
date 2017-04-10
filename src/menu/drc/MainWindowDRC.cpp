@@ -21,7 +21,7 @@
 
 extern u32 hostIpAddress;
 
-MainWindowDRC::MainWindowDRC(int w, int h)
+MainWindowDRC::MainWindowDRC(s32 w, s32 h)
     : GuiConfigurationScreen(w, h)
     , width(w)
     , height(h)
@@ -45,7 +45,7 @@ MainWindowDRC::MainWindowDRC(int w, int h)
     versionText.setText(fmt("%s - %s",APP_VERION,__DATE__));
     versionText.setAlignment(ALIGN_TOP_LEFT);
     versionText.setPosition(windowSplitter_img.getOffsetX()+5,-25);
-	
+
     ipAddress.setText(wfmt("TCP Server running on: %u.%u.%u.%u",(hostIpAddress >> 24) & 0xFF, (hostIpAddress >> 16) & 0xFF, (hostIpAddress >> 8) & 0xFF, (hostIpAddress >> 0) & 0xFF));
     ipAddress.setAlignment(ALIGN_TOP_RIGHT);
     ipAddress.setPosition(-5,-25);
@@ -63,7 +63,7 @@ void MainWindowDRC::clickListEntryByController(UController_Type controller_type)
     }
 }
 
-void MainWindowDRC::setState(int i, int c){
+void MainWindowDRC::setState(s32 i, s32 c){
     GuiFrame::setState(i,c);
 }
 

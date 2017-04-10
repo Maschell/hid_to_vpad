@@ -31,13 +31,13 @@ before_install:
 - export DEVKITPPC=${DEVKITPRO}/devkitPPC
 - mkdir -p $DEVKITPRO
 - cd $DEVKITPRO
-- wget -N https://raw.githubusercontent.com/Maschell/hid_to_vpad/master/other/devkitPPCupdatePPCr27.pl
+- wget -N https://raw.githubusercontent.com/Maschell/hid_to_vpad/master/other/devkitPPCupdatePPCr29.pl
 - wget -N https://raw.githubusercontent.com/Maschell/hid_to_vpad/master/other/libogc.7z
 - wget -N https://raw.githubusercontent.com/Maschell/hid_to_vpad/master/other/portlibs.7z
 
 install:
 - cd $DEVKITPRO
-- perl devkitPPCupdatePPCr27.pl
+- perl devkitPPCupdatePPCr29.pl
 - 7z x -y libogc.7z
 - 7z x -y portlibs.7z
 - cp -R portlibs/ppc/* devkitPPC/

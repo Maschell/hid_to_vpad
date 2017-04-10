@@ -19,10 +19,10 @@
 #include "video/CVideo.h"
 
 FreeTypeGX * GuiText::presentFont = NULL;
-int GuiText::presetSize = 28;
-int GuiText::presetInternalRenderingScale = 2.0f; //Lets render the font at the doubled size. This make it even smoother!
-int GuiText::presetMaxWidth = 0xFFFF;
-int GuiText::presetAlignment = ALIGN_CENTER | ALIGN_MIDDLE;
+s32 GuiText::presetSize = 28;
+float GuiText::presetInternalRenderingScale = 2.0f; //Lets render the font at the doubled size. This make it even smoother!
+s32 GuiText::presetMaxWidth = 0xFFFF;
+s32 GuiText::presetAlignment = ALIGN_CENTER | ALIGN_MIDDLE;
 GX2ColorF32 GuiText::presetColor = (GX2ColorF32){ 1.0f, 1.0f, 1.0f, 1.0f };
 
 #define TEXT_SCROLL_DELAY			6
@@ -56,7 +56,7 @@ GuiText::GuiText()
 	internalRenderingScale = presetInternalRenderingScale;
 }
 
-GuiText::GuiText(const char * t, int s, const glm::vec4 & c)
+GuiText::GuiText(const char * t, s32 s, const glm::vec4 & c)
 {
 	text = NULL;
 	size = s;
@@ -88,7 +88,7 @@ GuiText::GuiText(const char * t, int s, const glm::vec4 & c)
 	}
 }
 
-GuiText::GuiText(const wchar_t * t, int s, const glm::vec4 & c)
+GuiText::GuiText(const wchar_t * t, s32 s, const glm::vec4 & c)
 {
 	text = NULL;
 	size = s;
@@ -199,7 +199,7 @@ void GuiText::setTextf(const char *format, ...)
 		return;
     }
 
-    int max_len = strlen(format) + 8192;
+    s32 max_len = strlen(format) + 8192;
 	char *tmp = new char[max_len];
 	va_list va;
 	va_start(va, format);
@@ -248,7 +248,7 @@ void GuiText::clearDynamicText()
 	textDynWidth.clear();
 }
 
-void GuiText::setPresets(int sz, const glm::vec4 & c, int w, int a)
+void GuiText::setPresets(s32 sz, const glm::vec4 & c, s32 w, s32 a)
 {
 	presetSize = sz;
 	presetColor = (GX2ColorF32) { (f32)c.r / 255.0f, (f32)c.g / 255.0f, (f32)c.b / 255.0f, (f32)c.a / 255.0f };
@@ -261,12 +261,12 @@ void GuiText::setPresetFont(FreeTypeGX *f)
 	presentFont = f;
 }
 
-void GuiText::setFontSize(int s)
+void GuiText::setFontSize(s32 s)
 {
 	size = s;
 }
 
-void GuiText::setMaxWidth(int width, int w)
+void GuiText::setMaxWidth(s32 width, s32 w)
 {
 	maxWidth = width;
 	wrapMode = w;
@@ -294,17 +294,17 @@ void GuiText::setBlurGlowColor(float blur, const glm::vec4 & c)
 	blurAlpha = c[3];
 }
 
-int GuiText::getTextWidth(int ind)
+s32 GuiText::getTextWidth(s32 ind)
 {
-	if(ind < 0 || ind >= (int) textDyn.size())
+	if(ind < 0 || ind >= (s32) textDyn.size())
 		return this->getTextWidth();
 
 	return font->getWidth(textDyn[ind], currentSize);
 }
 
-const wchar_t * GuiText::getDynText(int ind)
+const wchar_t * GuiText::getDynText(s32 ind)
 {
-	if(ind < 0 || ind >= (int) textDyn.size())
+	if(ind < 0 || ind >= (s32) textDyn.size())
 		return text;
 
 	return textDyn[ind];
@@ -341,10 +341,10 @@ std::string GuiText::toUTF8(void) const
 
 void GuiText::makeDottedText()
 {
-	int pos = textDyn.size();
+	s32 pos = textDyn.size();
 	textDyn.resize(pos + 1);
 
-	int i = 0, currentWidth = 0;
+	s32 i = 0, currentWidth = 0;
 	textDyn[pos] = new (std::nothrow) wchar_t[maxWidth];
 	if(!textDyn[pos]) {
 		textDyn.resize(pos);
@@ -374,8 +374,8 @@ void GuiText::scrollText(u32 frameCount)
 {
 	if (textDyn.size() == 0)
 	{
-		int pos = textDyn.size();
-		int i = 0, currentWidth = 0;
+		s32 pos = textDyn.size();
+		s32 i = 0, currentWidth = 0;
 		textDyn.resize(pos + 1);
 
 		textDyn[pos] = new (std::nothrow) wchar_t[maxWidth];
@@ -408,7 +408,7 @@ void GuiText::scrollText(u32 frameCount)
 		return;
 	}
 
-	int stringlen = wcslen(text);
+	s32 stringlen = wcslen(text);
 
 	++textScrollPos;
 	if (textScrollPos > stringlen)
@@ -417,8 +417,8 @@ void GuiText::scrollText(u32 frameCount)
 		textScrollInitialDelay = TEXT_SCROLL_INITIAL_DELAY;
 	}
 
-	int ch = textScrollPos;
-	int pos = textDyn.size() - 1;
+	s32 ch = textScrollPos;
+	s32 pos = textDyn.size() - 1;
 
 	if (!textDyn[pos])
 		textDyn[pos] = new (std::nothrow) wchar_t[maxWidth];
@@ -428,7 +428,7 @@ void GuiText::scrollText(u32 frameCount)
 		return;
 	}
 
-	int i = 0, currentWidth = 0;
+	s32 i = 0, currentWidth = 0;
 
 	while (currentWidth < maxWidth)
 	{
@@ -458,16 +458,16 @@ void GuiText::wrapText()
 {
 	if (textDyn.size() > 0) return;
 
-	int i = 0;
-	int ch = 0;
-	int linenum = 0;
-	int lastSpace = -1;
-	int lastSpaceIndex = -1;
-	int currentWidth = 0;
+	s32 i = 0;
+	s32 ch = 0;
+	s32 linenum = 0;
+	s32 lastSpace = -1;
+	s32 lastSpaceIndex = -1;
+	s32 currentWidth = 0;
 
 	while (text[ch] && linenum < linestodraw)
 	{
-		if (linenum >= (int) textDyn.size())
+		if (linenum >= (s32) textDyn.size())
 		{
 			textDyn.resize(linenum + 1);
 			textDyn[linenum] = new (std::nothrow) wchar_t[maxWidth];
@@ -538,8 +538,8 @@ void GuiText::draw(CVideo *pVideo)
 
     float finalRenderingScale = 2.0f * internalRenderingScale;
 
-	int newSize = size * getScale() * finalRenderingScale;
-	int normal_size = size * getScale();
+	s32 newSize = size * getScale() * finalRenderingScale;
+	s32 normal_size = size * getScale();
 
 	if(newSize != currentSize)
 	{
@@ -582,9 +582,9 @@ void GuiText::draw(CVideo *pVideo)
 		}
 		else if(wrapMode == WRAP)
 		{
-			int lineheight = newSize + 6;
-			int yoffset = 0;
-			int voffset = 0;
+			s32 lineheight = newSize + 6;
+			s32 yoffset = 0;
+			s32 voffset = 0;
 
 			if(textDyn.size() == 0)
 				wrapText();

@@ -52,24 +52,24 @@ public:
 	bool LoadPath(const std::string & path, const char *filter = NULL, u32 flags = Files | Dirs);
 	//! Get a filename of the list
 	//!\param list index
-	const char * GetFilename(int index) const;
+	const char * GetFilename(s32 index) const;
 	//! Get the a filepath of the list
 	//!\param list index
-	const char *GetFilepath(int index) const { if (!valid(index)) return ""; else return FileInfo[index].FilePath; }
+	const char *GetFilepath(s32 index) const { if (!valid(index)) return ""; else return FileInfo[index].FilePath; }
 	//! Get the a filesize of the list
 	//!\param list index
-	u64 GetFilesize(int index) const;
+	u64 GetFilesize(s32 index) const;
 	//! Is index a dir or a file
 	//!\param list index
-	bool IsDir(int index) const { if(!valid(index)) return false; return FileInfo[index].isDir; };
+	bool IsDir(s32 index) const { if(!valid(index)) return false; return FileInfo[index].isDir; };
 	//! Get the filecount of the whole list
-	int GetFilecount() const { return FileInfo.size(); };
+	s32 GetFilecount() const { return FileInfo.size(); };
 	//! Sort list by filepath
 	void SortList();
 	//! Custom sort command for custom sort functions definitions
 	void SortList(bool (*SortFunc)(const DirEntry &a, const DirEntry &b));
 	//! Get the index of the specified filename
-	int GetFileIndex(const char *filename) const;
+	s32 GetFileIndex(const char *filename) const;
 	//! Enum for search/filter flags
 	enum
 	{

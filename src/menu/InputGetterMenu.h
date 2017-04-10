@@ -56,8 +56,8 @@ private:
     GuiTrigger buttonBTrigger;
     GuiButton DPADButtons;
     UController_Type controller_type;
-    volatile int total_result = 0;
-    volatile int exitInputThread = 0;
+    volatile s32 total_result = 0;
+    volatile s32 exitInputThread = 0;
     static CThread *pThread;
 };
 

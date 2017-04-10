@@ -29,13 +29,13 @@ class CVideo;
 
 class MainWindowTV : public GuiConfigurationScreen{
 public:
-    MainWindowTV(int w, int h);
+    MainWindowTV(s32 w, s32 h);
     virtual ~MainWindowTV();
 
     static TVControllerBanner * bannerInstance;
 
 private:
-    int width, height;
+    s32 width, height;
 
     GuiImageData *backgroundImageData;
     GuiImage backgroundImage;

@@ -38,12 +38,9 @@ GuiToggle::~GuiToggle()
 
 void GuiToggle::OnToggleClick(GuiButton *button, const GuiController *controller, GuiTrigger *trigger){
     if(!isStateSet(STATE_DISABLED | STATE_HIDDEN | STATE_DISABLE_INPUT)){
-        log_print("Clicked on Toggle: ");
         if(selected){
-            log_print("Uncheck\n");
             setUnchecked();
         }else{
-            log_print("Check\n");
             setChecked();
         }
     }

@@ -27,14 +27,14 @@
 
 class MenuListDRC : public GuiFrame, public sigslot::has_slots<>{
 public:
-    MenuListDRC(int w, int h,MainWindowContent * contentWindow);
+    MenuListDRC(s32 w, s32 h,MainWindowContent * contentWindow);
     virtual ~MenuListDRC();
 
     MenuElement * getButtonElementByController(UController_Type controller_type);
     void OnButtonClicked(GuiButton * button, const GuiController *controller, GuiTrigger *trigger);
 private:
     MainWindowContent * contentWindow;
-    int width, height;
+    s32 width, height;
     GuiImage bgImageColor;
     MenuSeperator homeSeperator;
     MenuElementInfo elementHome;
@@ -66,16 +66,16 @@ private:
     std::vector<GuiElement*> listElementsAll;
     std::vector<MenuElement*> listElementsButtons;
 
-    int sizeListElementsAll = 0;
-    int sizeListElementsButtons = 0;
+    s32 sizeListElementsAll = 0;
+    s32 sizeListElementsButtons = 0;
 
-    int selectedItem = 0;
-    int lastSelectedItem = -1;
+    s32 selectedItem = 0;
+    s32 lastSelectedItem = -1;
 
-    void setState(int i, int c);
+    void setState(s32 i, s32 c);
     void update(GuiController * c);
 
-    void OnDrag(GuiDragListener * listener, const GuiController * controller, GuiTrigger * trigger,int dx,int dy);
+    void OnDrag(GuiDragListener * listener, const GuiController * controller, GuiTrigger * trigger,s32 dx,s32 dy);
     void addToTotalOffset(f32 added_offset);
     void calculateAndSetOffsets(std::vector<GuiElement*>& elements,f32 total_offset);
     void listAppend(GuiElement * listElement);

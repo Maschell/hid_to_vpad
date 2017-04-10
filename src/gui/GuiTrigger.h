@@ -91,7 +91,7 @@ public:
     bool right(const GuiController *controller) const;
     bool up(const GuiController *controller) const;
     bool down(const GuiController *controller) const;
-    int clicked(const GuiController *controller) const;
+    s32 clicked(const GuiController *controller) const;
     bool held(const GuiController *controller) const;
     bool released(const GuiController *controller) const;
 private:

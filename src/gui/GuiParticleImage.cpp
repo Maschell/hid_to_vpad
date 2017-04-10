@@ -30,7 +30,7 @@ static inline f32 getRandMinusOneToOneF32()
     return getRandZeroToOneF32() * 2.0f - 1.0f;
 }
 
-GuiParticleImage::GuiParticleImage(int w, int h, u32 particleCount)
+GuiParticleImage::GuiParticleImage(s32 w, s32 h, u32 particleCount)
     : GuiImage(NULL)
 {
     width = w;

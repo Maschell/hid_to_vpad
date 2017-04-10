@@ -238,7 +238,7 @@ Texture2DShader::Texture2DShader()
 
     //! defaults for normal square
     //! position vertex structure and texture coordinate vertex structure
-    int i = 0;
+    s32 i = 0;
     posVtxs[i++] = -1.0f; posVtxs[i++] = -1.0f; posVtxs[i++] = 0.0f;
     posVtxs[i++] =  1.0f; posVtxs[i++] = -1.0f; posVtxs[i++] = 0.0f;
     posVtxs[i++] =  1.0f; posVtxs[i++] =  1.0f; posVtxs[i++] = 0.0f;

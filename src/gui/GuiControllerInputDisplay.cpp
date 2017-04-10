@@ -19,8 +19,6 @@
 #include "utils/StringTools.h"
 #include "utils/logger.h"
 
-
-
 GuiControllerInputDisplay::GuiControllerInputDisplay(UController_Type _controller_type): GuiFrame(441,324)
     , controller_type(_controller_type)
     , proImageData(Resources::GetImageData("buttons_pro_controller.png"))
@@ -45,29 +43,21 @@ GuiControllerInputDisplay::GuiControllerInputDisplay(UController_Type _controlle
     }
     typedef std::map<std::string, u32>::iterator it_type;
     for(it_type iterator = btn_list->begin(); iterator != btn_list->end(); iterator++) {
-        //log_printf("Adding button! \"%s\"\n",iterator->first.c_str());
-        //log_printf("Creating ButtonConfig* \n");
         ButtonConfig * btn_cfg = new ButtonConfig;
         if(btn_cfg == NULL){
              log_printf("Error on alloc ButtonConfig\n");
              continue;
         }
         memset(btn_cfg,0,sizeof(ButtonConfig));
-        //log_printf("Creating suffix \n");
         std::string * suffix = new std::string(iterator->first);
-        //log_printf("Setting suffix \n");
         btn_cfg->img.suffix = suffix;
-        //log_printf("creating new filename\n");
         std::string filename = strfmt("%s%s.png",prefix.c_str(),btn_cfg->img.suffix->c_str());
-        //log_printf("loading file..%s \n",filename.c_str());
         btn_cfg->img.imagedata = Resources::GetImageData(filename.c_str());
         if(btn_cfg->img.imagedata == NULL){
             log_printf("Error, was null!\n");
             delete btn_cfg;
             continue;
         }
-        //log_printf("Done!\n");
-        //log_printf("loading image..\n");
         btn_cfg->img.image = new GuiImage(btn_cfg->img.imagedata);
         if(btn_cfg->img.image == NULL){
             log_printf("Error, was null! Removing ImageData\n");
@@ -75,11 +65,9 @@ GuiControllerInputDisplay::GuiControllerInputDisplay(UController_Type _controlle
             delete btn_cfg;
             continue;
         }
-        //log_printf("setting value to %08X.\n",iterator->second);
         btn_cfg->value = iterator->second;
         controllerConfig.buttons.push_back(btn_cfg);
         btn_cfg->img.image->setState(STATE_HIDDEN);
-        //log_printf("Appending\n");
         append(btn_cfg->img.image);
     }
 }
@@ -109,17 +97,16 @@ void GuiControllerInputDisplay::process(){
         buttons_hold = gamepadData.btns_h;
 
     }else{
-        int chan = 0;
+        s32 chan = 0;
         if(controller_type == UController_Type_Pro1){ chan = 0;}
         if(controller_type == UController_Type_Pro2){ chan = 1;}
         if(controller_type == UController_Type_Pro3){ chan = 2;}
         if(controller_type == UController_Type_Pro4){ chan = 3;}
-        int res = 0;
+        s32 res = 0;
         if((res = ControllerPatcher::setProControllerDataFromHID((void *) &proData,chan,PRO_CONTROLLER_MODE_KPADDATA)) >= 0){
             buttons_hold = proData.pro.btns_h;
         }
     }
-
 
     for(std::vector<ButtonConfig *>::iterator it = controllerConfig.buttons.begin(); it != controllerConfig.buttons.end(); ++it) {
         ButtonConfig * btn_cfg = *it;

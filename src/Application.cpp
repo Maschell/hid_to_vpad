@@ -48,19 +48,19 @@ Application::Application()
 }
 
 Application::~Application(){
-    log_printf("Destroy music\n");
+    log_printf("Application::~Application: Destroy music\n");
 
     delete bgMusic;
 
-    log_printf("Destroy controller\n");
+    log_printf("Application::~Application: Destroy controller\n");
 
-    for(int i = 0; i < 5; i++)
+    for(s32 i = 0; i < 5; i++)
         delete controller[i];
 
     //We may have to handle Asyncdelete in the Destructors.
-    log_printf("Destroy async deleter\n");
+    log_printf("Application::~Application: Destroy async deleter\n");
     do{
-        log_printf("Triggering AsyncDeleter\n");
+        log_printf("Application::~Application: Triggering AsyncDeleter\n");
         AsyncDeleter::triggerDeleteProcess();
         while(!AsyncDeleter::realListEmpty()){
             usleep(1000);
@@ -68,14 +68,14 @@ Application::~Application(){
     }while(!AsyncDeleter::deleteListEmpty());
     AsyncDeleter::destroyInstance();
 
-    log_printf("Clear resources\n");
+    log_printf("Application::~Application: Clear resources\n");
     Resources::Clear();
 
-    log_printf("Stop sound handler\n");
+    log_printf("Application::~Application: Stop sound handler\n");
     SoundHandler::DestroyInstance();
 }
 
-int Application::exec(){
+s32 Application::exec(){
     //! start main GX2 thread
     resumeThread();
     //! now wait for thread to finish
@@ -87,7 +87,7 @@ int Application::exec(){
 void Application::fadeOut(){
     GuiImage fadeOut(video->getTvWidth(), video->getTvHeight(), (GX2Color){ 0, 0, 0, 255 });
 
-    for(int i = 0; i < 255; i += 10)
+    for(s32 i = 0; i < 255; i += 10)
     {
         if(i > 255)
             i = 255;
@@ -132,17 +132,17 @@ void Application::fadeOut(){
 }
 
 void Application::executeThread(void){
-    log_printf("Initialize video\n");
+    log_printf("Application::executeThread: Initialize video\n");
     video = new CVideo(GX2_TV_SCAN_MODE_720P, GX2_DRC_SINGLE);
 
-    log_printf("Video size %i x %i\n", video->getTvWidth(), video->getTvHeight());
+    log_printf("Application::executeThread: Video size %i x %i\n", video->getTvWidth(), video->getTvHeight());
 
     //! setup default Font
-    log_printf("Initialize main font system\n");
+    log_printf("Application::executeThread: Initialize main font system\n");
     FreeTypeGX *fontSystem = new FreeTypeGX(Resources::GetFile("font.ttf"), Resources::GetFileSize("font.ttf"), true);
     GuiText::setPresetFont(fontSystem);
 
-    log_printf("Initialize main window\n");
+    log_printf("Application::executeThread: Initialize main window\n");
 
     mainWindow = MainWindow::getInstance(video->getTvWidth(), video->getTvHeight());
 
@@ -150,13 +150,13 @@ void Application::executeThread(void){
     bgMusic->Play();
     bgMusic->SetVolume(50);
 
-    log_printf("Entering main loop\n");
+    log_printf("Application::executeThread: Entering main loop\n");
 
     //! main GX2 loop (60 Hz cycle with max priority on core 1)
     while(!exitApplication)
     {
         //! Read out inputs
-        for(int i = 0; i < 5; i++)
+        for(s32 i = 0; i < 5; i++)
         {
             if(controller[i]->update(video->getTvWidth(), video->getTvHeight()) == false)
                 continue;

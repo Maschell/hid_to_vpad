@@ -106,8 +106,8 @@ void InputGetterMenu::GetInputsAsync(InputGetterMenu * menu)
 void InputGetterMenu::GetInputs(CThread *thread, void *arg){
     InputGetterMenu * args = (InputGetterMenu * )arg;
 
-    int gotPress = 0;
-    int inputsize =  gHIDMaxDevices;
+    s32 gotPress = 0;
+    s32 inputsize =  gHIDMaxDevices;
     InputData * hiddata = (InputData * ) malloc(sizeof(InputData)*inputsize);
     memset(hiddata,0,sizeof(InputData)*inputsize);
 
@@ -115,14 +115,14 @@ void InputGetterMenu::GetInputs(CThread *thread, void *arg){
     memset(&pad_result,0,sizeof(ControllerMappingPADInfo));
 
     while(!gotPress){
-        int foo = args->exitInputThread;
+        s32 foo = args->exitInputThread;
         foo +=1;
         if(args->exitInputThread)break;
-        int result = ControllerPatcher::gettingInputAllDevices(hiddata,inputsize);
+        s32 result = ControllerPatcher::gettingInputAllDevices(hiddata,inputsize);
         if(result > 0){
             //log_printf("got %d results\n",result);
-            for(int i =0;i<result;i++){
-                for(int j = 0;j<HID_MAX_PADS_COUNT;j++){
+            for(s32 i =0;i<result;i++){
+                for(s32 j = 0;j<HID_MAX_PADS_COUNT;j++){
                     //log_printf("check pad %d. %08X\n",j,hiddata[i].button_data[j].btn_h);
                     if(hiddata[i].button_data[j].btn_h != 0){
                         //log_printf("It pressed a buttons!\n",result);

@@ -24,7 +24,7 @@
 
 TVControllerBanner *MainWindowTV::bannerInstance = NULL;
 
-MainWindowTV::MainWindowTV(int w, int h)
+MainWindowTV::MainWindowTV(s32 w, s32 h)
     : GuiConfigurationScreen(w, h)
     , width(w)
     , height(h)

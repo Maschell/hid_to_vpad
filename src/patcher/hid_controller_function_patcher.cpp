@@ -50,8 +50,8 @@ DECL(void, __PPCExit, void){
     real___PPCExit();
 }
 
-DECL(int, VPADRead, int chan, VPADData *buffer, u32 buffer_size, s32 *error) {
-    int result = real_VPADRead(chan, buffer, buffer_size, error);
+DECL(s32, VPADRead, s32 chan, VPADData *buffer, u32 buffer_size, s32 *error) {
+    s32 result = real_VPADRead(chan, buffer, buffer_size, error);
 
 
     if(gHIDAttached && buffer_size > 0){
@@ -82,7 +82,7 @@ DECL(int, VPADRead, int chan, VPADData *buffer, u32 buffer_size, s32 *error) {
 DECL(s32,KPADReadEx, s32 chan, KPADData * buffer, u32 buffer_count, s32 *error ){
     //log_printf("KPADReadEx\n");
     if(buffer_count > 0){
-        int res = ControllerPatcher::setProControllerDataFromHID((void*)&buffer[0],chan,PRO_CONTROLLER_MODE_KPADDATA); //Check if a controller is connected and fill the buffer with data.
+        s32 res = ControllerPatcher::setProControllerDataFromHID((void*)&buffer[0],chan,PRO_CONTROLLER_MODE_KPADDATA); //Check if a controller is connected and fill the buffer with data.
         if(res >= 0){
 
             if(buffer[0].pro.btns_h & WPAD_PRO_BUTTON_HOME){ //Pro controller doesn't work in home menu so it's okay to let this enabled.
@@ -213,5 +213,5 @@ hooks_magic_t method_hooks_hid_controller[] __attribute__((section(".data"))) = 
 u32 method_hooks_size_hid_controller __attribute__((section(".data"))) = sizeof(method_hooks_hid_controller) / sizeof(hooks_magic_t);
 
 //! buffer to store our instructions needed for our replacements
-volatile unsigned int method_calls_hid_controller[sizeof(method_hooks_hid_controller) / sizeof(hooks_magic_t) * FUNCTION_PATCHER_METHOD_STORE_SIZE] __attribute__((section(".data")));
+volatile u32 method_calls_hid_controller[sizeof(method_hooks_hid_controller) / sizeof(hooks_magic_t) * FUNCTION_PATCHER_METHOD_STORE_SIZE] __attribute__((section(".data")));
 

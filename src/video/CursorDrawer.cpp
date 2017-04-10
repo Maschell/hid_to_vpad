@@ -69,7 +69,7 @@ void CursorDrawer::draw_Cursor(f32 x,f32 y)
     f32 widthScaleFactor = 1.0f / (f32)1280;
     f32 heightScaleFactor = 1.0f / (f32)720;
 
-    int width = 20;
+    s32 width = 20;
 
     glm::vec3 positionOffsets = glm::vec3(0.0f);
 

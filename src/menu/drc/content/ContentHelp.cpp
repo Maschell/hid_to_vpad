@@ -32,8 +32,8 @@ ContentHelp::ContentHelp(): ContentTemplate(){
     //f32 positionX2 = 250.0f;
     //f32 positionX3 = 80.0f;
 
-    int fontSize = 35;
-    int fontSize2 = 24;
+    s32 fontSize = 35;
+    s32 fontSize2 = 24;
     glm::vec4 textColor = glm::vec4(0.3f,0.3f,0.3f,1.0f);
 
     text = new GuiText("My controller is not working!", fontSize, textColor);

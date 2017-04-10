@@ -32,20 +32,20 @@ class GuiDragListener : public GuiElement
 		//!Destructor
 		virtual ~GuiDragListener();
 
-		void setState(int i, int c);
+		void setState(s32 i, s32 c);
 
 		//!Set a new GuiTrigger for the element
 		//!\param i Index of trigger array to set
 		//!\param t Pointer to GuiTrigger
-		void setTrigger(GuiTrigger * t, int idx = -1);
+		void setTrigger(GuiTrigger * t, s32 idx = -1);
 
 		//!Constantly called to allow the GuiDragListener to respond to updated input data
 		//!\param t Pointer to a GuiTrigger, containing the current input data from PAD/WPAD
 		void update(GuiController * c);
 
-		sigslot::signal5<GuiDragListener *, const GuiController *, GuiTrigger *,int,int> dragged;
+		sigslot::signal5<GuiDragListener *, const GuiController *, GuiTrigger *,s32,s32> dragged;
 	protected:
-        static const int iMaxGuiTriggers = 10;
+        static const s32 iMaxGuiTriggers = 10;
 
 		GuiTrigger * trigger[iMaxGuiTriggers]; //!< GuiTriggers (input actions) that this element responds to
 };

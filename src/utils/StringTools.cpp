@@ -73,7 +73,7 @@ const wchar_t * wfmt(const char * format, ...)
 	if((vasprintf(&tmp, format, va) >= 0) && tmp)
 	{
 		int	bt;
-		int strlength = strlen(tmp);
+		s32 strlength = strlen(tmp);
 		bt = mbstowcs(strWChar, tmp, (strlength < 512) ? strlength : 512 );
 		free(tmp);
 		tmp = 0;
@@ -92,9 +92,9 @@ const wchar_t * wfmt(const char * format, ...)
 	return NULL;
 }
 
-int strprintf(std::string &str, const char * format, ...)
+s32 strprintf(std::string &str, const char * format, ...)
 {
-	int result = 0;
+	s32 result = 0;
 	char * tmp = NULL;
 
 	va_list va;
@@ -146,7 +146,7 @@ bool char2wchar_t(const char * strChar, wchar_t * dest)
 	return false;
 }
 
-int strtokcmp(const char * string, const char * compare, const char * separator)
+s32 strtokcmp(const char * string, const char * compare, const char * separator)
 {
 	if(!string || !compare)
 		return -1;
@@ -169,7 +169,7 @@ int strtokcmp(const char * string, const char * compare, const char * separator)
 	return -1;
 }
 
-int strextcmp(const char * string, const char * extension, char seperator)
+s32 strextcmp(const char * string, const char * extension, char seperator)
 {
 	if(!string || !extension)
 		return -1;
@@ -187,7 +187,7 @@ std::vector<std::string> stringSplit(const std::string & inValue, const std::str
     std::string value = inValue;
     std::vector<std::string> result;
     while (true) {
-        unsigned int index = value.find(splitter);
+        u32 index = value.find(splitter);
         if (index == std::string::npos) {
             result.push_back(value);
             break;

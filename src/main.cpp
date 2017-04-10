@@ -17,15 +17,9 @@
 #include "common/common.h"
 
 #include "controller_patcher/ControllerPatcher.hpp"
-#include "controller_patcher/ConfigReader.hpp"
-#include "controller_patcher/config/ConfigValues.hpp"
-#include "controller_patcher/utils/CPRetainVars.hpp"
-#include "controller_patcher/network/UDPServer.hpp"
-#include "controller_patcher/network/TCPServer.hpp"
 #include "utils/function_patcher.h"
 #include "patcher/hid_controller_function_patcher.hpp"
 #include "kernel/kernel_functions.h"
-#include "kernel/syscalls.h"
 #include "video/CursorDrawer.h"
 #include "utils/logger.h"
 #include "utils/StringTools.h"
@@ -33,7 +27,7 @@
 #include "system/memory.h"
 
 /* Entry point */
-extern "C" int Menu_Main(void){
+extern "C" s32 Menu_Main(void){
     //!*******************************************************************
     //!                   Initialize function pointers                   *
     //!*******************************************************************
@@ -56,7 +50,7 @@ extern "C" int Menu_Main(void){
     //!*******************************************************************
     //!                        Initialize HID Config                     *
     //!*******************************************************************
-    log_print("Initializing the controller data\n");
+    log_printf("Menu_Main (line %d): Initializing the controller data\n",__LINE__);
     bool res = ControllerPatcher::Init();
     if(!res){
         SplashScreen(5, std::string("Error. The app starts in 5 seconds without patches.").c_str());
@@ -67,23 +61,24 @@ extern "C" int Menu_Main(void){
     ControllerPatcher::enableControllerMapping();
     ControllerPatcher::startNetworkServer();
 
-    int result = 0;
+    s32 result = 0;
     if(isInMiiMakerHBL()){
         //!*******************************************************************
         //!                    Initialize heap memory                        *
         //!*******************************************************************
-        log_print("Initialize memory management\n");
+        log_printf("Menu_Main (line %d): Initialize memory management\n",__LINE__);
         memoryInitialize();
 
-        log_printf("Mount SD partition\n");
+        log_printf("Menu_Main (line %d): Mount SD partition\n",__LINE__);
         mount_sd_fat("sd");
-        log_printf("Start main application\n");
+        log_printf("Menu_Main (line %d): Start main application\n",__LINE__);
         result = Application::instance()->exec();
 
-        log_printf("Main application stopped result: %d\n",result);
+        log_printf("Menu_Main (line %d): Main application stopped result: %d\n",__LINE__,result);
         Application::destroyInstance();
-        log_printf("Unmount SD\n");
+        log_printf("Menu_Main (line %d): Unmount SD\n",__LINE__);
         unmount_sd_fat("sd");
+        log_printf("Menu_Main (line %d): Release memory\n",__LINE__);
         memoryRelease();
         ControllerPatcher::destroyConfigHelper();
     }
@@ -92,7 +87,7 @@ extern "C" int Menu_Main(void){
     //!*******************************************************************
     //!                        Patching functions                        *
     //!*******************************************************************
-    log_print("Patching functions\n");
+    log_printf("Menu_Main(line %d): Patching functions\n",__LINE__);
     ApplyPatches();
 
     if(!isInMiiMakerHBL()){
@@ -101,11 +96,11 @@ extern "C" int Menu_Main(void){
     }
 
     if(result == APPLICATION_CLOSE_APPLY){
-        log_print("back to sysmenu\n");
+        log_printf("Menu_Main (line %d): Loading the system menu.\n",__LINE__);
         SYSLaunchMenu();
         return EXIT_RELAUNCH_ON_LOAD;
     }
-    log_print("back to hbl\n");
+    log_printf("Menu_Main (line %d): Going back to the Homebrew Launcher\n",__LINE__);
     ControllerPatcher::restoreWiiUEnergySetting();
     deInit();
     return EXIT_SUCCESS;
@@ -125,7 +120,7 @@ void deInit(){
     ControllerPatcher::stopNetworkServer();
     log_deinit();
 }
-int isInMiiMakerHBL(){
+s32 isInMiiMakerHBL(){
     if (OSGetTitleID != 0 && (
             OSGetTitleID() == 0x000500101004A200 || // mii maker eur
             OSGetTitleID() == 0x000500101004A100 || // mii maker usa
@@ -138,9 +133,9 @@ int isInMiiMakerHBL(){
 }
 
 
-void SplashScreen(int time,const char * message){
+void SplashScreen(s32 time,const char * message){
     // Prepare screen
-    int screen_buf0_size = 0;
+    s32 screen_buf0_size = 0;
 
     // Init screen and screen buffers
     OSScreenInit();
@@ -165,10 +160,10 @@ void SplashScreen(int time,const char * message){
     OSScreenFlipBuffersEx(0);
     OSScreenFlipBuffersEx(1);
 
-    int tickswait = time * 1000*1000;
-    int times = 1000;
-    int sleepingtime = tickswait / 1000;
-    int i=0;
+    s32 tickswait = time * 1000*1000;
+    s32 times = 1000;
+    s32 sleepingtime = tickswait / 1000;
+    s32 i=0;
     while(i<times){
         i++;
         usleep(sleepingtime);

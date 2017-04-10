@@ -46,23 +46,23 @@ extern "C" {
 #define FUNCTION_PATCHER_METHOD_STORE_SIZE  7
 
 typedef struct {
-    const unsigned int replaceAddr;
-    const unsigned int replaceCall;
-    const unsigned int library;
+    const u32 replaceAddr;
+    const u32 replaceCall;
+    const u32 library;
     const char functionName[50];
-    unsigned int realAddr;
-    unsigned int restoreInstruction;
+    u32 realAddr;
+    u32 restoreInstruction;
     unsigned char functionType;
     unsigned char alreadyPatched;
 } hooks_magic_t;
 
-void PatchInvidualMethodHooks(hooks_magic_t hook_information[],int hook_information_size, volatile unsigned int dynamic_method_calls[]);
-void RestoreInvidualInstructions(hooks_magic_t hook_information[],int hook_information_size);
-unsigned int GetAddressOfFunction(const char * functionName,unsigned int library);
-int isDynamicFunction(unsigned int physicalAddress);
+void PatchInvidualMethodHooks(hooks_magic_t hook_information[],s32 hook_information_size, volatile u32 dynamic_method_calls[]);
+void RestoreInvidualInstructions(hooks_magic_t hook_information[],s32 hook_information_size);
+u32 GetAddressOfFunction(const char * functionName,u32 library);
+s32 isDynamicFunction(u32 physicalAddress);
 
 //Orignal code by Chadderz.
-#define MAKE_MAGIC(x, lib,functionType) { (unsigned int) my_ ## x, (unsigned int) &real_ ## x, lib, # x,0,0,functionType,0}
+#define MAKE_MAGIC(x, lib,functionType) { (u32) my_ ## x, (u32) &real_ ## x, lib, # x,0,0,functionType,0}
 
 #ifdef __cplusplus
 }

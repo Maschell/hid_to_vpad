@@ -197,7 +197,7 @@ FXAAShader::FXAAShader()
     texCoords = (f32*)memalign(GX2_VERTEX_BUFFER_ALIGNMENT, ciTexCoordsVtxsSize);
 
     //! position vertex structure and texture coordinate vertex structure
-    int i = 0;
+    s32 i = 0;
     posVtxs[i++] = -1.0f; posVtxs[i++] = -1.0f; posVtxs[i++] = 0.0f;
     posVtxs[i++] =  1.0f; posVtxs[i++] = -1.0f; posVtxs[i++] = 0.0f;
     posVtxs[i++] =  1.0f; posVtxs[i++] =  1.0f; posVtxs[i++] = 0.0f;

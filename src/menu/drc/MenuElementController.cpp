@@ -65,7 +65,7 @@ MenuElementController::MenuElementController(UController_Type controllertype)
     notAttachedLabel.setColor(glm::vec4(0.2f,0.2f,0.2f,1.0f));
     notAttachedLabel.setParent(&icon_img);
 
-    for(int i = 0;i<4;i++){
+    for(s32 i = 0;i<4;i++){
         ledImages.ledon[i] = new GuiImage(ledon_imgdata);
         ledImages.ledoff[i] = new GuiImage(ledoff_imgdata);
 
@@ -127,7 +127,7 @@ MenuElementController::~MenuElementController()
     Resources::RemoveImageData(ledon_imgdata);
     Resources::RemoveImageData(ledoff_imgdata);
 
-    for(int i = 0;i<4;i++){
+    for(s32 i = 0;i<4;i++){
         if(ledImages.ledon[i]) delete ledImages.ledon[i];
         if(ledImages.ledoff[i]) delete ledImages.ledoff[i];
     }
@@ -155,7 +155,7 @@ void MenuElementController::draw(CVideo *v){
     std::string name = "";
 
     controllerConnected = 0;
-    int found = ControllerPatcher::getActiveMappingSlot(getControllerType());
+    s32 found = ControllerPatcher::getActiveMappingSlot(getControllerType());
     if(found == -1){
         name = "No device";
     }else{
@@ -187,13 +187,13 @@ void MenuElementController::draw(CVideo *v){
         proController_img.draw(v);
         controllerlabel.draw(v);
     }
-    int pad_active = 0;
+    bool pad_active = false;
     ControllerMappingPADInfo * info = ControllerPatcher::getControllerMappingInfo(getControllerType(),0);
 
-    for(int i = 0;i<4;i++){
+    for(s32 i = 0;i<4;i++){
        if(info != NULL && (info->pad == i && info->active)){
             ledImages.ledon[i]->draw(v);
-            pad_active = 1;
+            pad_active = true;
         }else{
             ledImages.ledoff[i]->draw(v);
         }
@@ -204,7 +204,7 @@ void MenuElementController::draw(CVideo *v){
         alpha = 1.0f;
     }
 
-    for(int i = 0;i<4;i++){
+    for(s32 i = 0;i<4;i++){
         ledImages.ledon[i]->setAlpha(alpha);
         ledImages.ledoff[i]->setAlpha(alpha);
     }

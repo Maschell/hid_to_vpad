@@ -22,7 +22,7 @@
 #include "content/ContentController.h"
 #include "utils/logger.h"
 
-MenuListDRC::MenuListDRC(int w, int h,MainWindowContent * _contentWindow)
+MenuListDRC::MenuListDRC(s32 w, s32 h,MainWindowContent * _contentWindow)
     : GuiFrame(w, h)
     , contentWindow(_contentWindow)
     , width(w)
@@ -85,7 +85,7 @@ MenuListDRC::MenuListDRC(int w, int h,MainWindowContent * _contentWindow)
 }
 
 
-void MenuListDRC::setState(int i, int c){
+void MenuListDRC::setState(s32 i, s32 c){
     GuiFrame::setState(i,c);
 }
 
@@ -112,14 +112,14 @@ void MenuListDRC::listAppend(GuiElement * listElement){
     append(listElement);
 }
 
-void MenuListDRC::OnDrag(GuiDragListener * listener, const GuiController * controller, GuiTrigger * trigger,int dx,int dy){
+void MenuListDRC::OnDrag(GuiDragListener * listener, const GuiController * controller, GuiTrigger * trigger,s32 dx,s32 dy){
     addToTotalOffset((float)dy);
     scroll_needs_update = true;
 }
 
 void MenuListDRC::OnButtonClicked(GuiButton *button, const GuiController *controller, GuiTrigger *trigger){
     MenuElement * element = NULL;
-    int i = 0;
+    s32 i = 0;
     for (std::vector<MenuElement*>::iterator it = listElementsButtons.begin() ; it != listElementsButtons.end(); ++it){
         element = (*it);
         if(!element){continue; i++;}
@@ -159,7 +159,7 @@ void MenuListDRC::update(GuiController * c){
     if(dpad_selection_changed && (lastSelectedItem != selectedItem)){
         lastSelectedItem = selectedItem;
         if(selectedItem >= 0 && (u32) selectedItem < listElementsButtons.size()){
-            int i = 0;
+            s32 i = 0;
             MenuElement * element = NULL;
             for (std::vector<MenuElement*>::iterator it = listElementsButtons.begin() ; it != listElementsButtons.end(); ++it){
                 element = (*it);

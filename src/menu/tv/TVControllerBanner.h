@@ -25,7 +25,7 @@
 class TVControllerBanner : public GuiFrame, public sigslot::has_slots<>
 {
 public:
-    TVControllerBanner(int w, int h);
+    TVControllerBanner(s32 w, s32 h);
     virtual ~TVControllerBanner();
 
     void draw(CVideo *pVideo);

@@ -96,7 +96,7 @@ bool DirList::InternalLoadPath(std::string &folderpath)
 
 			if(Flags & CheckSubfolders)
 			{
-				int length = folderpath.size();
+				s32 length = folderpath.size();
 				if(length > 2 && folderpath[length-1] != '/')
 					folderpath += '/';
 				folderpath += filename;
@@ -136,7 +136,7 @@ void DirList::AddEntrie(const std::string &filepath, const char * filename, bool
 	if(!filename)
 		return;
 
-	int pos = FileInfo.size();
+	s32 pos = FileInfo.size();
 
 	FileInfo.resize(pos+1);
 
@@ -165,7 +165,7 @@ void DirList::ClearList()
 	std::vector<DirEntry>().swap(FileInfo);
 }
 
-const char * DirList::GetFilename(int ind) const
+const char * DirList::GetFilename(s32 ind) const
 {
 	if (!valid(ind))
 		return "";
@@ -199,7 +199,7 @@ void DirList::SortList(bool (*SortFunc)(const DirEntry &a, const DirEntry &b))
 		std::sort(FileInfo.begin(), FileInfo.end(), SortFunc);
 }
 
-u64 DirList::GetFilesize(int index) const
+u64 DirList::GetFilesize(s32 index) const
 {
 	struct stat st;
 	const char *path = GetFilepath(index);
@@ -210,7 +210,7 @@ u64 DirList::GetFilesize(int index) const
 	return st.st_size;
 }
 
-int DirList::GetFileIndex(const char *filename) const
+s32 DirList::GetFileIndex(const char *filename) const
 {
 	if(!filename)
 		return -1;

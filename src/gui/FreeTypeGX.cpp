@@ -1,6 +1,6 @@
 /*
  * FreeTypeGX is a wrapper class for libFreeType which renders a compiled
- * FreeType parsable font into a GX texture for Wii homebrew development.
+ * FreeType parsable font so a GX texture for Wii homebrew development.
  * Copyright (C) 2008 Armin Tamzarian
  * Modified by Dimok, 2015 for WiiU GX2
  *
@@ -34,7 +34,7 @@ using namespace std;
  */
 FreeTypeGX::FreeTypeGX(const uint8_t* fontBuffer, FT_Long bufferSize, bool lastFace)
 {
-	int faceIndex = 0;
+	int32_t faceIndex = 0;
 	ftPointSize = 0;
     GX2InitSampler(&ftSampler, GX2_TEX_CLAMP_CLAMP_BORDER, GX2_TEX_XY_FILTER_BILINEAR);
 
@@ -78,7 +78,7 @@ wchar_t* FreeTypeGX::charToWideChar(const char* strChar)
 	wchar_t *strWChar = new (std::nothrow) wchar_t[strlen(strChar) + 1];
 	if (!strWChar) return NULL;
 
-	int bt = mbstowcs(strWChar, strChar, strlen(strChar));
+	int32_t bt = mbstowcs(strWChar, strChar, strlen(strChar));
 	if (bt > 0)
 	{
 		strWChar[bt] = 0;
@@ -389,7 +389,7 @@ uint16_t FreeTypeGX::drawText(CVideo *video, int16_t x, int16_t y, int16_t z, co
 		y_offset = getStyleOffsetHeight(textStyle, pixelSize);
 	}
 
-	int i = 0;
+	int32_t i = 0;
 	while (text[i])
 	{
 		ftgxCharData* glyphData = cacheGlyphData(text[i], pixelSize);
@@ -429,8 +429,8 @@ uint16_t FreeTypeGX::getWidth(const wchar_t *text, int16_t pixelSize)
 
 	uint16_t strWidth = 0;
 	FT_Vector pairDelta;
+	int32_t i = 0;
 
-	int i = 0;
 	while (text[i])
 	{
 		ftgxCharData* glyphData = cacheGlyphData(text[i], pixelSize);
@@ -505,7 +505,7 @@ void FreeTypeGX::getOffset(const wchar_t *text, int16_t pixelSize, uint16_t widt
 	int16_t strMax = 0, strMin = 9999;
 	uint16_t currWidth = 0;
 
-	int i = 0;
+	int32_t i = 0;
 
 	while (text[i])
 	{

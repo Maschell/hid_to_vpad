@@ -34,7 +34,7 @@ public:
 
     static MainWindow *instance;
 
-    static MainWindow *getInstance(int w,int h) {
+    static MainWindow *getInstance(s32 w,s32 h) {
         if(!instance){
             instance = new MainWindow(w, h);
         }
@@ -142,8 +142,8 @@ public:
 
     void appendToAllElements(GuiElement * element);
     void removeFromAllElements(GuiElement * element);
-    void setState(int i, int c = -1 );
-    void clearState(int i, int c = -1);
+    void setState(s32 i, s32 c = -1 );
+    void clearState(s32 i, s32 c = -1);
 
     void OpenInputGetterMenu(UController_Type controller_type);
     void openPageForController(UController_Type controller_type);
@@ -158,7 +158,7 @@ public:
     }
 
 private:
-    MainWindow(int w, int h);
+    MainWindow(s32 w, s32 h);
     void SetupMainView(void);
 
     void OnOpenEffectFinish(GuiElement *element);
@@ -170,7 +170,7 @@ private:
 
     void clickListEntryByController(UController_Type controller_type);
 
-    int width, height;
+    s32 width, height;
     std::vector<GuiElement *> drcElements;
     std::vector<GuiElement *> tvElements;
 

@@ -12,7 +12,7 @@ Resources * Resources::instance = NULL;
 
 void Resources::Clear()
 {
-	for(int i = 0; RecourceList[i].filename != NULL; ++i)
+	for(s32 i = 0; RecourceList[i].filename != NULL; ++i)
 	{
 		if(RecourceList[i].CustomFile)
 		{
@@ -38,7 +38,7 @@ bool Resources::LoadFiles(const char * path)
 	bool result = false;
 	Clear();
 
-	for(int i = 0; RecourceList[i].filename != NULL; ++i)
+	for(s32 i = 0; RecourceList[i].filename != NULL; ++i)
 	{
         std::string fullpath(path);
         fullpath += "/";
@@ -59,7 +59,7 @@ bool Resources::LoadFiles(const char * path)
 
 const u8 * Resources::GetFile(const char * filename)
 {
-	for(int i = 0; RecourceList[i].filename != NULL; ++i)
+	for(s32 i = 0; RecourceList[i].filename != NULL; ++i)
 	{
 		if(strcasecmp(filename, RecourceList[i].filename) == 0)
 		{
@@ -72,7 +72,7 @@ const u8 * Resources::GetFile(const char * filename)
 
 u32 Resources::GetFileSize(const char * filename)
 {
-	for(int i = 0; RecourceList[i].filename != NULL; ++i)
+	for(s32 i = 0; RecourceList[i].filename != NULL; ++i)
 	{
 		if(strcasecmp(filename, RecourceList[i].filename) == 0)
 		{
@@ -87,14 +87,14 @@ GuiImageData * Resources::GetImageData(const char * filename)
     if(!instance)
         instance = new Resources;
 
-    std::map<std::string, std::pair<unsigned int, GuiImageData *> >::iterator itr = instance->imageDataMap.find(std::string(filename));
+    std::map<std::string, std::pair<u32, GuiImageData *> >::iterator itr = instance->imageDataMap.find(std::string(filename));
     if(itr != instance->imageDataMap.end())
     {
         itr->second.first++;
         return itr->second.second;
     }
 
-	for(int i = 0; RecourceList[i].filename != NULL; ++i)
+	for(s32 i = 0; RecourceList[i].filename != NULL; ++i)
 	{
 		if(strcasecmp(filename, RecourceList[i].filename) == 0)
 		{
@@ -117,7 +117,7 @@ GuiImageData * Resources::GetImageData(const char * filename)
 
 void Resources::RemoveImageData(GuiImageData * image)
 {
-    std::map<std::string, std::pair<unsigned int, GuiImageData *> >::iterator itr;
+    std::map<std::string, std::pair<u32, GuiImageData *> >::iterator itr;
 
     for(itr = instance->imageDataMap.begin(); itr != instance->imageDataMap.end(); itr++)
     {
@@ -140,14 +140,14 @@ GuiSound * Resources::GetSound(const char * filename)
     if(!instance)
         instance = new Resources;
 
-    std::map<std::string, std::pair<unsigned int, GuiSound *> >::iterator itr = instance->soundDataMap.find(std::string(filename));
+    std::map<std::string, std::pair<u32, GuiSound *> >::iterator itr = instance->soundDataMap.find(std::string(filename));
     if(itr != instance->soundDataMap.end())
     {
         itr->second.first++;
         return itr->second.second;
     }
 
-	for(int i = 0; RecourceList[i].filename != NULL; ++i)
+	for(s32 i = 0; RecourceList[i].filename != NULL; ++i)
 	{
 		if(strcasecmp(filename, RecourceList[i].filename) == 0)
 		{
@@ -170,7 +170,7 @@ GuiSound * Resources::GetSound(const char * filename)
 
 void Resources::RemoveSound(GuiSound * sound)
 {
-    std::map<std::string, std::pair<unsigned int, GuiSound *> >::iterator itr;
+    std::map<std::string, std::pair<u32, GuiSound *> >::iterator itr;
 
     for(itr = instance->soundDataMap.begin(); itr != instance->soundDataMap.end(); itr++)
     {

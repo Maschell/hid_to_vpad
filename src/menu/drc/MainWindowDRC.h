@@ -25,12 +25,12 @@
 
 class MainWindowDRC : public GuiConfigurationScreen, public sigslot::has_slots<>{
 public:
-    MainWindowDRC(int w, int h);
+    MainWindowDRC(s32 w, s32 h);
     virtual ~MainWindowDRC();
 
     void clickListEntryByController(UController_Type controller_type);
 private:
-    int width, height;
+    s32 width, height;
     GuiImageData * windowSplitter_imgdata;
     GuiImage windowSplitter_img;
     MainWindowContent content;
@@ -38,7 +38,7 @@ private:
     GuiText versionText;
     GuiText ipAddress;
 
-    void setState(int i, int c);
+    void setState(s32 i, s32 c);
     void process();
 };
 

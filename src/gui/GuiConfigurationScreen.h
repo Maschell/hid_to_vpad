@@ -23,11 +23,11 @@
 class GuiConfigurationScreen : public GuiFrame
 {
 public:
-    GuiConfigurationScreen(int w, int h) : GuiFrame(w, h) {}
+    GuiConfigurationScreen(s32 w, s32 h) : GuiFrame(w, h) {}
     virtual ~GuiConfigurationScreen() {}
 
-    sigslot::signal2<GuiConfigurationScreen *, int> gameLaunchClicked;
-    sigslot::signal2<GuiConfigurationScreen *, int> gameSelectionChanged;
+    sigslot::signal2<GuiConfigurationScreen *, s32> gameLaunchClicked;
+    sigslot::signal2<GuiConfigurationScreen *, s32> gameSelectionChanged;
 };
 
 #endif /* GUICONFIGURATIONSCREEN_H_ */

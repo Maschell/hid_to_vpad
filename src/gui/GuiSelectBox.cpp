@@ -151,7 +151,7 @@ void GuiSelectBox::OnDPADClick(GuiButton *button, const GuiController *controlle
     }
 }
 
-void GuiSelectBox::Init(std::map<std::string,std::string> values, int valueID)
+void GuiSelectBox::Init(std::map<std::string,std::string> values, s32 valueID)
 {
     if((u32)valueID >= values.size()){
         valueID = 0;
@@ -164,7 +164,7 @@ void GuiSelectBox::Init(std::map<std::string,std::string> values, int valueID)
 
     valueButtons.resize(values.size());
 
-    int i = 0;
+    s32 i = 0;
     f32 imgScale = 1.0f;
     std::map<std::string, std::string>::iterator itr;
     for(itr = values.begin(); itr != values.end(); itr++) {
@@ -240,7 +240,7 @@ GuiSelectBox::~GuiSelectBox()
 }
 
 
-void GuiSelectBox::setState(int s, int c)
+void GuiSelectBox::setState(s32 s, s32 c)
 {
 	GuiElement::setState(s, c);
 }

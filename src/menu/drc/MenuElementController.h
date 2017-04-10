@@ -21,7 +21,6 @@
 #include "controller_patcher/patcher/ControllerPatcherDefs.h"
 #include "controller_patcher/utils/CPRetainVars.hpp"
 #include "utils/StringTools.h"
-#include "menu/ControllerDefs.h"
 
 class MenuElementController : public MenuElement{
 	public:

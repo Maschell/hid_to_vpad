@@ -97,12 +97,12 @@
   }
 
   # Grab update file
-  if(-e "devkitProUpdatePPCr27.ini")
+  if(-e "devkitProUpdatePPCr29.ini")
   {
-	unlink("devkitProUpdatePPCr27.ini") or die $!;
+	unlink("devkitProUpdatePPCr29.ini") or die $!;
   }
   printf("Downloading update file...");
-  system($downloader . " https://raw.githubusercontent.com/MaschellTest/hid_to_vpad/master/other/devkitProUpdatePPCr27.ini") and die "Failed to download!";
+  system($downloader . " https://raw.githubusercontent.com/Maschell/hid_to_vpad/master/other/devkitProUpdatePPCr29.ini") and die "Failed to download!";
   printf("OK!\n");
 
   # Initialize versions & newVersions
@@ -143,7 +143,7 @@
 
   my %newFiles = ();
 
-  open(MYFILE, "<devkitProUpdatePPCr27.ini") or die $!;
+  open(MYFILE, "<devkitProUpdatePPCr29.ini") or die $!;
   while(<MYFILE>)
   {
     chomp;
@@ -161,7 +161,7 @@
     }
   }
   close(MYFILE);
-  unlink("devkitProUpdatePPCr27.ini") or die $!;
+  unlink("devkitProUpdatePPCr29.ini") or die $!;
 
   # see what to update
   my %updates = ();

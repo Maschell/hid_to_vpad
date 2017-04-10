@@ -195,10 +195,10 @@ bool ContentController::isKeyboard(){
 void ContentController::process(){
     ContentTemplate::process();
 
-    int connected = ControllerPatcher::getActiveMappingSlot(getControllerType());
+    s32 connectedSlot = ControllerPatcher::getActiveMappingSlot(getControllerType());
 
     //TODO: maybe just do it once and not every time?
-    if(connected != -1){
+    if(connectedSlot != -1){
         notConnectedFrame.setState(STATE_DISABLE_INPUT);
         notConnectedFrame.setVisible(false);
         connectedFrame.clearState(STATE_DISABLE_INPUT);
