@@ -48,19 +48,19 @@ Application::Application()
 }
 
 Application::~Application(){
-    log_printf("Application::~Application: Destroy music\n");
+    log_printf("Application::~Application(line %d): Destroy music\n",__LINE__);
 
     delete bgMusic;
 
-    log_printf("Application::~Application: Destroy controller\n");
+    log_printf("Application::~Application(line %d): Destroy controller\n",__LINE__);
 
     for(s32 i = 0; i < 5; i++)
         delete controller[i];
 
     //We may have to handle Asyncdelete in the Destructors.
-    log_printf("Application::~Application: Destroy async deleter\n");
+    log_printf("Application::~Application(line %d): Destroy async deleter\n",__LINE__);
     do{
-        log_printf("Application::~Application: Triggering AsyncDeleter\n");
+        log_printf("Application::~Application(line %d): Triggering AsyncDeleter\n",__LINE__);
         AsyncDeleter::triggerDeleteProcess();
         while(!AsyncDeleter::realListEmpty()){
             usleep(1000);
@@ -68,10 +68,10 @@ Application::~Application(){
     }while(!AsyncDeleter::deleteListEmpty());
     AsyncDeleter::destroyInstance();
 
-    log_printf("Application::~Application: Clear resources\n");
+    log_printf("Application::~Application(line %d): Clear resources\n",__LINE__);
     Resources::Clear();
 
-    log_printf("Application::~Application: Stop sound handler\n");
+    log_printf("Application::~Application(line %d): Stop sound handler\n",__LINE__);
     SoundHandler::DestroyInstance();
 }
 
@@ -132,17 +132,17 @@ void Application::fadeOut(){
 }
 
 void Application::executeThread(void){
-    log_printf("Application::executeThread: Initialize video\n");
+    log_printf("Application::executeThread(line %d): Initialize video\n",__LINE__);
     video = new CVideo(GX2_TV_SCAN_MODE_720P, GX2_DRC_SINGLE);
 
-    log_printf("Application::executeThread: Video size %i x %i\n", video->getTvWidth(), video->getTvHeight());
+    log_printf("Application::executeThread(line %d): Video size %i x %i\n",__LINE__, video->getTvWidth(), video->getTvHeight());
 
     //! setup default Font
-    log_printf("Application::executeThread: Initialize main font system\n");
+    log_printf("Application::executeThread(line %d): Initialize main font system\n",__LINE__);
     FreeTypeGX *fontSystem = new FreeTypeGX(Resources::GetFile("font.ttf"), Resources::GetFileSize("font.ttf"), true);
     GuiText::setPresetFont(fontSystem);
 
-    log_printf("Application::executeThread: Initialize main window\n");
+    log_printf("Application::executeThread(line %d): Initialize main window\n",__LINE__);
 
     mainWindow = MainWindow::getInstance(video->getTvWidth(), video->getTvHeight());
 
@@ -150,7 +150,7 @@ void Application::executeThread(void){
     bgMusic->Play();
     bgMusic->SetVolume(50);
 
-    log_printf("Application::executeThread: Entering main loop\n");
+    log_printf("Application::executeThread(line %d): Entering main loop\n",__LINE__);
 
     //! main GX2 loop (60 Hz cycle with max priority on core 1)
     while(!exitApplication)

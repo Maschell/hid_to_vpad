@@ -99,7 +99,6 @@ void MainWindowContent::OnCloseEffectFinish(GuiElement *element){
 }
 
 MainWindowContent::~MainWindowContent(){
-    log_printf("~MainWindowContent()\n");
     remove(&footerFrame);
     remove(&bgImageColor);
     RemoveScreen();
