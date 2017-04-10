@@ -11,6 +11,8 @@ rev_date=`date -u +%Y%m%d%H%M%S`
 <app version="1">
   <name>HID to VPAD</name>
   <coder>Maschell</coder>
+  <category>tool</category>
+  <url>https://gbatemp.net/threads/hid-to-vpad.424127/</url>
   <version>$version-nightly-$rev_new</version>
   <release_date>$rev_date</release_date>
   <short_description>USB HID to gamepad input</short_description>
