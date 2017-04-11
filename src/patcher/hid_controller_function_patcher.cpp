@@ -64,8 +64,8 @@ DECL(s32, VPADRead, s32 chan, VPADData *buffer, u32 buffer_size, s32 *error) {
             }
             if(error != NULL){
                 *error = 0;
-                result = 1; // We want the WiiU to ignore everything else.
             }
+            result = 1; // We want the WiiU to ignore everything else.
         }
     }
 
@@ -88,8 +88,8 @@ DECL(s32,KPADReadEx, s32 chan, KPADData * buffer, u32 buffer_count, s32 *error )
             }
             if(error != NULL){
                 *error = 0;
-                 return 1; // We have saved one set of data. Should be enough because its no wireless communication.
             }
+            return 1; // We have saved one set of data. Should be enough because its no wireless communication.
         }else if(res != CONTROLLER_PATCHER_ERROR_MAPPING_DISABLED){
             //log_printf("KPADReadEx error: %d\n",res);
         }
