@@ -105,8 +105,8 @@ DECL(s32, WPADProbe, s32 chan, u32 * result ){
     (ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro4) && chan == 3)){
         if(result != NULL){
             *result = WPAD_EXT_PRO_CONTROLLER;
-            return 0;
         }
+        return 0;
     }
 
     return real_WPADProbe(chan,result);
