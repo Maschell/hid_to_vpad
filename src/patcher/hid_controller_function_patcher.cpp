@@ -53,7 +53,6 @@ DECL(void, __PPCExit, void){
 DECL(s32, VPADRead, s32 chan, VPADData *buffer, u32 buffer_size, s32 *error) {
     s32 result = real_VPADRead(chan, buffer, buffer_size, error);
 
-
     if(gHIDAttached && buffer_size > 0){
         ControllerPatcher::setRumble(UController_Type_Gamepad,!!VPADBASEGetMotorOnRemainingCount(0));
 
@@ -63,11 +62,10 @@ DECL(s32, VPADRead, s32 chan, VPADData *buffer, u32 buffer_size, s32 *error) {
                 //You can open the home menu this way, but not close it. Need a proper way to close it using the same button...
                 //OSSendAppSwitchRequest(5,0,0); //Open the home menu!
             }
-
-            *error = 0;
-            result = 1; // We want the WiiU to ignore everything else.
-        }else{
-
+            if(error != NULL){
+                *error = 0;
+                result = 1; // We want the WiiU to ignore everything else.
+            }
         }
     }
 
@@ -88,8 +86,10 @@ DECL(s32,KPADReadEx, s32 chan, KPADData * buffer, u32 buffer_count, s32 *error )
             if(buffer[0].pro.btns_h & WPAD_PRO_BUTTON_HOME){ //Pro controller doesn't work in home menu so it's okay to let this enabled.
                 OSSendAppSwitchRequest(5,0,0); //Open the home menu!
             }
-            *error = 0; //No error
-            return 1; // We have saved one set of data. Should be enough because its no wireless communication.
+            if(error != NULL){
+                *error = 0;
+                 return 1; // We have saved one set of data. Should be enough because its no wireless communication.
+            }
         }else if(res != CONTROLLER_PATCHER_ERROR_MAPPING_DISABLED){
             //log_printf("KPADReadEx error: %d\n",res);
         }
@@ -103,8 +103,10 @@ DECL(s32, WPADProbe, s32 chan, u32 * result ){
     (ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro2) && chan == 1) ||
     (ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro3) && chan == 2) ||
     (ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro4) && chan == 3)){
-        *result = WPAD_EXT_PRO_CONTROLLER;
-        return 0;
+        if(result != NULL){
+            *result = WPAD_EXT_PRO_CONTROLLER;
+            return 0;
+        }
     }
 
     return real_WPADProbe(chan,result);
@@ -165,7 +167,6 @@ DECL(void,WPADRead,s32 chan, WPADReadData *data ){
         (ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro3) && chan == 2) ||
         (ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro4) && chan == 3)){
             ControllerPatcher::setProControllerDataFromHID((void*)data,chan,PRO_CONTROLLER_MODE_WPADReadData);
-
     }else{
         real_WPADRead(chan,data);
     }
