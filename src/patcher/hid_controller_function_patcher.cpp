@@ -41,17 +41,50 @@ DECL(void, GX2CopyColorBufferToScanBuffer, const GX2ColorBuffer *colorBuffer, s3
 }
 
 DECL(void, __PPCExit, void){
-    log_printf("__PPCExit\n");
+    if(HID_DEBUG) log_printf("__PPCExit\n");
     CursorDrawer::destroyInstance();
 
     ControllerPatcher::destroyConfigHelper();
     ControllerPatcher::stopNetworkServer();
+
+    memset(gConnectCallback,0,sizeof(gConnectCallback));
+    memset(gExtensionCallback,0,sizeof(gExtensionCallback));
+    gCallbackCooldown = 0;
 
     real___PPCExit();
 }
 
 DECL(s32, VPADRead, s32 chan, VPADData *buffer, u32 buffer_size, s32 *error) {
     s32 result = real_VPADRead(chan, buffer, buffer_size, error);
+
+    if(result > 0 && (buffer[0].btns_h & VPAD_BUTTON_TV) && gCallbackCooldown == 0){
+        gCallbackCooldown = 0xFF;
+        if(HID_DEBUG) log_printf("my_VPADRead(line %d): Pressed the TV button. Maybe we can call the callbacks.!\n",__LINE__);
+
+        if(HID_DEBUG) log_printf("my_VPADRead(line %d): gExtensionCallback =  %08X %08X %08X %08X\n",__LINE__,gExtensionCallback[0],gExtensionCallback[1],gExtensionCallback[2],gExtensionCallback[3]);
+        if(HID_DEBUG) log_printf("my_VPADRead(line %d): gConnectCallback   =  %08X %08X %08X %08X\n",__LINE__,gConnectCallback[0],gConnectCallback[1],gConnectCallback[2],gConnectCallback[3]);
+
+        for(s32 i = 0;i<4;i++){
+            bool doCall = false;
+            if(i == 0){ doCall = ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro1); }
+            if(i == 1){ doCall = ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro2); }
+            if(i == 2){ doCall = ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro3); }
+            if(i == 3){ doCall = ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro4); }
+            if(doCall){
+                if(gExtensionCallback[i] != NULL){
+                    if(HID_DEBUG) log_printf("my_VPADRead(line %d): Called connect callback for pro controller in slot %d!\n",__LINE__,(i+1));
+                    gExtensionCallback[i](i,WPAD_EXT_PRO_CONTROLLER);
+                }
+                if(gConnectCallback[i]){
+                    if(HID_DEBUG) log_printf("my_VPADRead(line %d): Called extension callback for pro controller in slot %d!\n",__LINE__,(i+1));
+                    gConnectCallback[i](i,0);
+                }
+            }
+        }
+    }
+    if(gCallbackCooldown > 0){
+        gCallbackCooldown--;
+    }
 
     if(gHIDAttached && buffer_size > 0){
         ControllerPatcher::setRumble(UController_Type_Gamepad,!!VPADBASEGetMotorOnRemainingCount(0));
@@ -62,6 +95,7 @@ DECL(s32, VPADRead, s32 chan, VPADData *buffer, u32 buffer_size, s32 *error) {
                 //You can open the home menu this way, but not close it. Need a proper way to close it using the same button...
                 //OSSendAppSwitchRequest(5,0,0); //Open the home menu!
             }
+
             if(error != NULL){
                 *error = 0;
             }
@@ -77,12 +111,28 @@ DECL(s32, VPADRead, s32 chan, VPADData *buffer, u32 buffer_size, s32 *error) {
     return result;
 }
 
+DECL(s32, KPADRead, s32 chan, KPADData * buffer, u32 buffer_count){
+    if(buffer_count > 0){
+        s32 res = ControllerPatcher::setProControllerDataFromHID((void*)&buffer[0],chan,PRO_CONTROLLER_MODE_KPADDATA); //Check if a controller is connected and fill the buffer with data.
+        if(res >= 0){
+            if(buffer[0].pro.btns_h & WPAD_PRO_BUTTON_HOME){ //Pro controller doesn't work in home menu so it's okay to let this enabled.
+                OSSendAppSwitchRequest(5,0,0); //Open the home menu!
+            }
+            return 1; // We have saved one set of data. Should be enough because its no wireless communication.
+        }else if(res != CONTROLLER_PATCHER_ERROR_MAPPING_DISABLED){
+            //log_printf("KPADRead error: %d\n",res);
+        }
+    }
+
+    s32 result = real_KPADRead(chan,buffer,buffer_count);
+    return result;
+}
+
 DECL(s32,KPADReadEx, s32 chan, KPADData * buffer, u32 buffer_count, s32 *error ){
     //log_printf("KPADReadEx\n");
     if(buffer_count > 0){
         s32 res = ControllerPatcher::setProControllerDataFromHID((void*)&buffer[0],chan,PRO_CONTROLLER_MODE_KPADDATA); //Check if a controller is connected and fill the buffer with data.
         if(res >= 0){
-
             if(buffer[0].pro.btns_h & WPAD_PRO_BUTTON_HOME){ //Pro controller doesn't work in home menu so it's okay to let this enabled.
                 OSSendAppSwitchRequest(5,0,0); //Open the home menu!
             }
@@ -94,6 +144,7 @@ DECL(s32,KPADReadEx, s32 chan, KPADData * buffer, u32 buffer_count, s32 *error )
             //log_printf("KPADReadEx error: %d\n",res);
         }
     }
+
     s32 result = real_KPADReadEx(chan,buffer,buffer_count,error);
     return result;
 }
@@ -113,6 +164,7 @@ DECL(s32, WPADProbe, s32 chan, u32 * result ){
 }
 
 DECL(wpad_extension_callback_t,WPADSetExtensionCallback,s32 chan, wpad_extension_callback_t callback ){
+    gExtensionCallback[chan] = callback;
     if( (ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro1) && chan == 0) ||
         (ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro2) && chan == 1) ||
         (ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro3) && chan == 2) ||
@@ -125,6 +177,7 @@ DECL(wpad_extension_callback_t,WPADSetExtensionCallback,s32 chan, wpad_extension
 }
 
 DECL(wpad_connect_callback_t,KPADSetConnectCallback,s32 chan, wpad_connect_callback_t callback ){
+    gConnectCallback[chan] = callback;
     if( (ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro1) && chan == 0) ||
         (ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro2) && chan == 1) ||
         (ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro3) && chan == 2) ||
@@ -204,6 +257,7 @@ hooks_magic_t method_hooks_hid_controller[] __attribute__((section(".data"))) = 
     MAKE_MAGIC(KPADSetConnectCallback,              LIB_PADSCORE,   DYNAMIC_FUNCTION),
     MAKE_MAGIC(WPADSetExtensionCallback,            LIB_PADSCORE,   DYNAMIC_FUNCTION),
     MAKE_MAGIC(KPADGetUnifiedWpadStatus,            LIB_PADSCORE,   DYNAMIC_FUNCTION),
+    MAKE_MAGIC(KPADRead,                            LIB_PADSCORE,   DYNAMIC_FUNCTION),
     MAKE_MAGIC(KPADReadEx,                          LIB_PADSCORE,   DYNAMIC_FUNCTION),
     MAKE_MAGIC(WPADRead,                            LIB_PADSCORE,   DYNAMIC_FUNCTION),
     MAKE_MAGIC(WPADGetDataFormat,                   LIB_PADSCORE,   DYNAMIC_FUNCTION),
