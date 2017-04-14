@@ -23,27 +23,27 @@ msgstr "Derzeit ist kein Controller verbunden."
 
 #: src/menu/drc/content/ContentController.cpp:33
 msgid "Device connected. You can test it by pressing buttons."
-msgstr "Controller verbunden. Drücke Tasten um ihn zu testen."
+msgstr "Controller verbunden. DrÃ¼cke Tasten um ihn zu testen."
 
 #: src/menu/drc/content/ContentController.cpp:34
 msgid "Press A to remap to a new controller."
-msgstr "Drücke A um einen neuen Controller zu setzen."
+msgstr "DrÃ¼cke A um einen neuen Controller zu setzen."
 
 #: src/menu/drc/content/ContentController.cpp:35
 msgid "Mouse connected. You can test it by pressing buttons."
-msgstr "Maus verbunden. Drücke eine Taste um sie zu testen."
+msgstr "Maus verbunden. DrÃ¼cke eine Taste um sie zu testen."
 
 #: src/menu/drc/content/ContentController.cpp:36
 msgid "Keyboard connected. You can test it by pressing buttons."
-msgstr "Tastatur verbunden. Drücke eine Taste um sie zu testen."
+msgstr "Tastatur verbunden. DrÃ¼cke eine Taste um sie zu testen."
 
 #: src/menu/drc/content/ContentController.cpp:37
 msgid "Press X to add a Keyboard."
-msgstr "Drücke X um eine Tastatur hinzufügen."
+msgstr "DrÃ¼cke X um eine Tastatur hinzufÃ¼gen."
 
 #: src/menu/drc/content/ContentController.cpp:38
 msgid "Press X to add a Mouse."
-msgstr "Drücke X um eine Maus hinzufügen."
+msgstr "DrÃ¼cke X um eine Maus hinzufÃ¼gen."
 
 #: src/menu/drc/content/ContentController.cpp:39
 msgid "Keyboard connected."
@@ -55,7 +55,7 @@ msgstr "Maus verbunden."
 
 #: src/menu/drc/content/ContentController.cpp:51
 msgid "Press A to map a controller to "
-msgstr "Drücke A um einen Controller festzulegen für "
+msgstr "DrÃ¼cke A um einen Controller festzulegen fÃ¼r "
 
 #: src/menu/drc/content/ContentHelp.cpp:20 src/menu/drc/MenuListDRC.cpp:40
 msgid "Help"
@@ -67,7 +67,7 @@ msgstr "Mein Controller funktioniert nicht!"
 
 #: src/menu/drc/content/ContentHelp.cpp:46
 msgid "Make sure you have a valid config in the folder \"sd:/wiiu/controller\""
-msgstr "Sei dir sicher, dass eine gültige Config im Ordner \"sd:/wiiu/controller\" ist"
+msgstr "Sei dir sicher, dass eine gÃ¼ltige Config im Ordner \"sd:/wiiu/controller\" ist"
 
 #: src/menu/drc/content/ContentHelp.cpp:54
 msgid "Where do I get the config files from?"
@@ -87,7 +87,7 @@ msgstr "Wie erstelle ich selbst eine?"
 
 #: src/menu/drc/content/ContentHelp.cpp:83
 msgid "You're lucky! There a whole wiki about creating them:"
-msgstr "Du hast Glück! Es gibt ein Wiki mit allen Informationen."
+msgstr "Du hast GlÃ¼ck! Es gibt ein Wiki mit allen Informationen."
 
 #: src/menu/drc/content/ContentHelp.cpp:97
 msgid "XYZ is not working!"
@@ -95,11 +95,11 @@ msgstr "XYZ funktioniert nicht."
 
 #: src/menu/drc/content/ContentHelp.cpp:104
 msgid "If you find a bug, please open an issue on github"
-msgstr "Wenn du einen Fehler findest, eröffnet bitte ein Issue auf Github"
+msgstr "Wenn du einen Fehler findest, erÃ¶ffne bitte ein Issue auf Github"
 
 #: src/menu/drc/content/ContentHelp.cpp:111
 msgid "Could you add feature XYZ? Please!"
-msgstr "Ist Feature XYZ möglick? BITTE!"
+msgstr "Ist Feature XYZ mÃ¶glich? BITTE!"
 
 #: src/menu/drc/content/ContentHelp.cpp:118
 msgid "Maybe.It depends on the request, I can't promise anything."
@@ -107,7 +107,7 @@ msgstr "Vielleicht. Es kommt drauf an, ich kann nichts versprechen."
 
 #: src/menu/drc/content/ContentHelp.cpp:124
 msgid "Just open an issue and I'll try to do my best."
-msgstr "Eröffne ein Issue und vielleicht kann ich helfen."
+msgstr "ErÃ¶ffne ein Issue und vielleicht kann ich helfen."
 
 #: src/menu/drc/content/ContentHome.cpp:22
 msgid "Welcome to HID to VPAD!"
@@ -119,11 +119,11 @@ msgstr "HID to VPAD erlaubt es dir deine USB-Controller auf deiner WiiU als Game
 
 #: src/menu/drc/content/ContentHome.cpp:24
 msgid "Before you use your controller, you may need to provide a valid config. More information and config files can be found in the help section or on gbatemp.net (gbatemp.net/threads/424127/)."
-msgstr "Bevor du eigene Controller verwenden kannst, brauchst du möglicherweise eine Config. Informationen findest du unter Hilfe oder auf gbatemp (gbatemp.net/threads/424127/)."
+msgstr "Bevor du eigene Controller verwenden kannst, brauchst du mÃ¶glicherweise eine Config. Informationen findest du unter Hilfe oder auf gbatemp (gbatemp.net/threads/424127/)."
 
 #: src/menu/drc/content/ContentHome.cpp:25
 msgid "To map a device, select a controller from the list on the left hand side."
-msgstr "Wähle links einen Controller aus um fortzufahren."
+msgstr "WÃ¤hle links einen Controller aus um fortzufahren."
 
 #: src/menu/drc/content/ContentNetworkHelp.cpp:20
 #: src/menu/drc/MenuListDRC.cpp:41
@@ -140,11 +140,11 @@ msgstr "Er erlaubt es dir Controller von deinem PC mit deiner WiiU zu "
 
 #: src/menu/drc/content/ContentNetworkHelp.cpp:54
 msgid "HID to VPAD. This way for example XInput- and HID-Bluetooth-Devices"
-msgstr "verbinden. So können XInput- and HID-Bluetooth-Geräte verwendet"
+msgstr "verbinden. So kÃ¶nnen XInput- and HID-Bluetooth-GerÃ¤te verwendet"
 
 #: src/menu/drc/content/ContentNetworkHelp.cpp:61
 msgid "can be used. It connects to your console over your local network."
-msgstr "werden. Es verbindet sich über dein Lokales Netzwerk."
+msgstr "werden. Es verbindet sich Ã¼ber dein Lokales Netzwerk."
 
 #: src/menu/drc/content/ContentNetworkHelp.cpp:68
 msgid "How do I use it?"
@@ -152,7 +152,7 @@ msgstr "Wie verwendet ich es?"
 
 #: src/menu/drc/content/ContentNetworkHelp.cpp:75
 msgid "Enter the IP (upper right corner!) of your console and press connect."
-msgstr "Gib die IP deiner Konsole ein und drück auf Connect. Wenn alles"
+msgstr "Gib die IP deiner Konsole ein und drÃ¼ck auf Connect. Wenn alles"
 
 #: src/menu/drc/content/ContentNetworkHelp.cpp:82
 msgid "If everything worked correctly, use the controller just like one"
@@ -160,7 +160,7 @@ msgstr "geklappt hat, kannst den Controller nun so nutzen als "
 
 #: src/menu/drc/content/ContentNetworkHelp.cpp:89
 msgid "connected via USB. You can find a detailed guide here:"
-msgstr "wäre er per USB verbunden. Weitere hilfe erhälst du hier:"
+msgstr "wÃ¤re er per USB verbunden. Weitere hilfe erhÃ¤lst du hier:"
 
 #: src/menu/drc/content/ContentNetworkHelp.cpp:96
 msgid "http://gbatemp.net/threads/hid-to-vpad.424127/"
@@ -176,11 +176,11 @@ msgstr "Bei einer Verbindung per Lan-Label sollte es keinen Lag geben."
 
 #: src/menu/drc/content/ContentNetworkHelp.cpp:119
 msgid "Wi-Fi may lead to some issues or lag, but it heavily depends on the"
-msgstr "W-Lan kann unter umständen zu Problemen führen, es kommt aber"
+msgstr "W-Lan kann unter umstÃ¤nden zu Problemen fÃ¼hren, es kommt aber"
 
 #: src/menu/drc/content/ContentNetworkHelp.cpp:126
 msgid "quality of your signal. If it's possible, connect everything via Ethernet."
-msgstr "auf das Signal an. Wenn möglich, nutze einen Lan-Adapter."
+msgstr "auf das Signal an. Wenn mÃ¶glich, nutze einen Lan-Adapter."
 
 #: src/menu/drc/content/ContentNetworkHelp.cpp:133
 msgid "Where can I get it?"
@@ -196,7 +196,7 @@ msgstr ""
 
 #: src/menu/drc/MainWindowContent.cpp:28
 msgid "Exit to HBL  "
-msgstr "Zurück zum HBL"
+msgstr "ZurÃ¼ck zum HBL"
 
 #: src/menu/drc/MainWindowContent.cpp:31
 msgid "Apply Patches"
@@ -240,16 +240,16 @@ msgstr "About"
 
 #: src/menu/InputGetterMenu.cpp:34
 msgid "Press any button on the USB-Controller you want to use."
-msgstr "Drücke eine Taste auf dem Controller den du nutzen möchstest."
+msgstr "DrÃ¼cke eine Taste auf dem Controller den du nutzen mÃ¶chstest."
 
 #: src/menu/InputGetterMenu.cpp:35
 msgid "Press B to disable the mapping"
-msgstr "Drücke B um die Verbindung zu trennen"
+msgstr "DrÃ¼cke B um die Verbindung zu trennen"
 
 #: src/menu/tv/TVControllerBanner.cpp:41
 msgid "Press       to return to HBL"
-msgstr "                  zurück zum HBL."
+msgstr "                  zurÃ¼ck zum HBL."
 
 #: src/menu/tv/TVControllerBanner.cpp:44
 msgid  "Press       to apply patches"
-msgstr "Drücke      zum starten."
+msgstr "DrÃ¼cke      zum starten."
