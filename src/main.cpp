@@ -35,6 +35,14 @@ extern "C" s32 Menu_Main(void){
     //!*******************************************************************
     //! do OS (for acquire) and sockets first so we got logging
     InitOSFunctionPointers();
+
+    if(OSGetTitleID()  == 0x00050000101a5f00L || // Shantae and the Pirate's Curse USA (reason: crashes when pressing HOME, Pro Controller not recognized)
+        OSGetTitleID() == 0x00050000101a9500L){  // Shantae and the Pirate's Curse EUR (reason: crashes when pressing HOME, Pro Controller not recognized)
+        SplashScreen(5, std::string("Error. This game is not supported. Starting without patches =(").c_str());
+        RestorePatches();
+        return EXIT_RELAUNCH_ON_LOAD;
+    }
+
     InitFSFunctionPointers();
     InitSocketFunctionPointers();
     InitGX2FunctionPointers();
@@ -46,7 +54,6 @@ extern "C" s32 Menu_Main(void){
     SetupKernelCallback();
 
     log_init("192.168.0.181");
-
     log_printf("HID to VPAD %s - %s %s - by Maschell\n\n",APP_VERION,__DATE__,__TIME__);
 
     //!*******************************************************************
