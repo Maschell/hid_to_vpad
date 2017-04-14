@@ -47,7 +47,8 @@ DECL(void, __PPCExit, void){
     ControllerPatcher::destroyConfigHelper();
     ControllerPatcher::stopNetworkServer();
 
-    memset(gConnectCallback,0,sizeof(gConnectCallback));
+    memset(gWPADConnectCallback,0,sizeof(gWPADConnectCallback));
+    memset(gKPADConnectCallback,0,sizeof(gKPADConnectCallback));
     memset(gExtensionCallback,0,sizeof(gExtensionCallback));
     gCallbackCooldown = 0;
 
@@ -62,7 +63,8 @@ DECL(s32, VPADRead, s32 chan, VPADData *buffer, u32 buffer_size, s32 *error) {
         if(HID_DEBUG) log_printf("my_VPADRead(line %d): Pressed the TV button. Maybe we can call the callbacks.!\n",__LINE__);
 
         if(HID_DEBUG) log_printf("my_VPADRead(line %d): gExtensionCallback =  %08X %08X %08X %08X\n",__LINE__,gExtensionCallback[0],gExtensionCallback[1],gExtensionCallback[2],gExtensionCallback[3]);
-        if(HID_DEBUG) log_printf("my_VPADRead(line %d): gConnectCallback   =  %08X %08X %08X %08X\n",__LINE__,gConnectCallback[0],gConnectCallback[1],gConnectCallback[2],gConnectCallback[3]);
+        if(HID_DEBUG) log_printf("my_VPADRead(line %d): gWPADConnectCallback   =  %08X %08X %08X %08X\n",__LINE__,gWPADConnectCallback[0],gWPADConnectCallback[1],gWPADConnectCallback[2],gWPADConnectCallback[3]);
+        if(HID_DEBUG) log_printf("my_VPADRead(line %d): gKPADConnectCallback   =  %08X %08X %08X %08X\n",__LINE__,gKPADConnectCallback[0],gKPADConnectCallback[1],gKPADConnectCallback[2],gKPADConnectCallback[3]);
 
         for(s32 i = 0;i<4;i++){
             bool doCall = false;
@@ -71,13 +73,17 @@ DECL(s32, VPADRead, s32 chan, VPADData *buffer, u32 buffer_size, s32 *error) {
             if(i == 2){ doCall = ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro3); }
             if(i == 3){ doCall = ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro4); }
             if(doCall){
-                if(gExtensionCallback[i] != NULL){
-                    if(HID_DEBUG) log_printf("my_VPADRead(line %d): Called connect callback for pro controller in slot %d!\n",__LINE__,(i+1));
-                    gExtensionCallback[i](i,WPAD_EXT_PRO_CONTROLLER);
+                if(gWPADConnectCallback[i] != NULL){
+                    log_printf("my_VPADRead(line %d): Called WPAD connect callback for pro controller in slot %d!\n",__LINE__,(i+1));
+                    gWPADConnectCallback[i](i,0);
                 }
-                if(gConnectCallback[i]){
-                    if(HID_DEBUG) log_printf("my_VPADRead(line %d): Called extension callback for pro controller in slot %d!\n",__LINE__,(i+1));
-                    gConnectCallback[i](i,0);
+                if(gKPADConnectCallback[i] != NULL){
+                    log_printf("my_VPADRead(line %d): Called KPAD connect callback for pro controller in slot %d!\n",__LINE__,(i+1));
+                    gKPADConnectCallback[i](i,0);
+                }
+                if(gExtensionCallback[i] != NULL){
+                    log_printf("my_VPADRead(line %d): Called extension callback for pro controller in slot %d!\n",__LINE__,(i+1));
+                    gExtensionCallback[i](i,WPAD_EXT_PRO_CONTROLLER);
                 }
             }
         }
@@ -115,6 +121,7 @@ DECL(s32, KPADRead, s32 chan, KPADData * buffer, u32 buffer_count){
     if(buffer_count > 0){
         s32 res = ControllerPatcher::setProControllerDataFromHID((void*)&buffer[0],chan,PRO_CONTROLLER_MODE_KPADDATA); //Check if a controller is connected and fill the buffer with data.
         if(res >= 0){
+
             if(buffer[0].pro.btns_h & WPAD_PRO_BUTTON_HOME){ //Pro controller doesn't work in home menu so it's okay to let this enabled.
                 OSSendAppSwitchRequest(5,0,0); //Open the home menu!
             }
@@ -124,15 +131,14 @@ DECL(s32, KPADRead, s32 chan, KPADData * buffer, u32 buffer_count){
         }
     }
 
-    s32 result = real_KPADRead(chan,buffer,buffer_count);
-    return result;
+    return real_KPADRead(chan,buffer,buffer_count);
 }
 
 DECL(s32,KPADReadEx, s32 chan, KPADData * buffer, u32 buffer_count, s32 *error ){
-    //log_printf("KPADReadEx\n");
     if(buffer_count > 0){
         s32 res = ControllerPatcher::setProControllerDataFromHID((void*)&buffer[0],chan,PRO_CONTROLLER_MODE_KPADDATA); //Check if a controller is connected and fill the buffer with data.
         if(res >= 0){
+            //if(chan == 0) log_printf("my   %08X %08X %08X\n",buffer->pro.btns_h,buffer->pro.btns_d,buffer->pro.btns_r);
             if(buffer[0].pro.btns_h & WPAD_PRO_BUTTON_HOME){ //Pro controller doesn't work in home menu so it's okay to let this enabled.
                 OSSendAppSwitchRequest(5,0,0); //Open the home menu!
             }
@@ -144,16 +150,14 @@ DECL(s32,KPADReadEx, s32 chan, KPADData * buffer, u32 buffer_count, s32 *error )
             //log_printf("KPADReadEx error: %d\n",res);
         }
     }
-
-    s32 result = real_KPADReadEx(chan,buffer,buffer_count,error);
-    return result;
+    return real_KPADReadEx(chan,buffer,buffer_count,error);
 }
 
 DECL(s32, WPADProbe, s32 chan, u32 * result ){
-    if((ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro1) && chan == 0) ||
-    (ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro2) && chan == 1) ||
-    (ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro3) && chan == 2) ||
-    (ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro4) && chan == 3)){
+   if( (chan == 0 && ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro1)) ||
+        (chan == 1 && ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro2)) ||
+        (chan == 2 && ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro3)) ||
+        (chan == 3 && ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro4))){
         if(result != NULL){
             *result = WPAD_EXT_PRO_CONTROLLER;
         }
@@ -163,12 +167,27 @@ DECL(s32, WPADProbe, s32 chan, u32 * result ){
     return real_WPADProbe(chan,result);
 }
 
+DECL(wpad_connect_callback_t,WPADSetConnectCallback,s32 chan, wpad_connect_callback_t callback ){
+    //log_printf("WPADSetConnectCallback chan %d %08X\n",chan,callback);
+    gWPADConnectCallback[chan] = callback;
+    if( (chan == 0 && ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro1)) ||
+        (chan == 1 && ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro2)) ||
+        (chan == 2 && ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro3)) ||
+        (chan == 3 && ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro4))){
+            if(callback != NULL){
+                callback(chan,0);
+            }
+    }
+    return real_WPADSetConnectCallback(chan,callback);
+}
+
 DECL(wpad_extension_callback_t,WPADSetExtensionCallback,s32 chan, wpad_extension_callback_t callback ){
+    //log_printf("WPADSetExtensionCallback chan %d %08X\n",chan,callback);
     gExtensionCallback[chan] = callback;
-    if( (ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro1) && chan == 0) ||
-        (ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro2) && chan == 1) ||
-        (ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro3) && chan == 2) ||
-        (ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro4) && chan == 3)){
+    if((chan == 0 && ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro1)) ||
+        (chan == 1 && ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro2)) ||
+        (chan == 2 && ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro3)) ||
+        (chan == 3 && ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro4))){
             if(callback != NULL){
                 callback(chan,WPAD_EXT_PRO_CONTROLLER);
             }
@@ -177,11 +196,12 @@ DECL(wpad_extension_callback_t,WPADSetExtensionCallback,s32 chan, wpad_extension
 }
 
 DECL(wpad_connect_callback_t,KPADSetConnectCallback,s32 chan, wpad_connect_callback_t callback ){
-    gConnectCallback[chan] = callback;
-    if( (ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro1) && chan == 0) ||
-        (ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro2) && chan == 1) ||
-        (ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro3) && chan == 2) ||
-        (ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro4) && chan == 3)){
+    //log_printf("KPADSetConnectCallback chan %d %08X\n",chan,callback);
+    gKPADConnectCallback[chan] = callback;
+    if( (chan == 0 && ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro1)) ||
+        (chan == 1 && ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro2)) ||
+        (chan == 2 && ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro3)) ||
+        (chan == 3 && ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro4))){
             if(callback != NULL){
                 callback(chan,0);
             }
@@ -191,10 +211,11 @@ DECL(wpad_connect_callback_t,KPADSetConnectCallback,s32 chan, wpad_connect_callb
 
 DECL(u8, WPADGetBatteryLevel, s32 chan){
     u8 result = real_WPADGetBatteryLevel(chan);
-    if((ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro1) && chan == 0) ||
-    (ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro2) && chan == 1) ||
-    (ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro3) && chan == 2) ||
-    (ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro4) && chan == 3)){
+
+   if( (chan == 0 && ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro1)) ||
+        (chan == 1 && ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro2)) ||
+        (chan == 2 && ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro3)) ||
+        (chan == 3 && ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro4))){
         result = 4; // Full battery
     }
     return result;
@@ -203,22 +224,36 @@ DECL(u8, WPADGetBatteryLevel, s32 chan){
 //In case a game relies on this...
 DECL(u32, WPADGetDataFormat, s32 chan){
     u32 result = real_WPADGetDataFormat(chan);
-
-    if((ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro1) && chan == 0) ||
-    (ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro2) && chan == 1) ||
-    (ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro3) && chan == 2) ||
-    (ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro4) && chan == 3)){
+    //log_printf("WPADGetDataFormat chan: %d result: %d\n",chan,result);
+    if((chan == 0 && ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro1)) ||
+    (chan == 1 && ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro2)) ||
+    (chan == 2 && ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro3)) ||
+    (chan == 3 && ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro4))){
          result = WPAD_FMT_PRO_CONTROLLER;
     }
 
     return result;
 }
 
+DECL(s32, WPADSetDataFormat, s32 chan, u32 fmt){
+    s32 result = real_WPADSetDataFormat(chan,fmt);
+    if((chan == 0 && ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro1)) ||
+    (chan == 1 && ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro2)) ||
+    (chan == 2 && ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro3)) ||
+    (chan == 3 && ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro4))){
+         if(fmt == WPAD_FMT_PRO_CONTROLLER ){
+            result = 0;
+         }
+    }
+    // log_printf("WPADSetDataFormat chan: %d fmt %d result: %d\n",chan,fmt,result);
+    return result;
+}
+
 DECL(void,WPADRead,s32 chan, WPADReadData *data ){
-    if((ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro1) && chan == 0) ||
-        (ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro2) && chan == 1) ||
-        (ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro3) && chan == 2) ||
-        (ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro4) && chan == 3)){
+    if((chan == 0 && ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro1)) ||
+        (chan == 1 && ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro2)) ||
+        (chan == 2 && ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro3)) ||
+        (chan == 3 && ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro4))){
             ControllerPatcher::setProControllerDataFromHID((void*)data,chan,PRO_CONTROLLER_MODE_WPADReadData);
     }else{
         real_WPADRead(chan,data);
@@ -226,10 +261,10 @@ DECL(void,WPADRead,s32 chan, WPADReadData *data ){
 }
 
 DECL(void,KPADGetUnifiedWpadStatus,s32 chan, KPADUnifiedWpadData * data, void * unknown ){
-    if((ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro1) && chan == 0) ||
-        (ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro2) && chan == 1) ||
-        (ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro3) && chan == 2) ||
-        (ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro4) && chan == 3)){
+    if((chan == 0 && ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro1)) ||
+        (chan == 1 && ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro2)) ||
+        (chan == 2 && ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro3)) ||
+        (chan == 3 && ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro4))){
             ControllerPatcher::setProControllerDataFromHID((void*)data,chan,PRO_CONTROLLER_MODE_WPADReadData);
     }else{
         real_KPADGetUnifiedWpadStatus(chan,data,unknown);
@@ -255,12 +290,14 @@ hooks_magic_t method_hooks_hid_controller[] __attribute__((section(".data"))) = 
     MAKE_MAGIC(__PPCExit,                           LIB_CORE_INIT,  STATIC_FUNCTION),
     MAKE_MAGIC(WPADGetBatteryLevel,                 LIB_PADSCORE,   DYNAMIC_FUNCTION),
     MAKE_MAGIC(KPADSetConnectCallback,              LIB_PADSCORE,   DYNAMIC_FUNCTION),
+    MAKE_MAGIC(WPADSetConnectCallback,                 LIB_PADSCORE,   DYNAMIC_FUNCTION),
     MAKE_MAGIC(WPADSetExtensionCallback,            LIB_PADSCORE,   DYNAMIC_FUNCTION),
     MAKE_MAGIC(KPADGetUnifiedWpadStatus,            LIB_PADSCORE,   DYNAMIC_FUNCTION),
     MAKE_MAGIC(KPADRead,                            LIB_PADSCORE,   DYNAMIC_FUNCTION),
     MAKE_MAGIC(KPADReadEx,                          LIB_PADSCORE,   DYNAMIC_FUNCTION),
     MAKE_MAGIC(WPADRead,                            LIB_PADSCORE,   DYNAMIC_FUNCTION),
     MAKE_MAGIC(WPADGetDataFormat,                   LIB_PADSCORE,   DYNAMIC_FUNCTION),
+    MAKE_MAGIC(WPADSetDataFormat,                   LIB_PADSCORE,   DYNAMIC_FUNCTION),
     MAKE_MAGIC(WPADControlMotor,                    LIB_PADSCORE,   DYNAMIC_FUNCTION),
     MAKE_MAGIC(WPADProbe,                           LIB_PADSCORE,   DYNAMIC_FUNCTION),
 };
