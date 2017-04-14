@@ -16,7 +16,7 @@ void ApplyPatches(void);
 void RestorePatches(void);
 
 s32 isInMiiMakerHBL();
-void SplashScreen(s32 time,const char * message);
+bool SplashScreen(s32 time,const char * message,u8 pos, u32 button);
 #ifdef __cplusplus
 }
 #endif

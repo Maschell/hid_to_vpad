@@ -35,19 +35,26 @@ extern "C" s32 Menu_Main(void){
     //!*******************************************************************
     //! do OS (for acquire) and sockets first so we got logging
     InitOSFunctionPointers();
+    InitVPadFunctionPointers();
 
     if(OSGetTitleID()  == 0x00050000101a5f00L || // Shantae and the Pirate's Curse USA (reason: crashes when pressing HOME, Pro Controller not recognized)
         OSGetTitleID() == 0x00050000101a9500L){  // Shantae and the Pirate's Curse EUR (reason: crashes when pressing HOME, Pro Controller not recognized)
-        SplashScreen(5, std::string("Error. This game is not supported. Starting without patches =(").c_str());
-        RestorePatches();
-        return EXIT_RELAUNCH_ON_LOAD;
+        bool res = SplashScreen(5, std::string("This game is not fully supported. Press X to keep patches applied.").c_str(),0,VPAD_BUTTON_X);
+        if(res){
+            SplashScreen(0, std::string("Keeping patches applied. Pressing Home results in a crash.").c_str(),1,0);
+            SplashScreen(5, std::string("Pro Controller emulation is not supported.").c_str(),2,0);
+        }else{
+            SplashScreen(3, std::string("Unloading patches. The game should work normally!").c_str(),1,0);
+            RestorePatches();
+            return EXIT_RELAUNCH_ON_LOAD;
+        }
     }
 
     InitFSFunctionPointers();
     InitSocketFunctionPointers();
     InitGX2FunctionPointers();
     InitSysFunctionPointers();
-    InitVPadFunctionPointers();
+
     InitPadScoreFunctionPointers();
     InitAXFunctionPointers();
 
@@ -62,7 +69,7 @@ extern "C" s32 Menu_Main(void){
     log_printf("Menu_Main (line %d): Initializing the controller data\n",__LINE__);
     bool res = ControllerPatcher::Init();
     if(!res){
-        SplashScreen(5, std::string("Error. The app starts in 5 seconds without patches.").c_str());
+        SplashScreen(5, std::string("Error. The app starts in 5 seconds without patches.").c_str(),0,0);
         RestorePatches();
         return EXIT_RELAUNCH_ON_LOAD;
     }
@@ -142,7 +149,8 @@ s32 isInMiiMakerHBL(){
 }
 
 
-void SplashScreen(s32 time,const char * message){
+bool SplashScreen(s32 time,const char * message,u8 pos,u32 button){
+    bool result = false;
     // Prepare screen
     s32 screen_buf0_size = 0;
 
@@ -163,8 +171,8 @@ void SplashScreen(s32 time,const char * message){
     OSScreenFlipBuffersEx(0);
     OSScreenFlipBuffersEx(1);
 
-    OSScreenPutFontEx(0, 0, 0, message);
-    OSScreenPutFontEx(1, 0, 0, message);
+    OSScreenPutFontEx(0, 0, pos, message);
+    OSScreenPutFontEx(1, 0, pos, message);
 
     OSScreenFlipBuffersEx(0);
     OSScreenFlipBuffersEx(1);
@@ -173,8 +181,17 @@ void SplashScreen(s32 time,const char * message){
     s32 times = 1000;
     s32 sleepingtime = tickswait / 1000;
     s32 i=0;
+
+    VPADData vpad_data;
+    s32 error;
     while(i<times){
+        VPADRead(0, &vpad_data, 1, &error);
+        if(button > 0 && (vpad_data.btns_h & button)){
+            result = true;
+            i = times;
+        }
         i++;
         usleep(sleepingtime);
     }
+    return result;
 }
