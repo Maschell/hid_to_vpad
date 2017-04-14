@@ -19,6 +19,7 @@
 
 #include "gui/GuiButton.h"
 #include "content/ContentTemplate.h"
+#include "language/gettext.h"
 
 class MenuElement : public GuiButton
 {

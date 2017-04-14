@@ -20,6 +20,7 @@
 #include "controller_patcher/ControllerPatcher.hpp"
 #include "gui/Gui.h"
 #include "system/CThread.h"
+#include "language/gettext.h"
 
 class InputGetterMenu : public GuiFrame, public sigslot::has_slots<>
 {

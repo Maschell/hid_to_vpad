@@ -26,29 +26,30 @@ ContentController::ContentController(UController_Type controller_type_): Content
     , proinput(controller_type_)
     , connectedFrame(1280-450-2,720)
     , notConnectedFrame(1280-450-2,720)
-    , notConnectedLabel("Currently no device is connected.")
+    , notConnectedLabel(gettext("Currently no device is connected."))
     , notConnectedLabel2("")
     , not_connected_imgdata(Resources::GetImageData("not_connected.png"))
     , not_connected_img(not_connected_imgdata)
-    , connectedLabel("Device connected. You can test it by pressing buttons.")
-    , connectedLabel2("Press A to remap to a new controller.")
-    , mouseConnectedLabel("Mouse connected. You can test it by pressing buttons.")
-    , keyboardConnectedLabel("Keyboard connected. You can test it by pressing buttons.")
-    , mouseConnectedLabel2("Press X to add a Keyboard.")
-    , keyboardConnectedLabel2("Press X to add a Mouse.")
-    , mouseConnectedLabel3("Keyboard connected.")
-    , keyboardConnectedLabel3("Mouse connected.")
+    , connectedLabel(gettext("Device connected. You can test it by pressing buttons."))
+    , connectedLabel2(gettext("Press A to remap to a new controller."))
+    , mouseConnectedLabel(gettext("Mouse connected. You can test it by pressing buttons."))
+    , keyboardConnectedLabel(gettext("Keyboard connected. You can test it by pressing buttons."))
+    , mouseConnectedLabel2(gettext("Press X to add a Keyboard."))
+    , keyboardConnectedLabel2(gettext("Press X to add a Mouse."))
+    , mouseConnectedLabel3(gettext("Keyboard connected."))
+    , keyboardConnectedLabel3(gettext("Mouse connected."))
 {
     std::string text("");
     switch(controller_type){
-        case UController_Type_Gamepad: {text = "GamePad";        break; }
-        case UController_Type_Pro1: { text = "Pro Controller 1"; break; }
-        case UController_Type_Pro2: { text = "Pro Controller 2"; break; }
-        case UController_Type_Pro3: { text = "Pro Controller 3"; break; }
-        case UController_Type_Pro4: { text = "Pro Controller 4"; break; }
+        case UController_Type_Gamepad: {text = UController_Type_Gamepad_Name;        break; }
+        case UController_Type_Pro1: { text = UController_Type_Pro1_Name; break; }
+        case UController_Type_Pro2: { text = UController_Type_Pro2_Name; break; }
+        case UController_Type_Pro3: { text = UController_Type_Pro3_Name; break; }
+        case UController_Type_Pro4: { text = UController_Type_Pro4_Name; break; }
         default: break;
     }
-    notConnectedLabel2.setText(strfmt("Press A to map a controller to \"%s\".",text.c_str()).c_str());
+    notConnectedLabel2.setText(strfmt("%s\"%s\".",gettext("Press A to map a controller to "),text.c_str()).c_str());
+    notConnectedLabel2.setMaxWidth(800,GuiText::SCROLL_HORIZONTAL);
 
     headLine.setText(text.c_str());
     headLine.setFontSize(50);

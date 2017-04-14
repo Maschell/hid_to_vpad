@@ -45,8 +45,7 @@ MainWindowDRC::MainWindowDRC(s32 w, s32 h)
     versionText.setText(fmt("%s - %s",APP_VERION,__DATE__));
     versionText.setAlignment(ALIGN_TOP_LEFT);
     versionText.setPosition(windowSplitter_img.getOffsetX()+5,-25);
-
-    ipAddress.setText(wfmt("TCP Server running on: %u.%u.%u.%u",(hostIpAddress >> 24) & 0xFF, (hostIpAddress >> 16) & 0xFF, (hostIpAddress >> 8) & 0xFF, (hostIpAddress >> 0) & 0xFF));
+    ipAddress.setText(wfmt("%s%u.%u.%u.%u",gettext("TCP Server running on: "),(hostIpAddress >> 24) & 0xFF, (hostIpAddress >> 16) & 0xFF, (hostIpAddress >> 8) & 0xFF, (hostIpAddress >> 0) & 0xFF));
     ipAddress.setAlignment(ALIGN_TOP_RIGHT);
     ipAddress.setPosition(-5,-25);
     append(&windowSplitter_img);

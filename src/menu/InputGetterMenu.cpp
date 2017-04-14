@@ -20,6 +20,7 @@
 #include "Application.h"
 #include "gui/GuiElement.h"
 #include "utils/logger.h"
+#include "language/gettext.h"
 #include "dynamic_libs/padscore_functions.h"
 
 CThread * InputGetterMenu::pThread = NULL;
@@ -30,8 +31,8 @@ InputGetterMenu::InputGetterMenu(UController_Type controller_type)
     , backgroundImage(backgroundImageData)
     , bgBlur(1280, 720, (GX2Color){0, 0, 0, 255})
     , infoController("", 70, glm::vec4(0.2f, 0.2f, 0.2f, 1.0f))
-    , infoText("Press any button on the USB-Controller you want to use.", 35, glm::vec4(0.3f, 0.3f, 0.3f, 1.0f))
-    , infoTextreturn("Press B to disable the mapping", 55, glm::vec4(0.3f, 0.3f, 0.3f, 1.0f))
+    , infoText(gettext("Press any button on the USB-Controller you want to use."), 35, glm::vec4(0.3f, 0.3f, 0.3f, 1.0f))
+    , infoTextreturn(gettext("Press B to disable the mapping"), 55, glm::vec4(0.3f, 0.3f, 0.3f, 1.0f))
     , buttonBTrigger(GuiTrigger::CHANNEL_ALL, GuiTrigger::BUTTON_B, true)
     , DPADButtons(0,0)
 {
@@ -42,19 +43,19 @@ InputGetterMenu::InputGetterMenu(UController_Type controller_type)
     gameLauncherMenuFrame = GuiFrame(width, height);
     std::string name;
     if(controller_type == UController_Type_Gamepad){
-        name = "GamePad";
+        name = UController_Type_Gamepad_Name;
     }else if(controller_type == UController_Type_Pro1){
         WPADDisconnect(0);
-        name = "Pro Controller 1";
+        name = UController_Type_Pro1_Name;
     }else if(controller_type == UController_Type_Pro2){
         WPADDisconnect(1);
-        name = "Pro Controller 2";
+        name = UController_Type_Pro2_Name;
     }else if(controller_type == UController_Type_Pro3){
         WPADDisconnect(2);
-        name = "Pro Controller 3";
+        name = UController_Type_Pro3_Name;
     }else if(controller_type == UController_Type_Pro4){
         WPADDisconnect(3);
-        name = "Pro Controller 4";
+        name = UController_Type_Pro4_Name;
     }
 
     infoController.setText(name.c_str());

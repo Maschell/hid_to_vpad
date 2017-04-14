@@ -19,6 +19,7 @@
 
 #include "gui/Gui.h"
 #include "ContentTemplate.h"
+#include "language/gettext.h"
 
 class ContentNetworkHelp : public ContentTemplate{
 public:

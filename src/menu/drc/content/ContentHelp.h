@@ -20,6 +20,7 @@
 #include "gui/Gui.h"
 #include "ContentHome.h"
 #include "ContentTemplate.h"
+#include "language/gettext.h"
 
 class ContentHelp : public ContentTemplate{
 public:

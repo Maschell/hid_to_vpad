@@ -21,6 +21,7 @@
 #include "controller_patcher/utils/CPRetainVars.hpp"
 #include "utils/StringTools.h"
 #include "gui/Gui.h"
+#include "language/gettext.h"
 
 class TVButtonController : public GuiButton{
 	public:

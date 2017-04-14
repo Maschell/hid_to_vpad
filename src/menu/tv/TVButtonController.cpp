@@ -35,7 +35,7 @@ TVButtonController::TVButtonController(UController_Type controllertype)
     ,gamepad_imgdata(Resources::GetImageData("gamepadBig.png"))
     ,gamepad_img(gamepad_imgdata)
     ,controllerlabel("")
-    ,notAttachedLabel("No device")
+    ,notAttachedLabel(gettext("No device"))
     ,ledon_imgdata(Resources::GetImageData("ledon.png"))
     ,ledoff_imgdata(Resources::GetImageData("ledoff.png"))
 {
@@ -169,7 +169,7 @@ void TVButtonController::draw(CVideo *v){
     s32 foundSlot = ControllerPatcher::getActiveMappingSlot(getControllerType());
 
     if(foundSlot == -1){
-        name = "No device";
+        name = gettext("No device");
     }else{
         controllerConnected = 1;
 
@@ -178,9 +178,9 @@ void TVButtonController::draw(CVideo *v){
             if(info->type == CM_Type_Controller){
                 drawControllerName(v,info->vidpid.vid,info->vidpid.pid);
             }else if(info->type == CM_Type_RealController){
-                name = "Real Pro Controller";
+                name = gettext("Real Pro Controller");
             }else if(info->type == CM_Type_Mouse || info->type == CM_Type_Keyboard){
-                name = "Mouse / Keyboard";
+                name = gettext("Mouse / Keyboard");
             }
         }
     }

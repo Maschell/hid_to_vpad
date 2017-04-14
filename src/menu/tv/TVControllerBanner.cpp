@@ -38,10 +38,10 @@ TVControllerBanner::TVControllerBanner(s32 w, s32 h)
     , gamepad(UController_Type_Gamepad)
     , homebutton_imgdata(Resources::GetImageData("HomeButtonIcon.png"))
     , homebutton_img(homebutton_imgdata)
-    , exitHome("Press       to return to HBL")
+    , exitHome(gettext("Press       to return to HBL"))
     , plusbutton_imgdata(Resources::GetImageData("PlusButtonIcon.png"))
     , plusbutton_img(plusbutton_imgdata)
-    , exitPlus("Press       to apply patches")
+    , exitPlus(gettext("Press       to apply patches"))
     , wpadTouchTrigger(GuiTrigger::CHANNEL_2 | GuiTrigger::CHANNEL_3 | GuiTrigger::CHANNEL_4 | GuiTrigger::CHANNEL_5, GuiTrigger::BUTTON_A)
 {
     append(&background_img);

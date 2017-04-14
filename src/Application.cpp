@@ -44,6 +44,9 @@ Application::Application()
     //! create bgMusic
     bgMusic = new GuiSound(Resources::GetFile("bgMusic.mp3"), Resources::GetFileSize("bgMusic.mp3"));
 
+    //std::string languagePath = "sd:/wiiu/apps/hidtovpad/languages/english.lang";
+    //gettextLoadLanguage(languagePath.c_str());
+
     exitApplication = false;
 }
 

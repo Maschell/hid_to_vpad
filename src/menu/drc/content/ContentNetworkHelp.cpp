@@ -17,7 +17,7 @@
 #include "ContentNetworkHelp.h"
 
 ContentNetworkHelp::ContentNetworkHelp(): ContentTemplate(){
-    headLine.setText("Network Client");
+    headLine.setText(gettext("Network Client"));
     headLine.setFontSize(60);
     headLine.setAlignment(ALIGN_TOP_CENTER);
     headLine.setPosition(0,-110);
@@ -36,14 +36,14 @@ ContentNetworkHelp::ContentNetworkHelp(): ContentTemplate(){
     s32 fontSize2 = 24;
     glm::vec4 textColor = glm::vec4(0.3f,0.3f,0.3f,1.0f);
 
-    text = new GuiText("What is the Network Client?", fontSize, textColor);
+    text = new GuiText(gettext("What is the Network Client?"), fontSize, textColor);
     text->setPosition(positionX, positionY);
     text->setAlignment(ALIGN_LEFT | ALIGN_MIDDLE);
     helpText.push_back(text);
     append(text);
 
     positionY -= 35;
-    text = new GuiText("It allows you to use your controller connected to your Computer with", fontSize2, textColor);
+    text = new GuiText(gettext("It allows you to use your controller connected to your Computer with"), fontSize2, textColor);
     text->setPosition(positionX, positionY);
     text->setAlignment(ALIGN_LEFT | ALIGN_MIDDLE);
     helpText.push_back(text);
@@ -51,49 +51,49 @@ ContentNetworkHelp::ContentNetworkHelp(): ContentTemplate(){
     positionY -= 25;
 
 
-    text = new GuiText("HID to VPAD. This way for example XInput- and HID-Bluetooth-Devices", fontSize2, textColor);
+    text = new GuiText(gettext("HID to VPAD. This way for example XInput- and HID-Bluetooth-Devices"), fontSize2, textColor);
     text->setPosition(positionX, positionY);
     text->setAlignment(ALIGN_LEFT | ALIGN_MIDDLE);
     helpText.push_back(text);
     append(text);
     positionY -= 25;
 
-    text = new GuiText("can be used. It connects to your console over your local network.", fontSize2, textColor);
+    text = new GuiText(gettext("can be used. It connects to your console over your local network."), fontSize2, textColor);
     text->setPosition(positionX, positionY);
     text->setAlignment(ALIGN_LEFT | ALIGN_MIDDLE);
     helpText.push_back(text);
     append(text);
     positionY -= 35;
 
-     text = new GuiText("How do I use it?", fontSize, textColor);
+     text = new GuiText(gettext("How do I use it?"), fontSize, textColor);
     text->setPosition(positionX, positionY);
     text->setAlignment(ALIGN_LEFT | ALIGN_MIDDLE);
     helpText.push_back(text);
     append(text);
     positionY -= 35;
 
-    text = new GuiText("Enter the IP (upper right corner!) of your console and press connect.", fontSize2, textColor);
+    text = new GuiText(gettext("Enter the IP (upper right corner!) of your console and press connect."), fontSize2, textColor);
     text->setPosition(positionX, positionY);
     text->setAlignment(ALIGN_LEFT | ALIGN_MIDDLE);
     helpText.push_back(text);
     append(text);
     positionY -= 25;
 
-    text = new GuiText("If everything worked correctly, use the controller just like one", fontSize2, textColor);
+    text = new GuiText(gettext("If everything worked correctly, use the controller just like one"), fontSize2, textColor);
     text->setPosition(positionX, positionY);
     text->setAlignment(ALIGN_LEFT | ALIGN_MIDDLE);
     helpText.push_back(text);
     append(text);
     positionY -= 25;
 
-    text = new GuiText("connected via USB. You can find a detailed guide here:", fontSize2, textColor);
+    text = new GuiText(gettext("connected via USB. You can find a detailed guide here:"), fontSize2, textColor);
     text->setPosition(positionX, positionY);
     text->setAlignment(ALIGN_LEFT | ALIGN_MIDDLE);
     helpText.push_back(text);
     append(text);
     positionY -= 25;
 
-    text = new GuiText("http://gbatemp.net/threads/hid-to-vpad.424127/", fontSize2, textColor);
+    text = new GuiText(gettext("http://gbatemp.net/threads/hid-to-vpad.424127/"), fontSize2, textColor);
     text->setPosition(positionX, positionY);
     text->setAlignment(ALIGN_LEFT | ALIGN_MIDDLE);
     helpText.push_back(text);
@@ -102,49 +102,49 @@ ContentNetworkHelp::ContentNetworkHelp(): ContentTemplate(){
 
 
 
-    text = new GuiText("Is there any input lag?", fontSize, textColor);
+    text = new GuiText(gettext("Is there any input lag?"), fontSize, textColor);
     text->setPosition(positionX, positionY);
     text->setAlignment(ALIGN_LEFT | ALIGN_MIDDLE);
     helpText.push_back(text);
     append(text);
     positionY -= 35;
 
-    text = new GuiText("With a connection via Ethernet, you shouldn't notice any lag.", fontSize2, textColor);
+    text = new GuiText(gettext("With a connection via Ethernet, you shouldn't notice any lag."), fontSize2, textColor);
     text->setPosition(positionX, positionY);
     text->setAlignment(ALIGN_LEFT | ALIGN_MIDDLE);
     helpText.push_back(text);
     append(text);
     positionY -= 25;
 
-    text = new GuiText("Wi-Fi may lead to some issues or lag, but it heavily depends on the", fontSize2, textColor);
+    text = new GuiText(gettext("Wi-Fi may lead to some issues or lag, but it heavily depends on the"), fontSize2, textColor);
     text->setPosition(positionX, positionY);
     text->setAlignment(ALIGN_LEFT | ALIGN_MIDDLE);
     helpText.push_back(text);
     append(text);
     positionY -= 25;
 
-    text = new GuiText("quality of your signal. If it's possible, connect everything via Ethernet.", fontSize2, textColor);
+    text = new GuiText(gettext("quality of your signal. If it's possible, connect everything via Ethernet."), fontSize2, textColor);
     text->setPosition(positionX, positionY);
     text->setAlignment(ALIGN_LEFT | ALIGN_MIDDLE);
     helpText.push_back(text);
     append(text);
     positionY -= 35;
 
-    text = new GuiText("Where can I get it?", fontSize, textColor);
+    text = new GuiText(gettext("Where can I get it?"), fontSize, textColor);
     text->setPosition(positionX, positionY);
     text->setAlignment(ALIGN_LEFT | ALIGN_MIDDLE);
     helpText.push_back(text);
     append(text);
 
     positionY -= 35;
-    text = new GuiText("It's open source and you can find it here: ", fontSize2, textColor);
+    text = new GuiText(gettext("It's open source and you can find it here: "), fontSize2, textColor);
     text->setPosition(positionX, positionY);
     text->setAlignment(ALIGN_LEFT | ALIGN_MIDDLE);
     helpText.push_back(text);
     append(text);
 
     positionY -= 25;
-    text = new GuiText("https://github.com/QuarkTheAwesome/HIDtoVPADNetworkClient", fontSize2, textColor);
+    text = new GuiText(gettext("https://github.com/QuarkTheAwesome/HIDtoVPADNetworkClient"), fontSize2, textColor);
     text->setPosition(positionX, positionY);
     text->setAlignment(ALIGN_LEFT | ALIGN_MIDDLE);
     helpText.push_back(text);

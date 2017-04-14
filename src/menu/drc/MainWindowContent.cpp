@@ -25,10 +25,10 @@ MainWindowContent::MainWindowContent(s32 w, s32 h)
     , footer_img(footer_imgdata)
     , homebutton_imgdata(Resources::GetImageData("HomeButtonIcon.png"))
     , homebutton_img(homebutton_imgdata)
-    , exitHome("Exit to HBL  ")
+    , exitHome(gettext("Exit to HBL  "))
     , plusbutton_imgdata(Resources::GetImageData("PlusButtonIcon.png"))
     , plusbutton_img(plusbutton_imgdata)
-    , exitPlus("Apply Patches")
+    , exitPlus(gettext("Apply Patches"))
 {
     bgImageColor.setImageColor((GX2Color){  248, 249, 248, 255 }, 0);
     bgImageColor.setImageColor((GX2Color){  248, 249, 248, 255 }, 1);

@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (C) 2016,2017 Maschell
+ * Copyright (C) 2015 Dimok
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,33 +14,26 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ****************************************************************************/
-#ifndef _MAIN_WINDOW_DRC_H_
-#define _MAIN_WINDOW_DRC_H_
+#ifndef _GETTEXT_H_
+#define _GETTEXT_H_
 
-#include "gui/Gui.h"
-#include "gui/GuiConfigurationScreen.h"
-#include "MenuListDRC.h"
-#include "menu/MainWindow.h"
-#include "MainWindowContent.h"
-#include "language/gettext.h"
+#ifdef __cplusplus
+extern "C"
+{
+#endif
 
-class MainWindowDRC : public GuiConfigurationScreen, public sigslot::has_slots<>{
-public:
-    MainWindowDRC(s32 w, s32 h);
-    virtual ~MainWindowDRC();
+	bool gettextLoadLanguage(const char* langFile);
+	void gettextCleanUp(void);
+	/*
+	 * input msg = a text in ASCII
+	 * output = the translated msg in utf-8
+	 */
+	const char *gettext(const char *msg);
+#define tr(s) gettext(s)
+#define trNOOP(s)   s
 
-    void clickListEntryByController(UController_Type controller_type);
-private:
-    s32 width, height;
-    GuiImageData * windowSplitter_imgdata;
-    GuiImage windowSplitter_img;
-    MainWindowContent content;
-    MenuListDRC menuList;
-    GuiText versionText;
-    GuiText ipAddress;
+#ifdef __cplusplus
+}
+#endif
 
-    void setState(s32 i, s32 c);
-    void process();
-};
-
-#endif //_MAIN_WINDOW_DRC_H_
+#endif /* _GETTEXT_H_ */

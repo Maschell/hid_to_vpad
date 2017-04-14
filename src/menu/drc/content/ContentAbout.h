@@ -21,6 +21,7 @@
 #include "gui/Gui.h"
 #include "ContentHome.h"
 #include "ContentTemplate.h"
+#include "language/gettext.h"
 
 class ContentAbout : public ContentTemplate{
 public:

@@ -24,6 +24,7 @@
 #include "MenuElementController.h"
 #include "MenuElementInfo.h"
 #include "MenuSeperator.h"
+#include "language/gettext.h"
 
 class MenuListDRC : public GuiFrame, public sigslot::has_slots<>{
 public:

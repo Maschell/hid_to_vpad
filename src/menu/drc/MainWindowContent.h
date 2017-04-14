@@ -21,6 +21,7 @@
 #include "system/AsyncDeleter.h"
 #include "MainWindowContent.h"
 #include "content/ContentTemplate.h"
+#include "language/gettext.h"
 
 class MainWindowContent : public GuiFrame, public sigslot::has_slots<>{
 public:

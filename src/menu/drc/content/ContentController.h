@@ -23,6 +23,7 @@
 #include "menu/drc/MenuElementController.h"
 #include "menu/InputGetterMenu.h"
 #include "gui/GuiControllerInputDisplay.h"
+#include "language/gettext.h"
 
 class ContentController : public ContentTemplate{
 public:

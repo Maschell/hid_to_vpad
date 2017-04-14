@@ -1,7 +1,7 @@
 /****************************************************************************
  * Loadiine resource files.
  * This file is generated automatically.
- * Includes 98 files.
+ * Includes 95 files.
  *
  * NOTE:
  * Any manual modification of this file will be overwriten by the generation.
@@ -293,20 +293,11 @@ extern const u32 selectorSmall_png_size;
 extern const u8 seperator_png[];
 extern const u32 seperator_png_size;
 
-extern const u8 settingButton_png[];
-extern const u32 settingButton_png_size;
-
-extern const u8 settingSelectedButton_png[];
-extern const u32 settingSelectedButton_png_size;
-
 extern const u8 TVElementControllerBG_png[];
 extern const u32 TVElementControllerBG_png_size;
 
 extern const u8 TVElementControllerBGSelected_png[];
 extern const u32 TVElementControllerBGSelected_png_size;
-
-extern const u8 twittergithub_png[];
-extern const u32 twittergithub_png_size;
 
 extern const u8 TwitterIcon_png[];
 extern const u32 TwitterIcon_png_size;
@@ -407,11 +398,8 @@ static RecourceFile RecourceList[] =
 	{"selectorBig.png", selectorBig_png, selectorBig_png_size, NULL, 0},
 	{"selectorSmall.png", selectorSmall_png, selectorSmall_png_size, NULL, 0},
 	{"seperator.png", seperator_png, seperator_png_size, NULL, 0},
-	{"settingButton.png", settingButton_png, settingButton_png_size, NULL, 0},
-	{"settingSelectedButton.png", settingSelectedButton_png, settingSelectedButton_png_size, NULL, 0},
 	{"TVElementControllerBG.png", TVElementControllerBG_png, TVElementControllerBG_png_size, NULL, 0},
 	{"TVElementControllerBGSelected.png", TVElementControllerBGSelected_png, TVElementControllerBGSelected_png_size, NULL, 0},
-	{"twittergithub.png", twittergithub_png, twittergithub_png_size, NULL, 0},
 	{"TwitterIcon.png", TwitterIcon_png, TwitterIcon_png_size, NULL, 0},
 	{"windowSplitter.png", windowSplitter_png, windowSplitter_png_size, NULL, 0},
 	{NULL, NULL, 0, NULL, 0}

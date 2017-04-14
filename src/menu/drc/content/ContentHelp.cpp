@@ -17,7 +17,7 @@
 #include "ContentHelp.h"
 
 ContentHelp::ContentHelp(): ContentTemplate(){
-    headLine.setText("Help");
+    headLine.setText(gettext("Help"));
     headLine.setFontSize(60);
     headLine.setAlignment(ALIGN_TOP_CENTER);
     headLine.setPosition(0,-110);
@@ -36,14 +36,14 @@ ContentHelp::ContentHelp(): ContentTemplate(){
     s32 fontSize2 = 24;
     glm::vec4 textColor = glm::vec4(0.3f,0.3f,0.3f,1.0f);
 
-    text = new GuiText("My controller is not working!", fontSize, textColor);
+    text = new GuiText(gettext("My controller is not working!"), fontSize, textColor);
     text->setPosition(positionX, positionY);
     text->setAlignment(ALIGN_LEFT | ALIGN_MIDDLE);
     helpText.push_back(text);
     append(text);
 
     positionY -= 35;
-    text = new GuiText("Make sure you have a valid config in the folder \"sd:/wiiu/controller\"", fontSize2, textColor);
+    text = new GuiText(gettext("Make sure you have a valid config in the folder \"sd:/wiiu/controller\""), fontSize2, textColor);
     text->setPosition(positionX, positionY);
     text->setAlignment(ALIGN_LEFT | ALIGN_MIDDLE);
     helpText.push_back(text);
@@ -51,14 +51,14 @@ ContentHelp::ContentHelp(): ContentTemplate(){
     positionY -= 50;
 
 
-    text = new GuiText("Where do I get the config files from?", fontSize, textColor);
+    text = new GuiText(gettext("Where do I get the config files from?"), fontSize, textColor);
     text->setPosition(positionX, positionY);
     text->setAlignment(ALIGN_LEFT | ALIGN_MIDDLE);
     helpText.push_back(text);
     append(text);
     positionY -= 35;
 
-    text = new GuiText("You can create them by yourself or download them from ", fontSize2, textColor);
+    text = new GuiText(gettext("You can create them by yourself or download them from "), fontSize2, textColor);
     text->setPosition(positionX, positionY);
     text->setAlignment(ALIGN_LEFT | ALIGN_MIDDLE);
     helpText.push_back(text);
@@ -66,21 +66,21 @@ ContentHelp::ContentHelp(): ContentTemplate(){
     positionY -= 25;
 
 
-    text = new GuiText("https://github.com/Maschell/controller_patcher_configs", fontSize2, textColor);
+    text = new GuiText(gettext("https://github.com/Maschell/controller_patcher_configs"), fontSize2, textColor);
     text->setPosition(positionX, positionY);
     text->setAlignment(ALIGN_LEFT | ALIGN_MIDDLE);
     helpText.push_back(text);
     append(text);
     positionY -= 50;
 
-    text = new GuiText("I have no idea how create a own config!", fontSize, textColor);
+    text = new GuiText(gettext("I have no idea how create a own config!"), fontSize, textColor);
     text->setPosition(positionX, positionY);
     text->setAlignment(ALIGN_LEFT | ALIGN_MIDDLE);
     helpText.push_back(text);
     append(text);
     positionY -= 35;
 
-    text = new GuiText("You're lucky! There a whole wiki about creating them:", fontSize2, textColor);
+    text = new GuiText(gettext("You're lucky! There a whole wiki about creating them:"), fontSize2, textColor);
     text->setPosition(positionX, positionY);
     text->setAlignment(ALIGN_LEFT | ALIGN_MIDDLE);
     helpText.push_back(text);
@@ -94,34 +94,34 @@ ContentHelp::ContentHelp(): ContentTemplate(){
     append(text);
 
     positionY -= 50;
-    text = new GuiText("XYZ is not working!", fontSize, textColor);
+    text = new GuiText(gettext("XYZ is not working!"), fontSize, textColor);
     text->setPosition(positionX, positionY);
     text->setAlignment(ALIGN_LEFT | ALIGN_MIDDLE);
     helpText.push_back(text);
     append(text);
 
     positionY -= 35;
-    text = new GuiText("If you find a bug, please open an issue on github", fontSize2, textColor);
+    text = new GuiText(gettext("If you find a bug, please open an issue on github"), fontSize2, textColor);
     text->setPosition(positionX, positionY);
     text->setAlignment(ALIGN_LEFT | ALIGN_MIDDLE);
     helpText.push_back(text);
     append(text);
     positionY -= 50;
 
-    text = new GuiText("Could you add feature XYZ? Please!", fontSize, textColor);
+    text = new GuiText(gettext("Could you add feature XYZ? Please!"), fontSize, textColor);
     text->setPosition(positionX, positionY);
     text->setAlignment(ALIGN_LEFT | ALIGN_MIDDLE);
     helpText.push_back(text);
     append(text);
 
     positionY -= 35;
-    text = new GuiText("Maybe.It depends on the request, I can't promise anything.", fontSize2, textColor);
+    text = new GuiText(gettext("Maybe.It depends on the request, I can't promise anything."), fontSize2, textColor);
     text->setPosition(positionX, positionY);
     text->setAlignment(ALIGN_LEFT | ALIGN_MIDDLE);
     helpText.push_back(text);
     append(text);
     positionY -= 20;
-    text = new GuiText("Just open an issue and I'll try to do my best.", fontSize2, textColor);
+    text = new GuiText(gettext("Just open an issue and I'll try to do my best."), fontSize2, textColor);
     text->setPosition(positionX, positionY);
     text->setAlignment(ALIGN_LEFT | ALIGN_MIDDLE);
     helpText.push_back(text);

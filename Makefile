@@ -43,6 +43,7 @@ SOURCES		:=	src \
 				src/game \
 				src/gui \
 				src/kernel \
+                src/language \
 				src/menu \
 				src/menu/tv \
 				src/menu/drc \

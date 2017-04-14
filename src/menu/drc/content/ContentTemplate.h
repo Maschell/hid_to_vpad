@@ -19,8 +19,6 @@
 
 #include "gui/Gui.h"
 
-
-
 class ContentTemplate : public GuiFrame, public sigslot::has_slots<>{
 
 public:

@@ -16,6 +16,8 @@
 #include "version.h"
 #include "common/common.h"
 
+#include "language/gettext.h"
+
 #include "controller_patcher/ControllerPatcher.hpp"
 #include "utils/function_patcher.h"
 #include "patcher/hid_controller_function_patcher.hpp"

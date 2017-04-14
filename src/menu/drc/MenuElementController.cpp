@@ -40,7 +40,7 @@ MenuElementController::MenuElementController(UController_Type controllertype)
     ,gamepad_imgdata(Resources::GetImageData("gamepad.png"))
     ,gamepad_img(gamepad_imgdata)
     ,controllerlabel("")
-    ,notAttachedLabel("Nothing attached")
+    ,notAttachedLabel(gettext("Nothing attached"))
     ,ledon_imgdata(Resources::GetImageData("ledon.png"))
     ,ledoff_imgdata(Resources::GetImageData("ledoff.png"))
 {
@@ -157,7 +157,7 @@ void MenuElementController::draw(CVideo *v){
     controllerConnected = 0;
     s32 found = ControllerPatcher::getActiveMappingSlot(getControllerType());
     if(found == -1){
-        name = "No device";
+        name = gettext("No device");
     }else{
         controllerConnected = 1;
 
@@ -166,9 +166,9 @@ void MenuElementController::draw(CVideo *v){
             if(info->type == CM_Type_Controller){
                 drawControllerName(v,info->vidpid.vid,info->vidpid.pid);
             }else if(info->type == CM_Type_RealController){
-                name = "Real Pro Controller";
+                name = gettext("Real Pro Controller");
             }else if(info->type == CM_Type_Mouse || info->type == CM_Type_Keyboard){
-                name = "Mouse / Keyboard";
+                name = gettext("Mouse / Keyboard");
             }
         }
     }

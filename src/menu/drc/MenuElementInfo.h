@@ -19,6 +19,7 @@
 
 #include "MenuElement.h"
 #include "content/ContentTemplate.h"
+#include "language/gettext.h"
 
 class MenuElementInfo : public MenuElement{
 	public:
