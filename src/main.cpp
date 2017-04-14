@@ -38,6 +38,7 @@ extern "C" s32 Menu_Main(void){
     InitVPadFunctionPointers();
 
     if(OSGetTitleID()  == 0x00050000101a5f00L || // Shantae and the Pirate's Curse USA (reason: crashes when pressing HOME, Pro Controller not recognized)
+        OSGetTitleID() == 0x00050000101F7F00L || // Shantae and the Pirate's Curse JAP (シャンティ -海賊の呪い-) (reason: crashes when pressing HOME, Pro Controller not recognized)
         OSGetTitleID() == 0x00050000101a9500L){  // Shantae and the Pirate's Curse EUR (reason: crashes when pressing HOME, Pro Controller not recognized)
         bool res = SplashScreen(5, std::string("This game is not fully supported. Press X to keep patches applied.").c_str(),0,VPAD_BUTTON_X);
         if(res){
