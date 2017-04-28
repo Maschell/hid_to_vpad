@@ -52,7 +52,7 @@ before_deploy:
 - cd $TRAVIS_BUILD_DIR/
 - mkdir -p "wiiu/apps/hidtovpad"
 - mkdir -p "wiiu/controller"
-- git clone https://github.com/Maschell/controller_patcher_configs
+- git clone https://github.com/Maschell/controller_patcher_configs.git
 - cp ./controller_patcher_configs/*.ini ./wiiu/controller
 - commit="$(git rev-parse --short=7 HEAD)"
 - chmod +x gitrev.sh
@@ -60,7 +60,7 @@ before_deploy:
 - make
 - cp meta/* wiiu/apps/hidtovpad
 - cp hidtovpad.elf wiiu/apps/hidtovpad
-- zip -r hid_to_vpad_$versiontag.zip wiiu meta.xml icon.png
+- zip -r hid_to_vpad_$versiontag.zip wiiu
 - git config --global user.email "builds@travis-ci.com"
 - git config --global user.name "Travis CI"
 - export GIT_TAG=HIDtoVPAD-$versiontag
@@ -68,6 +68,9 @@ before_deploy:
 - commitMessage="$(echo -e "-\n" && echo "HID to VPAD nightly build. Not a stable release. Expect bugs!" && echo -e "\nCommitlog:\n")"
 - git tag $GIT_TAG -a -m "$commitMessage" -m "$commitLog"
 - git push --quiet https://$GITHUBKEY@github.com/Maschell/hid_to_vpad $GIT_TAG > /dev/null 2>&1
+- chmod +x ftpupload.sh
+- ./ftpupload.sh
+- cd $TRAVIS_BUILD_DIR/
 
 deploy:
   provider: releases
