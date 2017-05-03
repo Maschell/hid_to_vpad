@@ -9,7 +9,7 @@ rev_date=`date -u +%Y%m%d%H%M%S`
     cat <<EOF > ./meta/meta.xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <app version="1">
-  <name>HID to VPAD</name>
+  <name>HID to VPAD - nightly</name>
   <coder>Maschell</coder>
   <category>tool</category>
   <url>https://gbatemp.net/threads/hid-to-vpad.424127/</url>
