@@ -60,12 +60,15 @@ public:
     }
 private:
     Application();
+
     virtual ~Application();
 
     static Application *applicationInstance;
     static bool exitApplication;
 
     void executeThread(void);
+
+    void loadLanguageFromConfig();
 
     GuiSound *bgMusic;
     CVideo *video;

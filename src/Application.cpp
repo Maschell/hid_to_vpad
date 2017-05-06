@@ -24,6 +24,7 @@
 #include "resources/Resources.h"
 #include "sounds/SoundHandler.hpp"
 #include "utils/logger.h"
+#include "settings/CSettings.h"
 
 Application *Application::applicationInstance = NULL;
 bool Application::exitApplication = false;
@@ -41,11 +42,13 @@ Application::Application()
     controller[3] = new WPadController(GuiTrigger::CHANNEL_4);
     controller[4] = new WPadController(GuiTrigger::CHANNEL_5);
 
+    CSettings::instance()->Load();
+
     //! create bgMusic
     bgMusic = new GuiSound(Resources::GetFile("bgMusic.mp3"), Resources::GetFileSize("bgMusic.mp3"));
 
-    //std::string languagePath = "sd:/wiiu/apps/hidtovpad/languages/english.lang";
-    //gettextLoadLanguage(languagePath.c_str());
+    //! load language
+    loadLanguageFromConfig();
 
     exitApplication = false;
 }
@@ -214,4 +217,11 @@ void Application::executeThread(void){
     MainWindow::destroyInstance();
     delete fontSystem;
     delete video;
+}
+
+void Application::loadLanguageFromConfig(){
+    if(!CSettings::getValueAsString(CSettings::AppLanguage).empty()){
+        std::string languagePath = "sd:/wiiu/apps/hidtovpad/languages/" + CSettings::getValueAsString(CSettings::AppLanguage) + ".lang";
+        gettextLoadLanguage(languagePath.c_str());
+    }
 }

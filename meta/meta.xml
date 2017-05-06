@@ -2,10 +2,10 @@
 <app version="1">
   <name>HID to VPAD</name>
   <coder>Maschell</coder>
-  <version>v0.9h</version>
+  <version>v0.9i</version>
   <category>tool</category>
   <url>https://gbatemp.net/threads/hid-to-vpad.424127/</url>
-  <release_date>20170410173100</release_date>
+  <release_date>20170427194500</release_date>
   <short_description>USB HID to gamepad input</short_description>
   <long_description>Emulate input using various USB HID devices.
   </long_description>

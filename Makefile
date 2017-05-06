@@ -51,6 +51,7 @@ SOURCES		:=	src \
 				src/patcher \
 				src/resources \
 				src/sounds \
+				src/settings \
 				src/system \
 				src/utils \
 				src/video \
