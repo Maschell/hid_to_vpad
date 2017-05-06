@@ -1,5 +1,5 @@
 [Current Stable Release](https://github.com/Maschell/hid_to_vpad/releases/latest) | [Nightly builds](https://github.com/Maschell/hid_to_vpad/releases) | [Issue Tracker](https://github.com/Maschell/hid_to_vpad/issues) | [Support Thread](https://gbatemp.net/threads/hid-to-vpad.424127/)
-# HID to VPAD  [![Build Status](https://api.travis-ci.org/Maschell/hid_to_vpad.svg?branch=master)](https://circleci.com/gh/Maschell/hid_to_vpad)
+# HID to VPAD  [![Build Status](https://api.travis-ci.org/Maschell/hid_to_vpad.svg?branch=master)](https://travis-ci.org/Maschell/hid_to_vpad)
 
 
 This is a little tool that let you use a hid device on the WiiU. <br />
@@ -45,7 +45,7 @@ Do you have an other question? First take a look at:
 If you don't find an anwser, please open an issue.
 
 # Building
-In order to build this application, you need the custom liboGC and portlibs modified/created by dimok. You can find them on the loadiine_gx2 repo (https://github.com/dimok789/loadiine_gx2/releases/tag/v0.2). Simply put the files in your devkit folder and run the Makefile of HID to VPAD. 
+In order to build this application, you need the custom liboGC and portlibs modified/created by dimok. You can find them in the "other" folder. Simply put the files in your devkit folder and run the Makefile of HID to VPAD. 
 
 # Credits
 - A big thanks goes out to <b>dimok</b> for creating the HBL, the dynamic libs and every stuff he made. The "environment" of this app is copied from ddd, turned out to be a "hello world" with useful extra stuff.  
