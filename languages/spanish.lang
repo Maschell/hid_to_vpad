@@ -1,0 +1,187 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: Maschell \n"
+"POT-Creation-Date: 2017-04-13 18:11+0200\n"
+"PO-Revision-Date: 2017-04-13 16:51+0200\n"
+"Last-Translator: Victormr21\n"
+"Language-Team: Spanish\n"
+"Language: sp\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Currently no device is connected."
+msgstr "Actualmente no hay dispositivos conectados."
+
+msgid "Device connected. You can test it by pressing buttons."
+msgstr "Dispositivo conectado. Puedes probarlo pulsando los botones."
+
+msgid "Press A to remap to a new controller."
+msgstr "Pulsa A para emular un nuevo mando."
+
+msgid "Mouse connected. You can test it by pressing buttons."
+msgstr "Ratón conectado. Puedes probarlo pulsando los botones."
+
+msgid "Keyboard connected. You can test it by pressing buttons."
+msgstr "Teclado conectado. Puedes probarlo pulsando los botones."
+
+msgid "Press X to add a Keyboard."
+msgstr "Pulsa X para añadir un teclado."
+
+msgid "Press X to add a Mouse."
+msgstr "Pulsa X para añadir un ratón."
+
+msgid "Keyboard connected."
+msgstr "Teclado conectado."
+
+msgid "Mouse connected."
+msgstr "ratón conectado."
+
+msgid "Press A to map a controller to "
+msgstr "Pulsa A para emular un"
+
+msgid "Help"
+msgstr "Ayuda"
+
+msgid "My controller is not working!"
+msgstr "¡Mi mando no funciona!"
+
+msgid "Make sure you have a valid config in the folder \"sd:/wiiu/controller\""
+msgstr "Asegúrate de que tienes un config en SD:\wiiu\controller\"
+
+msgid "Where do I get the config files from?"
+msgstr "¿Dónde puedo conseguir los archivos?"
+
+msgid "You can create them by yourself or download them from "
+msgstr "Puedes crearlos por tí mismo o descargarlos desde"
+
+msgid "https://github.com/Maschell/controller_patcher_configs"
+msgstr ""
+
+msgid "I have no idea how create a own config!"
+msgstr "¡No sé como crear uno!"
+
+msgid "You're lucky! There a whole wiki about creating them:"
+msgstr "¡Estás de suerte! Hay una wiki sobre como hacerlos:"
+
+msgid "XYZ is not working!"
+msgstr "¡XYZ no funciona!"
+
+msgid "If you find a bug, please open an issue on github"
+msgstr "Si encuentras un fallo, por favor abre un problema en GitHub"
+
+msgid "Could you add feature XYZ? Please!"
+msgstr "¿Puedes añadir la característica XYZ? ¡Por favor!"
+
+msgid "Maybe.It depends on the request, I can't promise anything."
+msgstr "Puede. Depende de la demanda, No puedo prometer nada."
+
+msgid "Just open an issue and I'll try to do my best."
+msgstr "Abre un problema e intentaré hacerlo lo mejor que pueda."
+
+msgid "Welcome to HID to VPAD!"
+msgstr "¡Bienvenido a HID to VPAD!"
+
+msgid "HID to VPAD allows you to use your USB controller on your WiiU. Currently you can emulate the Gamepad or a Pro Controller."
+msgstr "HID to VPAD te permite usar tu dispositivo USB en tu WiiU. Actualmente puedes emular el GamePad o los Pro Controller."
+
+msgid "Before you use your controller, you may need to provide a valid config. More information and config files can be found in the help section or on gbatemp.net (gbatemp.net/threads/424127/)."
+msgstr "Antes de usar tu dispositivo, puede que necesites proporcionar un archivo de configuración válido. Más información y archivos de configuración se puede encontrar en la sección ayuda o en gbatemp.net (gbatemp.net/threads/424127/)."
+
+msgid "To map a device, select a controller from the list on the left hand side."
+msgstr "Para emular un dispositivo, selecciona un mando de la lista de la izquierda."
+
+msgid "Network Client"
+msgstr ""
+
+msgid "What is the Network Client?"
+msgstr "¿Qué es el Network Client?"
+
+msgid "It allows you to use your controller connected to your Computer with"
+msgstr "Te permite usar tu mando conectado a tu ordenador con"
+
+msgid "HID to VPAD. This way for example XInput- and HID-Bluetooth-Devices"
+msgstr "HID to VPAD. Así por ejemplo XInput- y HID-Bluetooth-Devices"
+
+msgid "can be used. It connects to your console over your local network."
+msgstr "pueden usarse. Esto conecta tu consola con tu network local."
+
+msgid "How do I use it?"
+msgstr "¿Cómo lo uso?"
+
+msgid "Enter the IP (upper right corner!) of your console and press connect."
+msgstr "Introduce la IP (esquina superior derecha) de tu WiiU y pulsa connect."
+
+msgid "If everything worked correctly, use the controller just like one"
+msgstr "Si todo salió bien, usa el mando como cualquier otro"
+
+msgid "connected via USB. You can find a detailed guide here:"
+msgstr "conectado por USB. Puedes encontrar una guía detallada aquí:"
+
+msgid "http://gbatemp.net/threads/hid-to-vpad.424127/"
+msgstr ""
+
+msgid "Is there any input lag?"
+msgstr "¿Hay algún lag?"
+
+msgid "With a connection via Ethernet, you shouldn't notice any lag."
+msgstr "Con una conexión por Ethernet, no deberías notarlo."
+
+msgid "Wi-Fi may lead to some issues or lag, but it heavily depends on the"
+msgstr "Wi-Fi a veces da algunos problemas o lag, pero depende de la"
+
+msgid "quality of your signal. If it's possible, connect everything via Ethernet."
+msgstr "calidad de tu señal. Si es posible, conecta todo por Ethernet."
+
+msgid "Where can I get it?"
+msgstr "¿Dónde puedo conseguirlo?"
+
+msgid "It's open source and you can find it here: "
+msgstr "Es de código abierto y puedes encontrarlo aquí:"
+
+msgid "https://github.com/QuarkTheAwesome/HIDtoVPADNetworkClient"
+msgstr ""
+
+msgid "Exit to HBL  "
+msgstr "Volver al HBL"
+
+msgid "Apply Patches"
+msgstr "Aplicar cambios"
+
+msgid "TCP Server running on: "
+msgstr "Servidor TCP funcionando en:"
+
+msgid "Nothing attached"
+msgstr "¡Nada conectado!"
+
+msgid "No device"
+msgstr "No mando"
+
+msgid "Real Pro Controller"
+msgstr "Pro Controller real"
+
+msgid "Mouse / Keyboard"
+msgstr "Ratón / Teclado"
+
+msgid "Home"
+msgstr "Inicio"
+
+msgid "Other"
+msgstr "Otros"
+
+msgid "About"
+msgstr "Acerca de"
+
+msgid "Press any button on the USB-Controller you want to use."
+msgstr "Pulsa cualquier botón en el mando USB que quieres usar."
+
+msgid "Press B to disable the mapping"
+msgstr "Pulsa B para cancelar la emulación"
+
+msgid "Press       to return to HBL"
+msgstr " Pulsa           para volver al HBL."
+
+msgid  "Press       to apply patches"
+msgstr "Pulsa        para aplicar cambios"

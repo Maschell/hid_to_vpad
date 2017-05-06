@@ -51,9 +51,11 @@ script:
 before_deploy:
 - cd $TRAVIS_BUILD_DIR/
 - mkdir -p "wiiu/apps/hidtovpad"
+- mkdir -p "wiiu/apps/hidtovpad/languages"
 - mkdir -p "wiiu/controller"
 - git clone https://github.com/Maschell/controller_patcher_configs.git
 - cp ./controller_patcher_configs/*.ini ./wiiu/controller
+- cp ./languages/*.lang ./wiiu/apps/hidtovpad/languages
 - commit="$(git rev-parse --short=7 HEAD)"
 - chmod +x gitrev.sh
 - versiontag="$(./gitrev.sh)"
