@@ -70,3 +70,11 @@ void GuiSwitch::draw(CVideo *v){
         switchOff_img.draw(v);
     }
 }
+
+f32 GuiSwitch::getHeight(){
+    return switchOn_img.getHeight();
+}
+
+f32 GuiSwitch::getWidth(){
+    return switchbase_img.getWidth();
+}

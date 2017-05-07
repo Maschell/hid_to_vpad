@@ -120,11 +120,11 @@ f32 GuiElement::getTop()
     //! TODO: the conversion from int to float and back to int is bad for performance, change that
 	if(alignment & ALIGN_MIDDLE)
 	{
-		y = pTop + pHeight * 0.5f * pScaleY - height * 0.5f * getScaleY();
+		y = pTop + pHeight * 0.5f * pScaleY - getHeight() * 0.5f * getScaleY();
 	}
 	else if(alignment & ALIGN_BOTTOM)
 	{
-		y = pTop + pHeight * pScaleY - height * getScaleY();
+		y = pTop + pHeight * pScaleY - getHeight() * getScaleY();
 	}
 
 	return y + yoffset;

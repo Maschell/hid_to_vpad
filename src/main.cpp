@@ -105,6 +105,7 @@ extern "C" s32 Menu_Main(void){
         log_printf("Menu_Main (line %d): Release memory\n",__LINE__);
         memoryRelease();
         ControllerPatcher::destroyConfigHelper();
+        CSettings::destroyInstance();
     }
 
 

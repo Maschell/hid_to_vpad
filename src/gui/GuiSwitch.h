@@ -31,21 +31,24 @@ class GuiSwitch : public GuiToggle
 		//!Destructor
 		virtual ~GuiSwitch();
 
+        f32 getHeight();
+        f32 getWidth();
+
 	protected:
 
-       GuiImageData * switchbase_imgdata;
-       GuiImage switchbase_img;
+        GuiImageData * switchbase_imgdata;
+        GuiImage switchbase_img;
 
-       GuiImageData * switchbase_highlighted_imgdata;
-       GuiImage switchbase_highlighted_img;
+        GuiImageData * switchbase_highlighted_imgdata;
+        GuiImage switchbase_highlighted_img;
 
-       GuiImageData * switchOn_imgdata;
-       GuiImage switchOn_img;
+        GuiImageData * switchOn_imgdata;
+        GuiImage switchOn_img;
 
-       GuiImageData * switchOff_imgdata;
-       GuiImage switchOff_img;
+        GuiImageData * switchOff_imgdata;
+        GuiImage switchOff_img;
 
-       void draw(CVideo * v);
+        void draw(CVideo * v);
 };
 
 #endif

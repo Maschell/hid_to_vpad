@@ -26,6 +26,7 @@ public:
         CONTENT_HOME,
         CONTENT_HELP,
         CONTENT_NETWORK_HELP,
+        CONTENT_SETTINGS,
         CONTENT_ABOUT,
     };
 

@@ -48,6 +48,7 @@ private:
     MenuSeperator otherSeperator;
     MenuElementInfo elementHelp;
     MenuElementInfo elementNetworkHelp;
+    MenuElementInfo elementSettings;
     MenuElementInfo elementAbout;
 
     GuiTrigger buttonUpTrigger;

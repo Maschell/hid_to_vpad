@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-07 12:39+0200\n"
+"POT-Creation-Date: 2017-05-07 18:37+0200\n"
 "PO-Revision-Date: 2017-04-13 16:51+0200\n"
 "Last-Translator: Victormr21\n"
 "Language-Team: Spanish\n"
@@ -250,13 +250,30 @@ msgid "Press       to apply patches"
 msgstr "Pulsa        para aplicar cambios"
 
 #: src/menu/drc/content/ContentSettings.cpp:26
+#: src/menu/drc/content/ContentSettings.cpp:43
+#: src/menu/drc/content/ContentSettings.cpp:44
+#: src/menu/drc/content/ContentSettings.cpp:48
 msgid "Language"
 msgstr ""
 
 #: src/menu/drc/content/ContentSettings.cpp:31 src/menu/drc/MenuListDRC.cpp:42
+#: src/menu/drc/content/ContentSettings.cpp:32
 msgid "Settings"
 msgstr ""
 
 #: src/menu/drc/content/ContentSettings.cpp:61
+#: src/menu/drc/content/ContentSettings.cpp:66
 msgid "<Default>"
+msgstr ""
+
+#: src/menu/drc/content/ContentSettings.cpp:44
+#: src/menu/drc/content/ContentSettings.cpp:45
+#: src/menu/drc/content/ContentSettings.cpp:49
+msgid "Rumble"
+msgstr ""
+
+#: src/menu/drc/content/ContentSettings.cpp:45
+#: src/menu/drc/content/ContentSettings.cpp:46
+#: src/menu/drc/content/ContentSettings.cpp:50
+msgid "Music"
 msgstr ""

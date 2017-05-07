@@ -162,7 +162,7 @@ class GuiElement : public AsyncDeleter::Element
                     pScale = parentElement->getScaleY();
                 }
 
-                pCenterY += pHeight * 0.5f * pScale - height * 0.5f * getScaleY();
+                pCenterY += pHeight * 0.5f * pScale - getHeight() * 0.5f * getScaleY();
             }
             else if(alignment & ALIGN_BOTTOM)
             {
@@ -175,7 +175,7 @@ class GuiElement : public AsyncDeleter::Element
                     pScale = parentElement->getScaleY();
                 }
 
-                pCenterY -= pHeight * 0.5f * pScale - height * 0.5f * getScaleY();
+                pCenterY -= pHeight * 0.5f * pScale - getHeight() * 0.5f * getScaleY();
             }
             return pCenterY;
         }

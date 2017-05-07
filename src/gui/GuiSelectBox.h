@@ -42,6 +42,9 @@ class GuiSelectBox : public GuiFrame, public sigslot::has_slots<>
         virtual f32 getTopValueHeight();
         virtual f32 getTopValueWidth();
 
+        virtual f32 getHeight();
+        virtual f32 getWidth();
+
 	protected:
 	    void DeleteValueData();
         void update(GuiController * c);
@@ -86,7 +89,6 @@ class GuiSelectBox : public GuiFrame, public sigslot::has_slots<>
 
         GuiSound* buttonClickSound;
 
-        std::string getCaptionWithValue(std::string value);
         typedef struct
         {
             GuiImage *valueButtonImg;

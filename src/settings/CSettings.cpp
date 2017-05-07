@@ -24,6 +24,7 @@
 #include "fs/CFile.hpp"
 #include "fs/fs_utils.h"
 #include "utils/StringTools.h"
+#include "utils/logger.h"
 #include "language/gettext.h"
 
 #define VERSION_LINE        "# HID to VPAD - Main settings file v"
@@ -36,7 +37,6 @@ CSettings::CSettings(){
     bChanged = false;
     memset(&nullValue, 0, sizeof(nullValue));
     nullValue.strValue = new std::string();
-
     configPath = DEFAULT_HID_TO_VPAD_PATH;
 	this->SetDefault();
 }
@@ -81,18 +81,22 @@ bool CSettings::Load(){
 	std::string filepath = configPath;
 	filepath += CONFIG_FILENAME;
 
+    log_printf("CSettings::Load(line %d): Loading Configuration from %s\n",__LINE__,filepath.c_str());
+
 	CFile file(filepath, CFile::ReadOnly);
 	if (!file.isOpen())
         return false;
+
 
     std::string strBuffer;
     strBuffer.resize(file.size());
     file.read((u8 *) &strBuffer[0], strBuffer.size());
     file.close();
 
+
     //! remove all windows crap signs
     size_t position;
-    while(1)
+    while(1 && !strBuffer.empty())
     {
         position = strBuffer.find('\r');
         if(position == std::string::npos)

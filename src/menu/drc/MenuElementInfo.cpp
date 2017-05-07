@@ -19,6 +19,7 @@
 #include "content/ContentHome.h"
 #include "content/ContentNetworkHelp.h"
 #include "content/ContentHelp.h"
+#include "content/ContentSettings.h"
 #include "content/ContentAbout.h"
 
 /**
@@ -73,6 +74,7 @@ ContentTemplate * MenuElementInfo::createNewContent(){
         case ContentTemplate::CONTENT_HOME: {           return new ContentHome();  break;}
         case ContentTemplate::CONTENT_ABOUT: {          return new ContentAbout(); break;}
         case ContentTemplate::CONTENT_NETWORK_HELP: {   return new ContentNetworkHelp();  break;}
+        case ContentTemplate::CONTENT_SETTINGS: {       return new ContentSettings();  break;}
         case ContentTemplate::CONTENT_HELP: {           return new ContentHelp();  break;}
         default: return NULL;
     }

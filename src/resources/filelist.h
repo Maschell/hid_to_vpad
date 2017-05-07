@@ -1,7 +1,7 @@
 /****************************************************************************
  * Loadiine resource files.
  * This file is generated automatically.
- * Includes 109 files.
+ * Includes 111 files.
  *
  * NOTE:
  * Any manual modification of this file will be overwriten by the generation.
@@ -224,6 +224,12 @@ extern const u32 gameSettingsButton_png_size;
 extern const u8 gameSettingsButtonEx_png[];
 extern const u32 gameSettingsButtonEx_png_size;
 
+extern const u8 gameSettingsButtonExEnd_png[];
+extern const u32 gameSettingsButtonExEnd_png_size;
+
+extern const u8 gameSettingsButtonExEndHighlighted_png[];
+extern const u32 gameSettingsButtonExEndHighlighted_png_size;
+
 extern const u8 gameSettingsButtonExHighlighted_png[];
 extern const u32 gameSettingsButtonExHighlighted_png_size;
 
@@ -417,6 +423,8 @@ static RecourceFile RecourceList[] =
 	{"gamepadIcon.png", gamepadIcon_png, gamepadIcon_png_size, NULL, 0},
 	{"gameSettingsButton.png", gameSettingsButton_png, gameSettingsButton_png_size, NULL, 0},
 	{"gameSettingsButtonEx.png", gameSettingsButtonEx_png, gameSettingsButtonEx_png_size, NULL, 0},
+	{"gameSettingsButtonExEnd.png", gameSettingsButtonExEnd_png, gameSettingsButtonExEnd_png_size, NULL, 0},
+	{"gameSettingsButtonExEndHighlighted.png", gameSettingsButtonExEndHighlighted_png, gameSettingsButtonExEndHighlighted_png_size, NULL, 0},
 	{"gameSettingsButtonExHighlighted.png", gameSettingsButtonExHighlighted_png, gameSettingsButtonExHighlighted_png_size, NULL, 0},
 	{"gameSettingsButtonExSelected.png", gameSettingsButtonExSelected_png, gameSettingsButtonExSelected_png_size, NULL, 0},
 	{"gameSettingsButtonSelected.png", gameSettingsButtonSelected_png, gameSettingsButtonSelected_png_size, NULL, 0},

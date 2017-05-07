@@ -39,6 +39,7 @@ MenuListDRC::MenuListDRC(s32 w, s32 h,MainWindowContent * _contentWindow)
     , otherSeperator(gettext("Other"))
     , elementHelp(gettext("Help"),     "helpIcon.png", ContentTemplate::CONTENT_HELP)
     , elementNetworkHelp(  gettext("Network Client"),     "netbtn.png", ContentTemplate::CONTENT_NETWORK_HELP)
+    , elementSettings(  gettext("Settings"),     "settingsbtn.png", ContentTemplate::CONTENT_SETTINGS)
     , elementAbout(gettext("About"),    "aboutIcon.png", ContentTemplate::CONTENT_ABOUT)
     , buttonUpTrigger(GuiTrigger::CHANNEL_ALL, GuiTrigger::BUTTON_UP | GuiTrigger::STICK_L_UP, true)
     , buttonDownTrigger(GuiTrigger::CHANNEL_ALL, GuiTrigger::BUTTON_DOWN | GuiTrigger::STICK_L_DOWN, true)
@@ -65,6 +66,7 @@ MenuListDRC::MenuListDRC(s32 w, s32 h,MainWindowContent * _contentWindow)
     listAppend(&otherSeperator);
     listAppend(&elementNetworkHelp);
     listAppend(&elementHelp);
+    listAppend(&elementSettings);
     listAppend(&elementAbout);
 
     sizeListElementsAll = listElementsAll.size();
@@ -258,5 +260,6 @@ MenuListDRC::~MenuListDRC(){
     remove(&otherSeperator);
     remove(&elementNetworkHelp);
     remove(&elementHelp);
+    remove(&elementSettings);
     remove(&elementAbout);
 }

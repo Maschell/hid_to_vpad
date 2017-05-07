@@ -79,6 +79,7 @@ Application::~Application(){
 
     log_printf("Application::~Application(line %d): Stop sound handler\n",__LINE__);
     SoundHandler::DestroyInstance();
+
 }
 
 s32 Application::exec(){
@@ -151,14 +152,16 @@ void Application::executeThread(void){
     FreeTypeGX *fontSystem = new FreeTypeGX(Resources::GetFile("font.ttf"), Resources::GetFileSize("font.ttf"), true);
     GuiText::setPresetFont(fontSystem);
 
-    log_printf("Application::executeThread(line %d): Initialize main window\n",__LINE__);
     reloadUIflag = true;
     bgMusic->SetLoop(true);
     bgMusic->SetVolume(50);
+
     while(reloadUIflag){
         reloadUIflag = false;
         exitCode = EXIT_RELAUNCH_ON_LOAD;
+        log_printf("Application::executeThread(line %d): Initialize the language\n",__LINE__);
         loadLanguageFromConfig();
+        log_printf("Application::executeThread(line %d): Initialize main window\n",__LINE__);
         mainWindow = MainWindow::getInstance(video->getTvWidth(), video->getTvHeight());
 
         log_printf("Application::executeThread(line %d): Entering main loop\n",__LINE__);
