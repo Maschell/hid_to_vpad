@@ -90,6 +90,9 @@ s32 Application::exec(){
     return exitCode;
 }
 
+void Application::reloadUI(){
+    reloadUIflag = true;
+}
 void Application::fadeOut(){
     GuiImage fadeOut(video->getTvWidth(), video->getTvHeight(), (GX2Color){ 0, 0, 0, 255 });
 
@@ -149,72 +152,74 @@ void Application::executeThread(void){
     GuiText::setPresetFont(fontSystem);
 
     log_printf("Application::executeThread(line %d): Initialize main window\n",__LINE__);
-
-    mainWindow = MainWindow::getInstance(video->getTvWidth(), video->getTvHeight());
-
+    reloadUIflag = true;
     bgMusic->SetLoop(true);
-    bgMusic->Play();
     bgMusic->SetVolume(50);
+    while(reloadUIflag){
+        reloadUIflag = false;
+        exitCode = EXIT_RELAUNCH_ON_LOAD;
+        loadLanguageFromConfig();
+        mainWindow = MainWindow::getInstance(video->getTvWidth(), video->getTvHeight());
 
-    log_printf("Application::executeThread(line %d): Entering main loop\n",__LINE__);
+        log_printf("Application::executeThread(line %d): Entering main loop\n",__LINE__);
+        exitApplication = false;
+        //! main GX2 loop (60 Hz cycle with max priority on core 1)
+        while(!exitApplication && !reloadUIflag){
 
-    //! main GX2 loop (60 Hz cycle with max priority on core 1)
-    while(!exitApplication)
-    {
-        //! Read out inputs
-        for(s32 i = 0; i < 5; i++)
-        {
-            if(controller[i]->update(video->getTvWidth(), video->getTvHeight()) == false)
-                continue;
+            if(!bgMusic->IsPlaying() && CSettings::getValueAsBool(CSettings::MusicActivated)) bgMusic->Play();
+            if(bgMusic->IsPlaying() && !CSettings::getValueAsBool(CSettings::MusicActivated)) bgMusic->Pause();
 
+            //! Read out inputs
+            for(s32 i = 0; i < 5; i++)
+            {
+                if(controller[i]->update(video->getTvWidth(), video->getTvHeight()) == false)
+                    continue;
 
+                if(controller[i]->data.buttons_d & VPAD_BUTTON_PLUS){
+                    exitCode = APPLICATION_CLOSE_APPLY;
+                    exitApplication = true;
+                }
 
-            if(controller[i]->data.buttons_d & VPAD_BUTTON_PLUS){
-                exitCode = APPLICATION_CLOSE_APPLY;
-                exitApplication = true;
+                if(controller[i]->data.buttons_d & VPAD_BUTTON_HOME){
+                    exitCode = APPLICATION_CLOSE_MIIMAKER;
+                    exitApplication = true;
+                }
+
+                //! update controller states
+                mainWindow->update(controller[i]);
+            }
+            mainWindow->process();
+
+            //! start rendering DRC
+            video->prepareDrcRendering();
+            mainWindow->drawDrc(video);
+            video->drcDrawDone();
+
+            //! start rendering TV
+            video->prepareTvRendering();
+            mainWindow->drawTv(video);
+            video->tvDrawDone();
+
+            //! enable screen after first frame render
+            if(video->getFrameCount() == 0) {
+                video->tvEnable(true);
+                video->drcEnable(true);
             }
 
-            if(controller[i]->data.buttons_d & VPAD_BUTTON_HOME){
-                exitCode = APPLICATION_CLOSE_MIIMAKER;
-                exitApplication = true;
-            }
+            //! as last point update the effects as it can drop elements
+            mainWindow->updateEffects();
 
+            video->waitForVSync();
 
-            //! update controller states
-            mainWindow->update(controller[i]);
+            //! transfer elements to real delete list here after all processes are finished
+            //! the elements are transfered to another list to delete the elements in a separate thread
+            //! and avoid blocking the GUI thread
+            AsyncDeleter::triggerDeleteProcess();
         }
-        mainWindow->process();
-
-        //! start rendering DRC
-        video->prepareDrcRendering();
-        mainWindow->drawDrc(video);
-        video->drcDrawDone();
-
-        //! start rendering TV
-        video->prepareTvRendering();
-        mainWindow->drawTv(video);
-        video->tvDrawDone();
-
-        //! enable screen after first frame render
-        if(video->getFrameCount() == 0) {
-            video->tvEnable(true);
-            video->drcEnable(true);
-        }
-
-        //! as last point update the effects as it can drop elements
-        mainWindow->updateEffects();
-
-        video->waitForVSync();
-
-        //! transfer elements to real delete list here after all processes are finished
-        //! the elements are transfered to another list to delete the elements in a separate thread
-        //! and avoid blocking the GUI thread
-        AsyncDeleter::triggerDeleteProcess();
+        fadeOut();
+        MainWindow::destroyInstance();
     }
 
-    fadeOut();
-
-    MainWindow::destroyInstance();
     delete fontSystem;
     delete video;
 }

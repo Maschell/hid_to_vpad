@@ -54,6 +54,8 @@ public:
     s32 exec(void);
     void fadeOut(void);
 
+    void reloadUI(void);
+
     void quit(s32 code) {
         exitCode = code;
         exitApplication = true;
@@ -69,6 +71,8 @@ private:
     void executeThread(void);
 
     void loadLanguageFromConfig();
+
+    bool reloadUIflag = false;
 
     GuiSound *bgMusic;
     CVideo *video;
