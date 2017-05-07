@@ -29,6 +29,7 @@
 #include "video/CursorDrawer.h"
 
 #include "Application.h"
+#include "settings/CSettings.h"
 
 #include "utils/StringTools.h"
 
@@ -89,12 +90,16 @@ extern "C" s32 Menu_Main(void){
         //!*******************************************************************
         log_printf("Menu_Main (line %d): Initialize memory management\n",__LINE__);
         memoryInitialize();
+
         log_printf("Menu_Main (line %d): Mount SD partition\n",__LINE__);
         mount_sd_fat("sd");
         log_printf("Menu_Main (line %d): Start main application\n",__LINE__);
         result = Application::instance()->exec();
         log_printf("Menu_Main (line %d): Main application stopped result: %d\n",__LINE__,result);
         Application::destroyInstance();
+        bool rumble = CSettings::instance()->getValueAsBool(CSettings::RumbleActivated);
+        log_printf("Menu_Main (line %d): Setting rumble to: %d\n",__LINE__,rumble);
+        ControllerPatcher::setRumbleActivated(rumble);
         log_printf("Menu_Main (line %d): Unmount SD\n",__LINE__);
         unmount_sd_fat("sd");
         log_printf("Menu_Main (line %d): Release memory\n",__LINE__);
