@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-13 18:11+0200\n"
+"POT-Creation-Date: 2017-05-07 12:39+0200\n"
 "PO-Revision-Date: 2017-04-13 16:51+0200\n"
 "Last-Translator: <EMAIL@ADDRESS>\n"
 "Language-Team: German\n"
@@ -229,7 +229,7 @@ msgstr "Home"
 msgid "Other"
 msgstr "Sonstiges"
 
-#: src/menu/drc/MenuListDRC.cpp:42
+#: src/menu/drc/MenuListDRC.cpp:42 src/menu/drc/MenuListDRC.cpp:43
 msgid "About"
 msgstr "About"
 
@@ -246,5 +246,17 @@ msgid "Press       to return to HBL"
 msgstr "                  zurück zum HBL."
 
 #: src/menu/tv/TVControllerBanner.cpp:44
-msgid  "Press       to apply patches"
+msgid "Press       to apply patches"
 msgstr "Drücke      zum starten."
+
+#: src/menu/drc/content/ContentSettings.cpp:26
+msgid "Language"
+msgstr ""
+
+#: src/menu/drc/content/ContentSettings.cpp:31 src/menu/drc/MenuListDRC.cpp:42
+msgid "Settings"
+msgstr ""
+
+#: src/menu/drc/content/ContentSettings.cpp:61
+msgid "<Default>"
+msgstr ""
