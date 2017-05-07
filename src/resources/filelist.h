@@ -1,7 +1,7 @@
 /****************************************************************************
  * Loadiine resource files.
  * This file is generated automatically.
- * Includes 95 files.
+ * Includes 109 files.
  *
  * NOTE:
  * Any manual modification of this file will be overwriten by the generation.
@@ -194,6 +194,15 @@ extern const u32 buttons_pro_zr_png_size;
 extern const u8 button_click_mp3[];
 extern const u32 button_click_mp3_size;
 
+extern const u8 checkbox_png[];
+extern const u32 checkbox_png_size;
+
+extern const u8 checkbox_highlighted_png[];
+extern const u32 checkbox_highlighted_png_size;
+
+extern const u8 checkbox_selected_png[];
+extern const u32 checkbox_selected_png_size;
+
 extern const u8 font_ttf[];
 extern const u32 font_ttf_size;
 
@@ -208,6 +217,21 @@ extern const u32 gamepadBig_png_size;
 
 extern const u8 gamepadIcon_png[];
 extern const u32 gamepadIcon_png_size;
+
+extern const u8 gameSettingsButton_png[];
+extern const u32 gameSettingsButton_png_size;
+
+extern const u8 gameSettingsButtonEx_png[];
+extern const u32 gameSettingsButtonEx_png_size;
+
+extern const u8 gameSettingsButtonExHighlighted_png[];
+extern const u32 gameSettingsButtonExHighlighted_png_size;
+
+extern const u8 gameSettingsButtonExSelected_png[];
+extern const u32 gameSettingsButtonExSelected_png_size;
+
+extern const u8 gameSettingsButtonSelected_png[];
+extern const u32 gameSettingsButtonSelected_png_size;
 
 extern const u8 GithubIcon_png[];
 extern const u32 GithubIcon_png_size;
@@ -293,6 +317,24 @@ extern const u32 selectorSmall_png_size;
 extern const u8 seperator_png[];
 extern const u32 seperator_png_size;
 
+extern const u8 settingsbtn_png[];
+extern const u32 settingsbtn_png_size;
+
+extern const u8 settings_click_2_mp3[];
+extern const u32 settings_click_2_mp3_size;
+
+extern const u8 switchIconBase_png[];
+extern const u32 switchIconBase_png_size;
+
+extern const u8 switchIconBaseHighlighted_png[];
+extern const u32 switchIconBaseHighlighted_png_size;
+
+extern const u8 switchIconOff_png[];
+extern const u32 switchIconOff_png_size;
+
+extern const u8 switchIconOn_png[];
+extern const u32 switchIconOn_png_size;
+
 extern const u8 TVElementControllerBG_png[];
 extern const u32 TVElementControllerBG_png_size;
 
@@ -365,11 +407,19 @@ static RecourceFile RecourceList[] =
 	{"buttons_pro_zl.png", buttons_pro_zl_png, buttons_pro_zl_png_size, NULL, 0},
 	{"buttons_pro_zr.png", buttons_pro_zr_png, buttons_pro_zr_png_size, NULL, 0},
 	{"button_click.mp3", button_click_mp3, button_click_mp3_size, NULL, 0},
+	{"checkbox.png", checkbox_png, checkbox_png_size, NULL, 0},
+	{"checkbox_highlighted.png", checkbox_highlighted_png, checkbox_highlighted_png_size, NULL, 0},
+	{"checkbox_selected.png", checkbox_selected_png, checkbox_selected_png_size, NULL, 0},
 	{"font.ttf", font_ttf, font_ttf_size, NULL, 0},
 	{"footer.png", footer_png, footer_png_size, NULL, 0},
 	{"gamepad.png", gamepad_png, gamepad_png_size, NULL, 0},
 	{"gamepadBig.png", gamepadBig_png, gamepadBig_png_size, NULL, 0},
 	{"gamepadIcon.png", gamepadIcon_png, gamepadIcon_png_size, NULL, 0},
+	{"gameSettingsButton.png", gameSettingsButton_png, gameSettingsButton_png_size, NULL, 0},
+	{"gameSettingsButtonEx.png", gameSettingsButtonEx_png, gameSettingsButtonEx_png_size, NULL, 0},
+	{"gameSettingsButtonExHighlighted.png", gameSettingsButtonExHighlighted_png, gameSettingsButtonExHighlighted_png_size, NULL, 0},
+	{"gameSettingsButtonExSelected.png", gameSettingsButtonExSelected_png, gameSettingsButtonExSelected_png_size, NULL, 0},
+	{"gameSettingsButtonSelected.png", gameSettingsButtonSelected_png, gameSettingsButtonSelected_png_size, NULL, 0},
 	{"GithubIcon.png", GithubIcon_png, GithubIcon_png_size, NULL, 0},
 	{"helpIcon.png", helpIcon_png, helpIcon_png_size, NULL, 0},
 	{"home.png", home_png, home_png_size, NULL, 0},
@@ -398,6 +448,12 @@ static RecourceFile RecourceList[] =
 	{"selectorBig.png", selectorBig_png, selectorBig_png_size, NULL, 0},
 	{"selectorSmall.png", selectorSmall_png, selectorSmall_png_size, NULL, 0},
 	{"seperator.png", seperator_png, seperator_png_size, NULL, 0},
+	{"settingsbtn.png", settingsbtn_png, settingsbtn_png_size, NULL, 0},
+	{"settings_click_2.mp3", settings_click_2_mp3, settings_click_2_mp3_size, NULL, 0},
+	{"switchIconBase.png", switchIconBase_png, switchIconBase_png_size, NULL, 0},
+	{"switchIconBaseHighlighted.png", switchIconBaseHighlighted_png, switchIconBaseHighlighted_png_size, NULL, 0},
+	{"switchIconOff.png", switchIconOff_png, switchIconOff_png_size, NULL, 0},
+	{"switchIconOn.png", switchIconOn_png, switchIconOn_png_size, NULL, 0},
 	{"TVElementControllerBG.png", TVElementControllerBG_png, TVElementControllerBG_png_size, NULL, 0},
 	{"TVElementControllerBGSelected.png", TVElementControllerBGSelected_png, TVElementControllerBGSelected_png_size, NULL, 0},
 	{"TwitterIcon.png", TwitterIcon_png, TwitterIcon_png_size, NULL, 0},

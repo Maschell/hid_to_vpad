@@ -18,7 +18,6 @@
 #define _CONTENT_HOME_H
 
 #include "gui/Gui.h"
-#include "ContentHome.h"
 #include "ContentTemplate.h"
 #include "language/gettext.h"
 

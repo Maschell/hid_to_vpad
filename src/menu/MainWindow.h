@@ -165,7 +165,6 @@ private:
     void OnCloseEffectFinish(GuiElement *element);
     bool checkForRealProController();
 
-
     void OnInputGetterMenuFinish(GuiElement *element, bool result,UController_Type controller_type);
 
     void clickListEntryByController(UController_Type controller_type);

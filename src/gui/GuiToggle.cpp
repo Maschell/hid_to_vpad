@@ -23,7 +23,7 @@ GuiToggle::GuiToggle(bool checked,f32 width,f32 height)
  : GuiButton(width,height)
 {
     bChanged = false;
-    selected = false;
+    selected = checked;
     clicked.connect(this,&GuiToggle::OnToggleClick);
 }
 

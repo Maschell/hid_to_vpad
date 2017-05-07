@@ -26,5 +26,7 @@
 #include "GuiSound.h"
 #include "GuiButton.h"
 #include "GuiTrigger.h"
+#include "GuiSelectBox.h"
+#include "GuiSwitch.h"
 
 #endif
