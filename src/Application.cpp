@@ -226,7 +226,7 @@ void Application::executeThread(void){
 
 void Application::loadLanguageFromConfig(){
     if(!CSettings::getValueAsString(CSettings::AppLanguage).empty()){
-        std::string languagePath = "sd:/wiiu/apps/hidtovpad/languages/" + CSettings::getValueAsString(CSettings::AppLanguage) + ".lang";
+        std::string languagePath = std::string(DEFAULT_LANG_PATH) + "/" + CSettings::getValueAsString(CSettings::AppLanguage) + std::string(LANGUAGE_FILE_EXT);
         gettextLoadLanguage(languagePath.c_str());
     }
 }

@@ -51,6 +51,10 @@ extern "C" {
 #define EXIT_HBL_EXIT               0xFFFFFFFE
 #define EXIT_RELAUNCH_ON_LOAD       0xFFFFFFFD
 
+#define DEFAULT_HID_TO_VPAD_PATH    SD_PATH WIIU_PATH "/apps/hidtovpad"
+#define DEFAULT_LANG_PATH           DEFAULT_HID_TO_VPAD_PATH "/languages"
+#define LANGUAGE_FILE_EXT           ".lang"
+
 #ifdef __cplusplus
 }
 #endif

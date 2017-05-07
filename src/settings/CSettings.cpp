@@ -27,7 +27,8 @@
 #include "language/gettext.h"
 
 #define VERSION_LINE        "# HID to VPAD - Main settings file v"
-#define VALID_VERSION       1
+#define VALID_VERSION       2
+#define CONFIG_FILENAME     "/hidtovpad.cfg"
 
 CSettings *CSettings::settingsInstance = NULL;
 
@@ -36,7 +37,7 @@ CSettings::CSettings(){
     memset(&nullValue, 0, sizeof(nullValue));
     nullValue.strValue = new std::string();
 
-    configPath = SD_PATH WIIU_PATH "/apps/hidtovpad";
+    configPath = DEFAULT_HID_TO_VPAD_PATH;
 	this->SetDefault();
 }
 
@@ -65,8 +66,12 @@ void CSettings::SetDefault()
     settingsValues[AppLanguage].strValue = new std::string();
 
 	settingsNames[RumbleActivated] = "RumbleActivated";
-    settingsValues[RumbleActivated].dataType = TypeU8;
+    settingsValues[RumbleActivated].dataType = TypeBool;
     settingsValues[RumbleActivated].ucValue = SETTING_ON;
+
+    settingsNames[MusicActivated] = "MusicActivated";
+    settingsValues[MusicActivated].dataType = TypeBool;
+    settingsValues[MusicActivated].ucValue = SETTING_ON;
 }
 
 bool CSettings::Load(){
@@ -74,7 +79,7 @@ bool CSettings::Load(){
 	SetDefault();
 
 	std::string filepath = configPath;
-	filepath += "/hidtovpad.cfg";
+	filepath += CONFIG_FILENAME;
 
 	CFile file(filepath, CFile::ReadOnly);
 	if (!file.isOpen())
@@ -191,7 +196,7 @@ bool CSettings::Save(){
     CreateSubfolder(configPath.c_str());
 
 	std::string filepath = configPath;
-	filepath += "/hidtovpad.cfg";
+	filepath += CONFIG_FILENAME;
 
 	CFile file(filepath, CFile::WriteOnly);
 	if (!file.isOpen())

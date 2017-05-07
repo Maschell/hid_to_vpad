@@ -69,6 +69,7 @@ public:
         INVALID = -1,
 		AppLanguage,
         RumbleActivated,
+        MusicActivated,
         MAX_VALUE
     };
 
