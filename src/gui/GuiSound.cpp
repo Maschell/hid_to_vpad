@@ -126,7 +126,7 @@ void GuiSound::Stop()
             v->setState(Voice::STATE_STOP);
 
         while(v->getState() != Voice::STATE_STOPPED)
-            usleep(1000);
+            os_usleep(1000);
     }
 
     SoundDecoder * decoder = SoundHandler::instance()->getDecoder(voice);

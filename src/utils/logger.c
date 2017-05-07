@@ -48,7 +48,7 @@ void log_print(const char *str)
     }
 
     while(log_lock)
-        usleep(1000);
+        os_usleep(1000);
     log_lock = 1;
 
     s32 len = strlen(str);

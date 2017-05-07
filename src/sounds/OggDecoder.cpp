@@ -82,7 +82,7 @@ OggDecoder::~OggDecoder()
 {
 	ExitRequested = true;
 	while(Decoding)
-		usleep(100);
+		os_usleep(100);
 
 	if(file_fd)
 		ov_clear(&ogg_file);

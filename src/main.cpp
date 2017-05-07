@@ -1,4 +1,4 @@
-#include "Application.h"
+﻿#include "Application.h"
 #include "dynamic_libs/os_functions.h"
 #include "dynamic_libs/gx2_functions.h"
 #include "dynamic_libs/syshid_functions.h"
@@ -192,7 +192,7 @@ bool SplashScreen(s32 time,const char * message,u8 pos,u32 button){
             i = times;
         }
         i++;
-        usleep(sleepingtime);
+        os_usleep(sleepingtime);
     }
     return result;
 }

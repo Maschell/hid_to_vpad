@@ -50,7 +50,7 @@ SoundHandler::SoundHandler()
 
     //! wait for initialization
     while(!isThreadSuspended())
-        usleep(1000);
+        os_usleep(1000);
 }
 
 SoundHandler::~SoundHandler()
@@ -96,7 +96,7 @@ void SoundHandler::RemoveDecoder(s32 voice)
                 voiceList[voice]->setState(Voice::STATE_STOP);
 
             while(voiceList[voice]->getState() != Voice::STATE_STOPPED)
-                usleep(1000);
+                os_usleep(1000);
         }
         SoundDecoder *decoder = DecoderList[voice];
         decoder->Lock();

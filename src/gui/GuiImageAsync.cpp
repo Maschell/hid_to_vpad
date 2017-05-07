@@ -50,7 +50,7 @@ GuiImageAsync::~GuiImageAsync()
 {
 	threadRemoveImage(this);
 	while(pInUse == this)
-        usleep(1000);
+        os_usleep(1000);
 
 	if (imgData)
         delete imgData;

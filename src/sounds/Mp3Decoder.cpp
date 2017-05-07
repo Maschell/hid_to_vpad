@@ -68,7 +68,7 @@ Mp3Decoder::~Mp3Decoder()
 {
 	ExitRequested = true;
 	while(Decoding)
-		usleep(100);
+		os_usleep(100);
 
 	mad_synth_finish(&Synth);
 	mad_frame_finish(&Frame);

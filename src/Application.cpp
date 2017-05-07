@@ -69,7 +69,7 @@ Application::~Application(){
         log_printf("Application::~Application(line %d): Triggering AsyncDeleter\n",__LINE__);
         AsyncDeleter::triggerDeleteProcess();
         while(!AsyncDeleter::realListEmpty()){
-            usleep(1000);
+            os_usleep(1000);
         }
     }while(!AsyncDeleter::deleteListEmpty());
     AsyncDeleter::destroyInstance();

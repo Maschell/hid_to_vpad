@@ -46,7 +46,7 @@ SoundDecoder::~SoundDecoder()
 {
 	ExitRequested = true;
 	while(Decoding)
-		usleep(1000);
+		os_usleep(1000);
 
 	//! lock unlock once to make sure it's really not decoding
 	Lock();
