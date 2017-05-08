@@ -1,8 +1,10 @@
+# German translations for HID to VPAD.
+# This file is distributed under the same license as the PACKAGE package.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: 0.9j\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-07 18:37+0200\n"
+"POT-Creation-Date: 2017-05-08 17:13+0200\n"
 "PO-Revision-Date: 2017-04-13 16:51+0200\n"
 "Last-Translator: Maschell\n"
 "Language-Team: German\n"
@@ -11,6 +13,71 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/menu/InputGetterMenu.cpp:34
+msgid "Press any button on the USB-Controller you want to use."
+msgstr "Drücke eine Taste auf dem Controller den du nutzen möchstest."
+
+#: src/menu/InputGetterMenu.cpp:35
+msgid "Press B to disable the mapping"
+msgstr "Drücke B um die Verbindung zu trennen"
+
+#: src/menu/drc/MainWindowContent.cpp:28
+msgid "Exit to HBL  "
+msgstr "Zurück zum HBL"
+
+#: src/menu/drc/MainWindowContent.cpp:31
+msgid "Apply Patches"
+msgstr "System Menu"
+
+#: src/menu/drc/MainWindowDRC.cpp:48
+msgid "TCP Server running on: "
+msgstr "TCP Server erreichbar:"
+
+#: src/menu/drc/MenuElementController.cpp:43
+msgid "Nothing attached"
+msgstr "Nichts verbunden"
+
+#: src/menu/drc/MenuElementController.cpp:160
+#: src/menu/tv/TVButtonController.cpp:38
+#: src/menu/tv/TVButtonController.cpp:172
+msgid "No device"
+msgstr "Kein Controller"
+
+#: src/menu/drc/MenuElementController.cpp:169
+#: src/menu/tv/TVButtonController.cpp:181
+msgid "Real Pro Controller"
+msgstr "Echter Pro Controller"
+
+#: src/menu/drc/MenuElementController.cpp:171
+#: src/menu/tv/TVButtonController.cpp:183
+msgid "Mouse / Keyboard"
+msgstr "Maus / Tastatur"
+
+#: src/menu/drc/MenuListDRC.cpp:31 src/menu/drc/MenuListDRC.cpp:32
+msgid "Home"
+msgstr "Home"
+
+#: src/menu/drc/MenuListDRC.cpp:39
+msgid "Other"
+msgstr "Sonstiges"
+
+#: src/menu/drc/MenuListDRC.cpp:40 src/menu/drc/content/ContentHelp.cpp:20
+msgid "Help"
+msgstr "Hilfe"
+
+#: src/menu/drc/MenuListDRC.cpp:41
+#: src/menu/drc/content/ContentNetworkHelp.cpp:20
+msgid "Network Client"
+msgstr "Network Client"
+
+#: src/menu/drc/MenuListDRC.cpp:42 src/menu/drc/content/ContentSettings.cpp:32
+msgid "Settings"
+msgstr "Einstellungen"
+
+#: src/menu/drc/MenuListDRC.cpp:43
+msgid "About"
+msgstr "About"
 
 #: src/menu/drc/content/ContentController.cpp:29
 msgid "Currently no device is connected."
@@ -51,10 +118,6 @@ msgstr "Maus verbunden."
 #: src/menu/drc/content/ContentController.cpp:51
 msgid "Press A to map a controller to "
 msgstr "Drücke A um einen Controller festzulegen für "
-
-#: src/menu/drc/content/ContentHelp.cpp:20 src/menu/drc/MenuListDRC.cpp:40
-msgid "Help"
-msgstr "Hilfe"
 
 #: src/menu/drc/content/ContentHelp.cpp:39
 msgid "My controller is not working!"
@@ -120,11 +183,6 @@ msgstr "Bevor du eigene Controller verwenden kannst, brauchst du möglicherweise
 msgid "To map a device, select a controller from the list on the left hand side."
 msgstr "Wähle links einen Controller aus um fortzufahren."
 
-#: src/menu/drc/content/ContentNetworkHelp.cpp:20
-#: src/menu/drc/MenuListDRC.cpp:41
-msgid "Network Client"
-msgstr "Network Client"
-
 #: src/menu/drc/content/ContentNetworkHelp.cpp:39
 msgid "What is the Network Client?"
 msgstr "Was ist der Netzwerk Client?"
@@ -189,57 +247,24 @@ msgstr "Es ist Open-Source und kann hier geladen werden:"
 msgid "https://github.com/QuarkTheAwesome/HIDtoVPADNetworkClient"
 msgstr ""
 
-#: src/menu/drc/MainWindowContent.cpp:28
-msgid "Exit to HBL  "
-msgstr "Zurück zum HBL"
+#: src/menu/drc/content/ContentSettings.cpp:44
+#: src/menu/drc/content/ContentSettings.cpp:48
+msgid "Language"
+msgstr "Sprache"
 
-#: src/menu/drc/MainWindowContent.cpp:31
-msgid "Apply Patches"
-msgstr "System Menu"
+#: src/menu/drc/content/ContentSettings.cpp:45
+#: src/menu/drc/content/ContentSettings.cpp:49
+msgid "Rumble"
+msgstr ""
 
-#: src/menu/drc/MainWindowDRC.cpp:48
-msgid "TCP Server running on: "
-msgstr "TCP Server erreichbar:"
+#: src/menu/drc/content/ContentSettings.cpp:46
+#: src/menu/drc/content/ContentSettings.cpp:50
+msgid "Music"
+msgstr "Musik"
 
-#: src/menu/drc/MenuElementController.cpp:43
-msgid "Nothing attached"
-msgstr "Nichts verbunden"
-
-#: src/menu/drc/MenuElementController.cpp:160
-#: src/menu/tv/TVButtonController.cpp:38
-#: src/menu/tv/TVButtonController.cpp:172
-msgid "No device"
-msgstr "Kein Controller"
-
-#: src/menu/drc/MenuElementController.cpp:169
-#: src/menu/tv/TVButtonController.cpp:181
-msgid "Real Pro Controller"
-msgstr "Echter Pro Controller"
-
-#: src/menu/drc/MenuElementController.cpp:171
-#: src/menu/tv/TVButtonController.cpp:183
-msgid "Mouse / Keyboard"
-msgstr "Maus / Tastatur"
-
-#: src/menu/drc/MenuListDRC.cpp:31 src/menu/drc/MenuListDRC.cpp:32
-msgid "Home"
-msgstr "Home"
-
-#: src/menu/drc/MenuListDRC.cpp:39
-msgid "Other"
-msgstr "Sonstiges"
-
-#: src/menu/drc/MenuListDRC.cpp:42 src/menu/drc/MenuListDRC.cpp:43
-msgid "About"
-msgstr "About"
-
-#: src/menu/InputGetterMenu.cpp:34
-msgid "Press any button on the USB-Controller you want to use."
-msgstr "Drücke eine Taste auf dem Controller den du nutzen möchstest."
-
-#: src/menu/InputGetterMenu.cpp:35
-msgid "Press B to disable the mapping"
-msgstr "Drücke B um die Verbindung zu trennen"
+#: src/menu/drc/content/ContentSettings.cpp:66
+msgid "<Default>"
+msgstr ""
 
 #: src/menu/tv/TVControllerBanner.cpp:41
 msgid "Press       to return to HBL"
@@ -248,32 +273,3 @@ msgstr "                  zurück zum HBL."
 #: src/menu/tv/TVControllerBanner.cpp:44
 msgid "Press       to apply patches"
 msgstr "         zum starten."
-
-#: src/menu/drc/content/ContentSettings.cpp:26
-#: src/menu/drc/content/ContentSettings.cpp:43
-#: src/menu/drc/content/ContentSettings.cpp:44
-#: src/menu/drc/content/ContentSettings.cpp:48
-msgid "Language"
-msgstr "Sprache"
-
-#: src/menu/drc/content/ContentSettings.cpp:31 src/menu/drc/MenuListDRC.cpp:42
-#: src/menu/drc/content/ContentSettings.cpp:32
-msgid "Settings"
-msgstr "Einstellungen"
-
-#: src/menu/drc/content/ContentSettings.cpp:61
-#: src/menu/drc/content/ContentSettings.cpp:66
-msgid "<Default>"
-msgstr ""
-
-#: src/menu/drc/content/ContentSettings.cpp:44
-#: src/menu/drc/content/ContentSettings.cpp:45
-#: src/menu/drc/content/ContentSettings.cpp:49
-msgid "Rumble"
-msgstr ""
-
-#: src/menu/drc/content/ContentSettings.cpp:45
-#: src/menu/drc/content/ContentSettings.cpp:46
-#: src/menu/drc/content/ContentSettings.cpp:50
-msgid "Music"
-msgstr "Musik"
