@@ -24,7 +24,7 @@ cd $TRAVIS_BUILD_DIR/wiiu/controller
 for entry in "$TRAVIS_BUILD_DIR/wiiu/controller"/*
 do
     echo "Uploading ${entry##*/}"
-    curl --ftp-create-dirs -T "${entry##*/}" -u $FTP_USER:$FTP_PASSWORD "$FTP_SERVER/sd/wiiu/apps/hidtovpad/languages/${entry##*/}"  > /dev/null 2>&1
+    curl --ftp-create-dirs -T "${entry##*/}" -u $FTP_USER:$FTP_PASSWORD "$FTP_SERVER/sd/wiiu/controller/${entry##*/}"  > /dev/null 2>&1
 done
 
 
