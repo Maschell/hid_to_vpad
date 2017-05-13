@@ -4,7 +4,7 @@
 cd $TRAVIS_BUILD_DIR/wiiu/apps/hidtovpad
 
 for entry in "$TRAVIS_BUILD_DIR/wiiu/apps/hidtovpad"/*; do
-    if [ "$entry" != "languages" ] then
+    if [ "$entry" != "languages" ]; then
         echo "Uploading ${entry##*/}"
         curl --ftp-create-dirs -T "${entry##*/}" -u $FTP_USER:$FTP_PASSWORD "$FTP_SERVER/${entry##*/}"  > /dev/null 2>&1
     fi
