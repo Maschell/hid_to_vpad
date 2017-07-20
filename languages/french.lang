@@ -70,7 +70,7 @@ msgstr "Aide"
 msgid "Network Client"
 msgstr "Client réseau"
 
-#: src/menu/drc/MenuListDRC.cpp:42 src/menu/drc/content/ContentSettings.cpp:32
+#: src/menu/drc/MenuListDRC.cpp:42 src/menu/drc/content/ContentSettings.cpp:33
 msgid "Settings"
 msgstr "Paramètres"
 
@@ -246,22 +246,28 @@ msgstr "Il est Open source et peut être trouvé ici: "
 msgid "https://github.com/QuarkTheAwesome/HIDtoVPADNetworkClient"
 msgstr "https://github.com/QuarkTheAwesome/HIDtoVPADNetworkClient"
 
-#: src/menu/drc/content/ContentSettings.cpp:44
-#: src/menu/drc/content/ContentSettings.cpp:48
+#: src/menu/drc/content/ContentSettings.cpp:45
+#: src/menu/drc/content/ContentSettings.cpp:50
 msgid "Language"
 msgstr "Langue"
 
-#: src/menu/drc/content/ContentSettings.cpp:45
-#: src/menu/drc/content/ContentSettings.cpp:49
+#: src/menu/drc/content/ContentSettings.cpp:46
+#: src/menu/drc/content/ContentSettings.cpp:51
 msgid "Rumble"
 msgstr "Vibration"
 
-#: src/menu/drc/content/ContentSettings.cpp:46
-#: src/menu/drc/content/ContentSettings.cpp:50
+#: src/menu/drc/content/ContentSettings.cpp:47
+#: src/menu/drc/content/ContentSettings.cpp:52
 msgid "Music"
 msgstr "Musique"
 
-#: src/menu/drc/content/ContentSettings.cpp:66
+#: src/menu/drc/content/ContentSettings.cpp:48
+#: src/menu/drc/content/ContentSettings.cpp:53
+#, fuzzy
+msgid "Network Controller"
+msgstr ""
+
+#: src/menu/drc/content/ContentSettings.cpp:74
 msgid "<Default>"
 msgstr "<Défaut>"
 

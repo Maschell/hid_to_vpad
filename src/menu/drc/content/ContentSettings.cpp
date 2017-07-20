@@ -27,6 +27,7 @@ ContentSettings::ContentSettings():ContentTemplate()
     , languageSelectBox("",NULL)
     , rumbleSwitch(CSettings::instance()->getValueAsBool(CSettings::RumbleActivated))
     , musicSwitch(CSettings::instance()->getValueAsBool(CSettings::MusicActivated))
+    , networkControllerSwitch(CSettings::instance()->getValueAsBool(CSettings::NetworkControllerActivated))
     , buttonClickSound(Resources::GetSound("settings_click_2.mp3"))
     {
     headLine.setText(gettext("Settings"));
@@ -44,10 +45,12 @@ ContentSettings::ContentSettings():ContentTemplate()
     settings[gettext("Language")] = &languageSelectBox;
     settings[gettext("Rumble")] = &rumbleSwitch;
     settings[gettext("Music")] = &musicSwitch;
+    settings[gettext("Network Controller")] = &networkControllerSwitch;
 
     settingsOrder.push_back(gettext("Language"));
     settingsOrder.push_back(gettext("Rumble"));
     settingsOrder.push_back(gettext("Music"));
+    settingsOrder.push_back(gettext("Network Controller"));
 
     rumbleSwitch.setTrigger(&touchTrigger);
     rumbleSwitch.setTrigger(&wpadTouchTrigger);
@@ -58,6 +61,11 @@ ContentSettings::ContentSettings():ContentTemplate()
     musicSwitch.setTrigger(&wpadTouchTrigger);
     musicSwitch.setSoundClick(buttonClickSound);
     musicSwitch.valueChanged.connect(this, &ContentSettings::OnMusicValueChanged);
+
+    networkControllerSwitch.setTrigger(&touchTrigger);
+    networkControllerSwitch.setTrigger(&wpadTouchTrigger);
+    networkControllerSwitch.setSoundClick(buttonClickSound);
+    networkControllerSwitch.valueChanged.connect(this, &ContentSettings::OnNetworkControllerValueChanged);
 
     DirList dirList(DEFAULT_LANG_PATH, LANGUAGE_FILE_EXT, DirList::Files);
     dirList.SortList();
@@ -156,3 +164,13 @@ void ContentSettings::OnRumbleValueChanged(GuiToggle * toggle,bool value){
     bChanged = true;
 }
 
+void ContentSettings::OnNetworkControllerValueChanged(GuiToggle * toggle,bool value){
+    CSettings::setValueAsBool(CSettings::NetworkControllerActivated,value);
+    ControllerPatcher::setNetworkControllerActivated(value);
+    if(!value){
+        ControllerPatcher::stopNetworkServer();
+    }else{
+        ControllerPatcher::startNetworkServer();
+    }
+    bChanged = true;
+}

@@ -40,6 +40,7 @@ private:
     GuiText headLine;
     GuiSwitch rumbleSwitch;
     GuiSwitch musicSwitch;
+    GuiSwitch networkControllerSwitch;
     GuiSound *buttonClickSound;
 
     std::map<std::string,GuiElement*> settings;
@@ -54,6 +55,7 @@ private:
 
     void OnMusicValueChanged(GuiToggle * toggle,bool value);
     void OnRumbleValueChanged(GuiToggle * toggle,bool value);
+    void OnNetworkControllerValueChanged(GuiToggle * toggle,bool value);
 
 };
 

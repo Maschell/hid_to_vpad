@@ -70,6 +70,7 @@ public:
 		AppLanguage,
         RumbleActivated,
         MusicActivated,
+        NetworkControllerActivated,
         MAX_VALUE
     };
 

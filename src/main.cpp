@@ -106,6 +106,8 @@ extern "C" s32 Menu_Main(void){
         bool rumble = CSettings::instance()->getValueAsBool(CSettings::RumbleActivated);
         log_printf("Menu_Main (line %d): Setting rumble to: %d\n",__LINE__,rumble);
         ControllerPatcher::setRumbleActivated(rumble);
+        bool networkController = CSettings::instance()->getValueAsBool(CSettings::NetworkControllerActivated);
+        ControllerPatcher::setNetworkControllerActivated(networkController);
         log_printf("Menu_Main (line %d): Unmount SD\n",__LINE__);
         unmount_sd_fat("sd");
         log_printf("Menu_Main (line %d): Release memory\n",__LINE__);

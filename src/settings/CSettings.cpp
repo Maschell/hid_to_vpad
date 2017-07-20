@@ -72,6 +72,10 @@ void CSettings::SetDefault()
     settingsNames[MusicActivated] = "MusicActivated";
     settingsValues[MusicActivated].dataType = TypeBool;
     settingsValues[MusicActivated].ucValue = SETTING_ON;
+
+    settingsNames[NetworkControllerActivated] = "NetworkControllerActivated";
+    settingsValues[NetworkControllerActivated].dataType = TypeBool;
+    settingsValues[NetworkControllerActivated].ucValue = SETTING_ON;
 }
 
 bool CSettings::Load(){
