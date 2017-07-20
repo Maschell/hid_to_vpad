@@ -37,6 +37,7 @@ extern "C" {
 #include "dynamic_libs/vpad_functions.h"
 #include "dynamic_libs/acp_functions.h"
 #include "dynamic_libs/syshid_functions.h"
+#include "dynamic_libs/proc_ui_functions.h"
 
 //Orignal code by Chadderz.
 #define DECL(res, name, ...) \
@@ -52,8 +53,8 @@ typedef struct {
     const char functionName[50];
     u32 realAddr;
     u32 restoreInstruction;
-    unsigned char functionType;
-    unsigned char alreadyPatched;
+    u8 functionType;
+    u8 alreadyPatched;
 } hooks_magic_t;
 
 void PatchInvidualMethodHooks(hooks_magic_t hook_information[],s32 hook_information_size, volatile u32 dynamic_method_calls[]);
@@ -63,6 +64,7 @@ s32 isDynamicFunction(u32 physicalAddress);
 
 //Orignal code by Chadderz.
 #define MAKE_MAGIC(x, lib,functionType) { (u32) my_ ## x, (u32) &real_ ## x, lib, # x,0,0,functionType,0}
+#define MAKE_MAGIC_NAME(x,y, lib,functionType) { (u32) my_ ## x, (u32) &real_ ## x, lib, # y,0,0,functionType,0}
 
 #ifdef __cplusplus
 }

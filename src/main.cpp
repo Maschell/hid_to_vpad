@@ -10,6 +10,7 @@
 #include "dynamic_libs/vpad_functions.h"
 #include "dynamic_libs/socket_functions.h"
 #include "dynamic_libs/sys_functions.h"
+#include "dynamic_libs/proc_ui_functions.h"
 
 #include "utils/logger.h"
 #include "utils/utils.h"
@@ -35,12 +36,17 @@
 
 /* Entry point */
 extern "C" s32 Menu_Main(void){
+    if(gAppStatus == 2){
+        //"No, we don't want to patch stuff again.");
+        return EXIT_RELAUNCH_ON_LOAD;
+    }
     //!*******************************************************************
     //!                   Initialize function pointers                   *
     //!*******************************************************************
     //! do OS (for acquire) and sockets first so we got logging
     InitOSFunctionPointers();
     InitVPadFunctionPointers();
+    InitProcUIFunctionPointers();
 
     if(OSGetTitleID()  == 0x00050000101a5f00L || // Shantae and the Pirate's Curse USA (reason: crashes when pressing HOME, Pro Controller not recognized)
         OSGetTitleID() == 0x00050000101F7F00L || // Shantae and the Pirate's Curse JAP (シャンティ -海賊の呪い-) (reason: crashes when pressing HOME, Pro Controller not recognized)

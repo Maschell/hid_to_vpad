@@ -5,7 +5,7 @@
 extern "C" {
 #endif
 
-//#define DEBUG_LOGGER        1
+#define DEBUG_LOGGER        1
 
 #ifdef DEBUG_LOGGER
 void log_init(const char * ip);

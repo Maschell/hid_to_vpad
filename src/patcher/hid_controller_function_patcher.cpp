@@ -242,6 +242,16 @@ DECL(void,WPADControlMotor,s32 chan, u32 status ){
     real_WPADControlMotor(chan,status);
 }
 
+DECL(u32, ProcUIProcessMessages, u32 u){
+    u32 res = real_ProcUIProcessMessages(u);
+    if(res != gAppStatus){
+        log_printf("App status changed from %d to %d \n",gAppStatus,res);
+        gAppStatus = res;
+    }
+
+    return res;
+}
+
 hooks_magic_t method_hooks_hid_controller[] __attribute__((section(".data"))) = {
     MAKE_MAGIC(VPADRead,                            LIB_VPAD,       STATIC_FUNCTION),
     MAKE_MAGIC(GX2CopyColorBufferToScanBuffer,      LIB_GX2,        STATIC_FUNCTION),
@@ -255,6 +265,7 @@ hooks_magic_t method_hooks_hid_controller[] __attribute__((section(".data"))) = 
     MAKE_MAGIC(WPADSetDataFormat,                   LIB_PADSCORE,   DYNAMIC_FUNCTION),
     MAKE_MAGIC(WPADControlMotor,                    LIB_PADSCORE,   DYNAMIC_FUNCTION),
     MAKE_MAGIC(WPADProbe,                           LIB_PADSCORE,   DYNAMIC_FUNCTION),
+    MAKE_MAGIC(ProcUIProcessMessages,               LIB_PROC_UI,   DYNAMIC_FUNCTION),
 };
 
 u32 method_hooks_size_hid_controller __attribute__((section(".data"))) = sizeof(method_hooks_hid_controller) / sizeof(hooks_magic_t);
