@@ -33,11 +33,14 @@
 typedef void (* WPADSamplingCallback )( s32 chan );
 
 DECL(void, GX2CopyColorBufferToScanBuffer, const GX2ColorBuffer *colorBuffer, s32 scan_target){
-    if(gHIDCurrentDevice & gHID_LIST_MOUSE && gHID_Mouse_Mode == HID_MOUSE_MODE_TOUCH) {
-        HID_Mouse_Data * mouse_data = ControllerPatcher::getMouseData();
-        if(mouse_data !=  NULL){
-            CursorDrawer::draw(mouse_data->X, mouse_data->Y);
-        }
+    if(gAppStatus == 2){
+        real_GX2CopyColorBufferToScanBuffer(colorBuffer,scan_target);
+        return;
+    }
+
+    HID_Mouse_Data * mouse_data = ControllerPatcher::getMouseData();
+    if(mouse_data !=  (HID_Mouse_Data *)0x01){
+        CursorDrawer::draw(mouse_data->X, mouse_data->Y);
     }
     real_GX2CopyColorBufferToScanBuffer(colorBuffer,scan_target);
 }
@@ -119,6 +122,28 @@ DECL(s32, VPADRead, s32 chan, VPADData *buffer, u32 buffer_size, s32 *error) {
     if(gButtonRemappingConfigDone){
         ControllerPatcher::buttonRemapping(buffer,result);
         //ControllerPatcher::printVPADButtons(buffer); //Leads to random crashes on app transitions.
+    }
+/*
+    buffer->angle.x =0;
+    buffer->angle.y =0;
+    buffer->angle.z =0;
+
+    buffer->dir.X.x = 1.0f;
+    buffer->dir.X.y = 0.0f;
+    buffer->dir.X.z = 0.0f;
+
+    buffer->dir.Y.x = 0.0f;*/
+    //buffer->dir.Y.y = 1.0f;
+    //buffer->dir.Y.z = 0.0f;
+
+    //buffer->dir.Z.x = 0.0f;
+
+    if(result > 0 && (buffer->btns_h & VPAD_BUTTON_R)){
+        /*log_printf("VPADRead DirX: %2.2f %2.2f %2.2f DirY: %2.2f %2.2f %2.2f DirZ: %2.2f %2.2f %2.2f val: %2.2f speed: %2.2f vertical 1: %2.2f 2: %2.2f acc: x: %2.2f y: %2.2f z: %2.2f angle: x: %2.2f y: %2.2f z: %2.2f gyro x: %2.2f y: %2.2f z: %2.2f \n",
+                   buffer->dir.X.x,buffer->dir.X.y,buffer->dir.X.z,
+                   buffer->dir.Y.x,buffer->dir.Y.y,buffer->dir.Y.z,
+                   buffer->dir.Z.x,buffer->dir.Z.y,buffer->dir.Z.z,
+                   buffer->accValue,buffer->accSpeed,buffer->accVertical.x,buffer->accVertical.y,buffer->acc.x,buffer->acc.y,buffer->acc.z,buffer->angle.x,buffer->angle.y,buffer->angle.z,buffer->gyro.x,buffer->gyro.y,buffer->gyro.z);*/
     }
 
     return result;

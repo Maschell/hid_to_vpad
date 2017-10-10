@@ -89,6 +89,13 @@ extern "C" s32 Menu_Main(void){
     ControllerPatcher::enableControllerMapping();
     ControllerPatcher::startNetworkServer();
 
+     //!*******************************************************************
+    //!                        Patching functions                        *
+    //!*******************************************************************
+    log_printf("Menu_Main(line %d): Patching functions\n",__LINE__);
+    ApplyPatches();
+
+
     s32 result = 0;
     if(isInMiiMakerHBL()){
         //!*******************************************************************
@@ -117,11 +124,7 @@ extern "C" s32 Menu_Main(void){
     }
 
 
-    //!*******************************************************************
-    //!                        Patching functions                        *
-    //!*******************************************************************
-    log_printf("Menu_Main(line %d): Patching functions\n",__LINE__);
-    ApplyPatches();
+
 
     if(!isInMiiMakerHBL()){
         ControllerPatcher::disableWiiUEnergySetting();
