@@ -38,7 +38,7 @@ public:
 	    //! save attribute assignment
 	    iAttributes = iAttr;
 		//! allocate the thread
-		pThread = memalign(8, 0x1000);
+		pThread = (OSThread*) memalign(8, 0x1000);
 		//! allocate the stack
 		pThreadStack = (u8 *) memalign(0x20, iStackSize);
         //! create the thread
@@ -112,7 +112,7 @@ private:
 		return 0;
 	}
     s32 iAttributes;
-	void *pThread;
+	OSThread *pThread;
 	u8 *pThreadStack;
 	Callback pCallback;
 	void *pCallbackArg;
