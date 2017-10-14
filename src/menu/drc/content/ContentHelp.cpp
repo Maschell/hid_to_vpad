@@ -80,7 +80,7 @@ ContentHelp::ContentHelp(): ContentTemplate(){
     append(text);
     positionY -= 35;
 
-    text = new GuiText(gettext("You're lucky! There a whole wiki about creating them:"), fontSize2, textColor);
+    text = new GuiText(gettext("You're lucky! There is a whole wiki about creating them:"), fontSize2, textColor);
     text->setPosition(positionX, positionY);
     text->setAlignment(ALIGN_LEFT | ALIGN_MIDDLE);
     helpText.push_back(text);

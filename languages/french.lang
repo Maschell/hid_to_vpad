@@ -143,7 +143,8 @@ msgid "I have no idea how create a own config!"
 msgstr "Comment créer ma propre config?"
 
 #: src/menu/drc/content/ContentHelp.cpp:83
-msgid "You're lucky! There a whole wiki about creating them:"
+#, fuzzy
+msgid "You're lucky! There is a whole wiki about creating them:"
 msgstr "Pas d'inquiétude! Il y a un wiki sur comment le créer: "
 
 #: src/menu/drc/content/ContentHelp.cpp:97
@@ -263,7 +264,6 @@ msgstr "Musique"
 
 #: src/menu/drc/content/ContentSettings.cpp:48
 #: src/menu/drc/content/ContentSettings.cpp:53
-#, fuzzy
 msgid "Network Controller"
 msgstr ""
 
