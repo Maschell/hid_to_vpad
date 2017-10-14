@@ -27,12 +27,9 @@ class GuiSwitch : public GuiToggle
 	public:
 		//!Constructor
 		//!\param checked Checked
-		GuiSwitch(bool checked,f32 switchscale = 1.0f);
+		GuiSwitch(bool checked,f32 w, f32 h);
 		//!Destructor
 		virtual ~GuiSwitch();
-
-        f32 getHeight();
-        f32 getWidth();
 
 	protected:
 

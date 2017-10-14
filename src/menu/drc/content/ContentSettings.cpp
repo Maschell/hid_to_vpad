@@ -25,9 +25,9 @@ ContentSettings::ContentSettings():ContentTemplate()
     , touchTrigger(GuiTrigger::CHANNEL_1, GuiTrigger::VPAD_TOUCH)
     , wpadTouchTrigger(GuiTrigger::CHANNEL_2 | GuiTrigger::CHANNEL_3 | GuiTrigger::CHANNEL_4 | GuiTrigger::CHANNEL_5, GuiTrigger::BUTTON_A)
     , languageSelectBox("",NULL)
-    , rumbleSwitch(CSettings::instance()->getValueAsBool(CSettings::RumbleActivated))
-    , musicSwitch(CSettings::instance()->getValueAsBool(CSettings::MusicActivated))
-    , networkControllerSwitch(CSettings::instance()->getValueAsBool(CSettings::NetworkControllerActivated))
+    , rumbleSwitch(CSettings::instance()->getValueAsBool(CSettings::RumbleActivated),90.0f,38.0f)
+    , musicSwitch(CSettings::instance()->getValueAsBool(CSettings::MusicActivated),90.0f,38.0f)
+    , networkControllerSwitch(CSettings::instance()->getValueAsBool(CSettings::NetworkControllerActivated),90.0f,38.0f)
     , buttonClickSound(Resources::GetSound("settings_click_2.mp3"))
     {
     headLine.setText(gettext("Settings"));
