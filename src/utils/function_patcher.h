@@ -38,6 +38,11 @@ extern "C" {
 #include "dynamic_libs/acp_functions.h"
 #include "dynamic_libs/syshid_functions.h"
 #include "dynamic_libs/proc_ui_functions.h"
+#include "dynamic_libs/ntag_functions.h"
+#include "dynamic_libs/nfp_functions.h"
+#include "dynamic_libs/nn_save_functions.h"
+#include "dynamic_libs/nn_act_functions.h"
+#include "dynamic_libs/nn_nim_functions.h"
 
 //Orignal code by Chadderz.
 #define DECL(res, name, ...) \

@@ -72,13 +72,13 @@ extern "C" s32 Menu_Main(void){
 
     SetupKernelCallback();
 
-    log_init("192.168.0.181");
-    log_printf("HID to VPAD %s - %s %s - by Maschell\n\n",APP_VERION,__DATE__,__TIME__);
+    log_init();
+    DEBUG_FUNCTION_LINE("HID to VPAD %s - %s %s - by Maschell\n\n",APP_VERION,__DATE__,__TIME__);
 
     //!*******************************************************************
     //!                        Initialize HID Config                     *
     //!*******************************************************************
-    log_printf("Menu_Main (line %d): Initializing the controller data\n",__LINE__);
+    DEBUG_FUNCTION_LINE("Initializing the controller data\n");
     bool res = ControllerPatcher::Init();
     if(!res){
         SplashScreen(5, std::string("Error. The app starts in 5 seconds without patches.").c_str(),0,0);
@@ -94,23 +94,23 @@ extern "C" s32 Menu_Main(void){
         //!*******************************************************************
         //!                    Initialize heap memory                        *
         //!*******************************************************************
-        log_printf("Menu_Main (line %d): Initialize memory management\n",__LINE__);
+        DEBUG_FUNCTION_LINE("Initialize memory management\n");
         memoryInitialize();
 
-        log_printf("Menu_Main (line %d): Mount SD partition\n",__LINE__);
+        DEBUG_FUNCTION_LINE("Mount SD partition\n");
         mount_sd_fat("sd");
-        log_printf("Menu_Main (line %d): Start main application\n",__LINE__);
+        DEBUG_FUNCTION_LINE("Start main application\n");
         result = Application::instance()->exec();
-        log_printf("Menu_Main (line %d): Main application stopped result: %d\n",__LINE__,result);
+        DEBUG_FUNCTION_LINE("Main application stopped result: %d\n",result);
         Application::destroyInstance();
         bool rumble = CSettings::instance()->getValueAsBool(CSettings::RumbleActivated);
-        log_printf("Menu_Main (line %d): Setting rumble to: %d\n",__LINE__,rumble);
+        DEBUG_FUNCTION_LINE("Setting rumble to: %d\n",rumble);
         ControllerPatcher::setRumbleActivated(rumble);
         bool networkController = CSettings::instance()->getValueAsBool(CSettings::NetworkControllerActivated);
         ControllerPatcher::setNetworkControllerActivated(networkController);
-        log_printf("Menu_Main (line %d): Unmount SD\n",__LINE__);
+        DEBUG_FUNCTION_LINE("Unmount SD\n");
         unmount_sd_fat("sd");
-        log_printf("Menu_Main (line %d): Release memory\n",__LINE__);
+        DEBUG_FUNCTION_LINE("Release memory\n");
         memoryRelease();
         ControllerPatcher::destroyConfigHelper();
         CSettings::destroyInstance();
@@ -120,7 +120,7 @@ extern "C" s32 Menu_Main(void){
     //!*******************************************************************
     //!                        Patching functions                        *
     //!*******************************************************************
-    log_printf("Menu_Main(line %d): Patching functions\n",__LINE__);
+    DEBUG_FUNCTION_LINE("Menu_Main(line %d): Patching functions\n");
     ApplyPatches();
 
     if(!isInMiiMakerHBL()){
@@ -129,11 +129,11 @@ extern "C" s32 Menu_Main(void){
     }
 
     if(result == APPLICATION_CLOSE_APPLY){
-        log_printf("Menu_Main (line %d): Loading the system menu.\n",__LINE__);
+        DEBUG_FUNCTION_LINE("Loading the system menu.\n");
         SYSLaunchMenu();
         return EXIT_RELAUNCH_ON_LOAD;
     }
-    log_printf("Menu_Main (line %d): Going back to the Homebrew Launcher\n",__LINE__);
+    DEBUG_FUNCTION_LINE("Going back to the Homebrew Launcher\n");
     ControllerPatcher::restoreWiiUEnergySetting();
     deInit();
     return EXIT_SUCCESS;
@@ -151,7 +151,6 @@ void deInit(){
     RestorePatches();
     ControllerPatcher::DeInit();
     ControllerPatcher::stopNetworkServer();
-    log_deinit();
 }
 s32 isInMiiMakerHBL(){
     if (OSGetTitleID != 0 && (

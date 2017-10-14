@@ -54,19 +54,19 @@ Application::Application()
 }
 
 Application::~Application(){
-    log_printf("Application::~Application(line %d): Destroy music\n",__LINE__);
+    DEBUG_FUNCTION_LINE("Destroy music\n");
 
     delete bgMusic;
 
-    log_printf("Application::~Application(line %d): Destroy controller\n",__LINE__);
+    DEBUG_FUNCTION_LINE("Destroy controller\n");
 
     for(s32 i = 0; i < 5; i++)
         delete controller[i];
 
     //We may have to handle Asyncdelete in the Destructors.
-    log_printf("Application::~Application(line %d): Destroy async deleter\n",__LINE__);
+    DEBUG_FUNCTION_LINE("Destroy async deleter\n");
     do{
-        log_printf("Application::~Application(line %d): Triggering AsyncDeleter\n",__LINE__);
+        DEBUG_FUNCTION_LINE("Triggering AsyncDeleter\n");
         AsyncDeleter::triggerDeleteProcess();
         while(!AsyncDeleter::realListEmpty()){
             os_usleep(1000);
@@ -74,10 +74,10 @@ Application::~Application(){
     }while(!AsyncDeleter::deleteListEmpty());
     AsyncDeleter::destroyInstance();
 
-    log_printf("Application::~Application(line %d): Clear resources\n",__LINE__);
+    DEBUG_FUNCTION_LINE("Clear resources\n");
     Resources::Clear();
 
-    log_printf("Application::~Application(line %d): Stop sound handler\n",__LINE__);
+    DEBUG_FUNCTION_LINE("Stop sound handler\n");
     SoundHandler::DestroyInstance();
 
 }
@@ -142,13 +142,13 @@ void Application::fadeOut(){
 }
 
 void Application::executeThread(void){
-    log_printf("Application::executeThread(line %d): Initialize video\n",__LINE__);
+    DEBUG_FUNCTION_LINE("Initialize video\n");
     video = new CVideo(GX2_TV_SCAN_MODE_720P, GX2_DRC_SINGLE);
 
-    log_printf("Application::executeThread(line %d): Video size %i x %i\n",__LINE__, video->getTvWidth(), video->getTvHeight());
+    DEBUG_FUNCTION_LINE("Video size %i x %i\n", video->getTvWidth(), video->getTvHeight());
 
     //! setup default Font
-    log_printf("Application::executeThread(line %d): Initialize main font system\n",__LINE__);
+    DEBUG_FUNCTION_LINE("Initialize main font system\n");
     FreeTypeGX *fontSystem = new FreeTypeGX(Resources::GetFile("font.ttf"), Resources::GetFileSize("font.ttf"), true);
     GuiText::setPresetFont(fontSystem);
 
@@ -159,12 +159,12 @@ void Application::executeThread(void){
     while(reloadUIflag){
         reloadUIflag = false;
         exitCode = EXIT_RELAUNCH_ON_LOAD;
-        log_printf("Application::executeThread(line %d): Initialize the language\n",__LINE__);
+        DEBUG_FUNCTION_LINE("Initialize the language\n");
         loadLanguageFromConfig();
-        log_printf("Application::executeThread(line %d): Initialize main window\n",__LINE__);
+        DEBUG_FUNCTION_LINE("Initialize main window\n");
         mainWindow = MainWindow::getInstance(video->getTvWidth(), video->getTvHeight());
 
-        log_printf("Application::executeThread(line %d): Entering main loop\n",__LINE__);
+        DEBUG_FUNCTION_LINE("Entering main loop\n");
         exitApplication = false;
         //! main GX2 loop (60 Hz cycle with max priority on core 1)
         while(!exitApplication && !reloadUIflag){

@@ -8,36 +8,24 @@
 #include "logger.h"
 
 #ifdef DEBUG_LOGGER
-static s32 log_socket = -1;
-static volatile s32 log_lock = 0;
+static int log_socket = -1;
+static struct sockaddr_in connect_addr;
+static volatile int log_lock = 0;
 
 
-void log_init(const char * ipString)
+void log_init()
 {
+    int broadcastEnable = 1;
 	log_socket = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
 	if (log_socket < 0)
 		return;
 
-	struct sockaddr_in connect_addr;
-	memset(&connect_addr, 0, sizeof(connect_addr));
+    setsockopt(log_socket, SOL_SOCKET, SO_BROADCAST, &broadcastEnable, sizeof(broadcastEnable));
+
+	memset(&connect_addr, 0, sizeof(struct sockaddr_in));
 	connect_addr.sin_family = AF_INET;
 	connect_addr.sin_port = 4405;
-	inet_aton(ipString, &connect_addr.sin_addr);
-
-	if(connect(log_socket, (struct sockaddr*)&connect_addr, sizeof(connect_addr)) < 0)
-	{
-	    socketclose(log_socket);
-	    log_socket = -1;
-	}
-}
-
-void log_deinit(void)
-{
-    if(log_socket >= 0)
-    {
-        socketclose(log_socket);
-        log_socket = -1;
-    }
+    connect_addr.sin_addr.s_addr = htonl(INADDR_BROADCAST);
 }
 
 void log_print(const char *str)
@@ -51,11 +39,11 @@ void log_print(const char *str)
         os_usleep(1000);
     log_lock = 1;
 
-    s32 len = strlen(str);
-    s32 ret;
+    int len = strlen(str);
+    int ret;
     while (len > 0) {
-        s32 block = len < 1400 ? len : 1400; // take max 1400 bytes per UDP packet
-        ret = send(log_socket, str, block, 0);
+        int block = len < 1400 ? len : 1400; // take max 1400 bytes per UDP packet
+        ret = sendto(log_socket, str, block, 0, (struct sockaddr *)&connect_addr, sizeof(struct sockaddr_in));
         if(ret < 0)
             break;
 
