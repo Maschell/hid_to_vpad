@@ -75,11 +75,15 @@ extern "C" s32 Menu_Main(void){
     log_init();
     DEBUG_FUNCTION_LINE("HID to VPAD %s - %s %s - by Maschell\n\n",APP_VERION,__DATE__,__TIME__);
 
+
+    DEBUG_FUNCTION_LINE("Mount SD partition\n");
+    mount_sd_fat("sd");
+
     //!*******************************************************************
     //!                        Initialize HID Config                     *
     //!*******************************************************************
     DEBUG_FUNCTION_LINE("Initializing the controller data\n");
-    bool res = ControllerPatcher::Init();
+    bool res = ControllerPatcher::Init(CONTROLLER_PATCHER_PATH);
     if(!res){
         SplashScreen(5, std::string("Error. The app starts in 5 seconds without patches.").c_str(),0,0);
         RestorePatches();
@@ -96,9 +100,6 @@ extern "C" s32 Menu_Main(void){
         //!*******************************************************************
         DEBUG_FUNCTION_LINE("Initialize memory management\n");
         memoryInitialize();
-
-        DEBUG_FUNCTION_LINE("Mount SD partition\n");
-        mount_sd_fat("sd");
         DEBUG_FUNCTION_LINE("Start main application\n");
         result = Application::instance()->exec();
         DEBUG_FUNCTION_LINE("Main application stopped result: %d\n",result);
@@ -108,14 +109,14 @@ extern "C" s32 Menu_Main(void){
         ControllerPatcher::setRumbleActivated(rumble);
         bool networkController = CSettings::instance()->getValueAsBool(CSettings::NetworkControllerActivated);
         ControllerPatcher::setNetworkControllerActivated(networkController);
-        DEBUG_FUNCTION_LINE("Unmount SD\n");
-        unmount_sd_fat("sd");
         DEBUG_FUNCTION_LINE("Release memory\n");
         memoryRelease();
         ControllerPatcher::destroyConfigHelper();
         CSettings::destroyInstance();
     }
 
+    unmount_sd_fat("sd");
+    DEBUG_FUNCTION_LINE("Unmount SD\n");
 
     //!*******************************************************************
     //!                        Patching functions                        *
