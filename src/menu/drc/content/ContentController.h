@@ -24,7 +24,7 @@
 #include "ContentTemplate.h"
 #include "menu/drc/MenuElementController.h"
 #include "menu/InputGetterMenu.h"
-#include "gui/GuiControllerInputDisplay.h"
+#include "mygui/GuiControllerInputDisplay.h"
 
 class ContentController : public ContentTemplate{
 public:

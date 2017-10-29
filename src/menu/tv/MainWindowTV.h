@@ -22,7 +22,7 @@
 #include <vector>
 #include <queue>
 #include <gui/Gui.h>
-#include "gui/GuiConfigurationScreen.h"
+#include "mygui/GuiConfigurationScreen.h"
 
 #include "TVControllerBanner.h"
 

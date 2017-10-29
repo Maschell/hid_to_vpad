@@ -16,7 +16,7 @@
  ****************************************************************************/
 #include "MainWindowDRC.h"
 #include "../../version.h"
-#include <gui/GuiControllerInputDisplay.h>
+#include "mygui/GuiControllerInputDisplay.h"
 
 extern u32 hostIpAddress;
 

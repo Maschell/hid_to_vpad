@@ -35,7 +35,7 @@ BUILD		:=	build
 BUILD_DBG	:=	$(TARGET)_dbg
 SOURCES		:=	src \
 				src/common \
-				src/gui \
+				src/mygui \
                 src/language \
 				src/menu \
 				src/menu/tv \
@@ -152,7 +152,7 @@ $(BUILD):
 #---------------------------------------------------------------------------------
 clean:
 	@echo clean ...
-	@$(MAKE) --no-print-directory -C $(CURDIR)/libcontrollerpatcher -f $(CURDIR)/libcontrollerpatcher/Makefile clean
+	#@$(MAKE) --no-print-directory -C $(CURDIR)/libcontrollerpatcher -f $(CURDIR)/libcontrollerpatcher/Makefile clean
 	@rm -fr $(BUILD) $(OUTPUT).elf $(OUTPUT).bin $(BUILD_DBG).elf	
 
 #---------------------------------------------------------------------------------

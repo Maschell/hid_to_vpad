@@ -18,9 +18,9 @@
 #define _MAIN_WINDOW_DRC_H_
 
 #include <gui/Gui.h>
-#include <gui/GuiConfigurationScreen.h>
 #include <language/gettext.h>
 
+#include "mygui/GuiConfigurationScreen.h"
 #include "MenuListDRC.h"
 #include "menu/MainWindow.h"
 #include "MainWindowContent.h"
