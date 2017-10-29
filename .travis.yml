@@ -48,13 +48,13 @@ install:
 - make -j8
 - make install
 - cd $DEVKITTMP
-- rm *
+- rm -rf *
 - git clone https://github.com/Maschell/libutils.git
 - cd libutils
 - make -j8
 - make install
 - cd $DEVKITTMP
-- rm *
+- rm -rf *
 - git clone https://github.com/Maschell/libgui.git
 - cd libgui/libs
 - 7z x -y portlibs.zip
@@ -63,7 +63,7 @@ install:
 - make -j8
 - make install
 - cd $DEVKITTMP
-- rm *
+- rm -rf *
 - cd $DEVKITPRO
 
 before_script:
