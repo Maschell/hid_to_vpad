@@ -64,6 +64,12 @@ install:
 - make install
 - cd $DEVKITTMP
 - rm -rf *
+- git clone https://github.com/Maschell/controller_patcher.git
+- cd controller_patcher
+- make -j8
+- make install
+- cd $DEVKITTMP
+- rm -rf *
 - cd $DEVKITPRO
 
 before_script:
