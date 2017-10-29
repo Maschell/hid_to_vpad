@@ -2,37 +2,32 @@
 
 #include "version.h"
 
-#include "controller_patcher/ControllerPatcher.hpp"
+#include <controller_patcher/ControllerPatcher.hpp>
 
-#include "dynamic_libs/os_functions.h"
-#include "dynamic_libs/gx2_functions.h"
-#include "dynamic_libs/syshid_functions.h"
-#include "dynamic_libs/vpad_functions.h"
-#include "dynamic_libs/socket_functions.h"
-#include "dynamic_libs/sys_functions.h"
-#include "dynamic_libs/proc_ui_functions.h"
-
-#include "utils/logger.h"
-#include "utils/utils.h"
-#include "utils/function_patcher.h"
+#include <dynamic_libs/os_functions.h>
+#include <dynamic_libs/gx2_functions.h>
+#include <dynamic_libs/syshid_functions.h>
+#include <dynamic_libs/vpad_functions.h>
+#include <dynamic_libs/socket_functions.h>
+#include <dynamic_libs/sys_functions.h>
+#include <dynamic_libs/proc_ui_functions.h>
+#include <utils/logger.h>
+#include <utils/function_patcher.h>
+#include <fs/FSUtils.h>
+#include <fs/sd_fat_devoptab.h>
+#include <system/memory.h>
+#include <kernel/kernel_functions.h>
+#include <language/gettext.h>
+#include <utils/StringTools.h>
 
 #include "patcher/hid_controller_function_patcher.hpp"
-
-#include "fs/fs_utils.h"
-#include "fs/sd_fat_devoptab.h"
-
-#include "system/memory.h"
-#include "kernel/kernel_functions.h"
 #include "common/common.h"
 
-#include "language/gettext.h"
-
-#include "video/CursorDrawer.h"
-
+#include <video/CursorDrawer.h>
 #include "Application.h"
 #include "settings/CSettings.h"
 
-#include "utils/StringTools.h"
+#include "common/retain_vars.h"
 
 /* Entry point */
 extern "C" s32 Menu_Main(void){
@@ -66,7 +61,6 @@ extern "C" s32 Menu_Main(void){
     InitSocketFunctionPointers();
     InitGX2FunctionPointers();
     InitSysFunctionPointers();
-
     InitPadScoreFunctionPointers();
     InitAXFunctionPointers();
 
@@ -74,7 +68,6 @@ extern "C" s32 Menu_Main(void){
 
     log_init();
     DEBUG_FUNCTION_LINE("HID to VPAD %s - %s %s - by Maschell\n\n",APP_VERION,__DATE__,__TIME__);
-
 
     DEBUG_FUNCTION_LINE("Mount SD partition\n");
     mount_sd_fat("sd");

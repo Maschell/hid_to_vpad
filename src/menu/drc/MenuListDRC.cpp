@@ -15,12 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ****************************************************************************/
 #include "MenuListDRC.h"
-#include "dynamic_libs/padscore_functions.h"
+#include <dynamic_libs/padscore_functions.h>
 #include "content/ContentHome.h"
 #include "content/ContentAbout.h"
 #include "content/ContentHelp.h"
 #include "content/ContentController.h"
-#include "utils/logger.h"
+#include <utils/logger.h>
 
 MenuListDRC::MenuListDRC(s32 w, s32 h,MainWindowContent * _contentWindow)
     : GuiFrame(w, h)

@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (C) 2016 Maschell
+ * Copyright (C) 2017 Maschell
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,15 +14,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ****************************************************************************/
-#include "GuiCheckBox.h"
-#include "GuiImage.h"
-#include "GuiImageData.h"
+#include "DefaultGuiCheckBox.h"
 /**
- * Constructor for the GuiCheckBox class.
+ * Constructor for the DefaultGuiCheckBox class.
  */
 
-GuiCheckBox::GuiCheckBox(bool checked)
- : GuiToggle(checked,50,50)
+DefaultGuiCheckBox::DefaultGuiCheckBox(bool checked,f32 scale)
+ : GuiCheckBox(checked)
  ,checkbox_imgdata(Resources::GetImageData("checkbox.png"))
  ,checkbox_img(checkbox_imgdata)
  ,checkbox_selected_imgdata(Resources::GetImageData("checkbox_selected.png"))
@@ -30,34 +28,20 @@ GuiCheckBox::GuiCheckBox(bool checked)
  ,highlighted_imgdata(Resources::GetImageData("checkbox_highlighted.png"))
  ,highlighted_img(highlighted_imgdata)
 {
-    checkbox_selected_img.setScale(height/checkbox_selected_img.getHeight());
-    checkbox_img.setScale(height/checkbox_img.getHeight());
-    highlighted_img.setScale(height/highlighted_img.getHeight());
-
-    setImage(&checkbox_img);
-    setIconOver(&highlighted_img);
+    setScale(scale);
+    setSize(checkbox_img.getWidth(),
+            checkbox_img.getHeight());
+    this->setImageBackground(&checkbox_img);
+    this->setImageSelected(&checkbox_selected_img);
+    this->setImageHighlighted(&highlighted_img);
 }
 
 /**
  * Destructor for the GuiButton class.
  */
-GuiCheckBox::~GuiCheckBox()
+DefaultGuiCheckBox::~DefaultGuiCheckBox()
 {
     Resources::RemoveImageData(checkbox_imgdata);
     Resources::RemoveImageData(checkbox_selected_imgdata);
     Resources::RemoveImageData(highlighted_imgdata);
 }
-
-
-void GuiCheckBox::update(GuiController * c){
-    if(bChanged){
-        if(selected){
-            GuiButton::setImage(&checkbox_selected_img);
-        }else{
-            GuiButton::setImage(&checkbox_img);
-        }
-        bChanged = false;
-    }
-     GuiToggle::update(c);
-}
-

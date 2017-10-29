@@ -17,9 +17,10 @@
 #ifndef _CONTENT_NETWORK_HELP_H
 #define _CONTENT_NETWORK_HELP_H
 
-#include "gui/Gui.h"
+#include <gui/Gui.h>
+#include <language/gettext.h>
+
 #include "ContentTemplate.h"
-#include "language/gettext.h"
 
 class ContentNetworkHelp : public ContentTemplate{
 public:

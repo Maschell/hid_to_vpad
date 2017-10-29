@@ -17,9 +17,9 @@
 #ifndef MENU_ELEMENT_H_
 #define MENU_ELEMENT_H_
 
-#include "gui/GuiButton.h"
+#include <gui/GuiButton.h>
 #include "content/ContentTemplate.h"
-#include "language/gettext.h"
+#include <language/gettext.h>
 
 class MenuElement : public GuiButton
 {

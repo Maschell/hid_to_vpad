@@ -19,9 +19,11 @@
 
 #include <map>
 
-#include "gui/Gui.h"
+#include <gui/Gui.h>
+#include <gui/DefaultGuiCheckbox.h>
+#include <gui/DefaultGuiSwitch.h>
 #include "ContentTemplate.h"
-#include "language/gettext.h"
+#include <language/gettext.h>
 
 class ContentSettings : public ContentTemplate{
 public:
@@ -38,9 +40,11 @@ private:
     GuiFrame settingsFrame;
 
     GuiText headLine;
-    GuiSwitch rumbleSwitch;
-    GuiSwitch musicSwitch;
-    GuiSwitch networkControllerSwitch;
+
+    DefaultGuiSwitch rumbleSwitch;
+    DefaultGuiSwitch musicSwitch;
+    DefaultGuiCheckBox networkControllerSwitch;
+
     GuiSound *buttonClickSound;
 
     std::map<std::string,GuiElement*> settings;

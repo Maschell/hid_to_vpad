@@ -14,8 +14,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ****************************************************************************/
+#include <utils/StringTools.h>
+#include <controller_patcher/ControllerPatcherDefs.h>
+#include <controller_patcher/ControllerPatcher.hpp>
+
 #include "TVButtonController.h"
-#include "controller_patcher/config/ConfigValues.hpp"
 
 /**
  * Constructor for the TVButtonController class.
@@ -138,7 +141,7 @@ TVButtonController::~TVButtonController()
 
 void TVButtonController::drawControllerName(CVideo *v,u16 vid,u16 pid){
     std::string titleString = ControllerPatcher::getIdentifierByVIDPID(vid,pid);
-    std::vector<std::string> result = CPStringTools::StringSplit(titleString, "\n");
+    std::vector<std::string> result = StringTools::stringSplit(titleString, "\n");
     if(result.size() == 1){
         controllerNameLabelMiddle.setText(result.at(0).c_str());
         controllerNameLabelMiddle.draw(v);

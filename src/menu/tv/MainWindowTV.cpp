@@ -15,12 +15,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ****************************************************************************/
+#include <dynamic_libs/os_functions.h>
+#include <dynamic_libs/socket_functions.h>
+#include <utils/StringTools.h>
+#include <utils/logger.h>
+
 #include "MainWindowTV.h"
-#include "dynamic_libs/os_functions.h"
-#include "dynamic_libs/socket_functions.h"
 #include "Application.h"
-#include "utils/StringTools.h"
-#include "utils/logger.h"
 
 TVControllerBanner *MainWindowTV::bannerInstance = NULL;
 

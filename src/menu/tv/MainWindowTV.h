@@ -21,9 +21,10 @@
 #include <vector>
 #include <vector>
 #include <queue>
-#include "gui/Gui.h"
-#include "TVControllerBanner.h"
+#include <gui/Gui.h>
 #include "gui/GuiConfigurationScreen.h"
+
+#include "TVControllerBanner.h"
 
 class CVideo;
 

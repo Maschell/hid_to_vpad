@@ -17,7 +17,7 @@
 #ifndef _CONTENT_TEMPLATE_H_
 #define _CONTENT_TEMPLATE_H_
 
-#include "gui/Gui.h"
+#include <gui/Gui.h>
 
 class ContentTemplate : public GuiFrame, public sigslot::has_slots<>{
 

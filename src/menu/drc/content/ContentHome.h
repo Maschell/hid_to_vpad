@@ -17,9 +17,10 @@
 #ifndef _CONTENT_HOME_H
 #define _CONTENT_HOME_H
 
-#include "gui/Gui.h"
+#include <gui/Gui.h>
+#include <language/gettext.h>
+
 #include "ContentTemplate.h"
-#include "language/gettext.h"
 
 class ContentHome : public ContentTemplate{
 public:

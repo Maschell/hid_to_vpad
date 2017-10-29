@@ -29,18 +29,42 @@ addons:
 before_install:
 - export DEVKITPRO=/home/travis/devkitPro
 - export DEVKITPPC=${DEVKITPRO}/devkitPPC
+- export DEVKITTMP=${DEVKITPRO}/tmp
 - mkdir -p $DEVKITPRO
+- mkdir -p $DEVKITPRO/portlibs
+- mkdir -p $DEVKITTMP
 - cd $DEVKITPRO
 - wget -N https://raw.githubusercontent.com/Maschell/hid_to_vpad/master/other/devkitPPCupdatePPCr29.pl
-- wget -N https://raw.githubusercontent.com/Maschell/hid_to_vpad/master/other/libogc.7z
-- wget -N https://raw.githubusercontent.com/Maschell/hid_to_vpad/master/other/portlibs.7z
 
 install:
 - cd $DEVKITPRO
 - perl devkitPPCupdatePPCr29.pl
-- 7z x -y libogc.7z
-- 7z x -y portlibs.7z
-- cp -R portlibs/ppc/* devkitPPC/
+- cd $DEVKITTMP
+- git clone https://github.com/Maschell/dynamic_libs.git -b lib
+- cd dynamic_libs/libs
+- 7z x -y portlibs.zip
+- cp -R portlibs/* $DEVKITPRO
+- cd $DEVKITTMP/dynamic_libs
+- make -j8
+- make install
+- cd $DEVKITTMP
+- rm *
+- git clone https://github.com/Maschell/libutils.git
+- cd libutils
+- make -j8
+- make install
+- cd $DEVKITTMP
+- rm *
+- git clone https://github.com/Maschell/libgui.git
+- cd libgui/libs
+- 7z x -y portlibs.zip
+- cp -R portlibs/* $DEVKITPRO
+- cd $DEVKITTMP/libgui
+- make -j8
+- make install
+- cd $DEVKITTMP
+- rm *
+- cd $DEVKITPRO
 
 before_script:
 - cd $TRAVIS_BUILD_DIR/

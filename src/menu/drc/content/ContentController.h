@@ -17,13 +17,14 @@
 #ifndef _CONTENT_CONTROLLER_H
 #define _CONTENT_CONTROLLER_H
 
-#include "gui/Gui.h"
+#include <gui/Gui.h>
+#include <language/gettext.h>
+
 #include "ContentHome.h"
 #include "ContentTemplate.h"
 #include "menu/drc/MenuElementController.h"
 #include "menu/InputGetterMenu.h"
 #include "gui/GuiControllerInputDisplay.h"
-#include "language/gettext.h"
 
 class ContentController : public ContentTemplate{
 public:

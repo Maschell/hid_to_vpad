@@ -18,42 +18,33 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <string.h>
-#include "controller_patcher/network/UDPServer.hpp"
-#include "controller_patcher/network/TCPServer.hpp"
-#include "controller_patcher/utils/CPRetainVars.hpp"
-#include "hid_controller_function_patcher.hpp"
-#include "dynamic_libs/padscore_functions.h"
-#include "video/CursorDrawer.h"
-#include "utils/StringTools.h"
+#include <controller_patcher/ControllerPatcher.hpp>
+#include <dynamic_libs/padscore_functions.h>
+#include <video/CursorDrawer.h>
+#include <utils/StringTools.h>
+#include <utils/logger.h>
 
-#include "utils/logger.h"
-#include "controller_patcher/ConfigReader.hpp"
-#include "controller_patcher/config/ConfigValues.hpp"
+#include "hid_controller_function_patcher.hpp"
+#include "common/retain_vars.h"
 
 typedef void (* WPADSamplingCallback )( s32 chan );
 
 DECL(void, GX2CopyColorBufferToScanBuffer, const GX2ColorBuffer *colorBuffer, s32 scan_target){
-    if(gHIDCurrentDevice & gHID_LIST_MOUSE && gHID_Mouse_Mode == HID_MOUSE_MODE_TOUCH) {
-        HID_Mouse_Data * mouse_data = ControllerPatcher::getMouseData();
-        if(mouse_data !=  NULL){
-            CursorDrawer::draw(mouse_data->X, mouse_data->Y);
-        }
+    HID_Mouse_Data * mouse_data = ControllerPatcher::getMouseData();
+    if(mouse_data !=  NULL){
+        CursorDrawer::draw(mouse_data->X, mouse_data->Y);
     }
     real_GX2CopyColorBufferToScanBuffer(colorBuffer,scan_target);
 }
 
 DECL(void, __PPCExit, void){
-    if(HID_DEBUG){ log_printf("__PPCExit\n"); }
+    log_printf("__PPCExit\n");
     CursorDrawer::destroyInstance();
 
     ControllerPatcher::destroyConfigHelper();
     ControllerPatcher::stopNetworkServer();
 
-    memset(gWPADConnectCallback,0,sizeof(gWPADConnectCallback));
-    memset(gKPADConnectCallback,0,sizeof(gKPADConnectCallback));
-    memset(gExtensionCallback,0,sizeof(gExtensionCallback));
-    gSamplingCallback = 0;
-    gCallbackCooldown = 0;
+    ControllerPatcher::resetCallbackData();
 
     real___PPCExit();
 }
@@ -61,45 +52,12 @@ DECL(void, __PPCExit, void){
 DECL(s32, VPADRead, s32 chan, VPADData *buffer, u32 buffer_size, s32 *error) {
     s32 result = real_VPADRead(chan, buffer, buffer_size, error);
     //A keyboard only sends data when the state changes. We force it to call the sampling callback on each frame!
-    if((gHIDCurrentDevice & gHID_LIST_KEYBOARD) == gHID_LIST_KEYBOARD){
-        ControllerPatcher::doSamplingForDeviceSlot(gHID_SLOT_KEYBOARD);
-    }
+    ControllerPatcher::sampleKeyboardData();
 
-    if(result > 0 && (buffer[0].btns_h & VPAD_BUTTON_TV) && gCallbackCooldown == 0){
-        gCallbackCooldown = 0xFF;
-        if(HID_DEBUG){ log_printf("my_VPADRead(line %d): Pressed the TV button. Maybe we can call the callbacks.!\n",__LINE__); }
+    bool do_callback = (result > 0 && (buffer[0].btns_h & VPAD_BUTTON_TV));
+    ControllerPatcher::handleCallbackData(do_callback);
 
-        if(HID_DEBUG){ log_printf("my_VPADRead(line %d): gExtensionCallback =  %08X %08X %08X %08X\n",__LINE__,gExtensionCallback[0],gExtensionCallback[1],gExtensionCallback[2],gExtensionCallback[3]); }
-        if(HID_DEBUG){ log_printf("my_VPADRead(line %d): gWPADConnectCallback   =  %08X %08X %08X %08X\n",__LINE__,gWPADConnectCallback[0],gWPADConnectCallback[1],gWPADConnectCallback[2],gWPADConnectCallback[3]); }
-        if(HID_DEBUG){ log_printf("my_VPADRead(line %d): gKPADConnectCallback   =  %08X %08X %08X %08X\n",__LINE__,gKPADConnectCallback[0],gKPADConnectCallback[1],gKPADConnectCallback[2],gKPADConnectCallback[3]); }
-
-        for(s32 i = 0;i<4;i++){
-            bool doCall = false;
-            if(i == 0){ doCall = ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro1); }
-            if(i == 1){ doCall = ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro2); }
-            if(i == 2){ doCall = ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro3); }
-            if(i == 3){ doCall = ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro4); }
-            if(doCall){
-                if(gWPADConnectCallback[i] != NULL){
-                    log_printf("my_VPADRead(line %d): Called WPAD connect callback for pro controller in slot %d!\n",__LINE__,(i+1));
-                    gWPADConnectCallback[i](i,0);
-                }
-                if(gKPADConnectCallback[i] != NULL){
-                    log_printf("my_VPADRead(line %d): Called KPAD connect callback for pro controller in slot %d!\n",__LINE__,(i+1));
-                    gKPADConnectCallback[i](i,0);
-                }
-                if(gExtensionCallback[i] != NULL){
-                    log_printf("my_VPADRead(line %d): Called extension callback for pro controller in slot %d!\n",__LINE__,(i+1));
-                    gExtensionCallback[i](i,WPAD_EXT_PRO_CONTROLLER);
-                }
-            }
-        }
-    }
-    if(gCallbackCooldown > 0){
-        gCallbackCooldown--;
-    }
-
-    if(gHIDAttached && buffer_size > 0){
+    if(ControllerPatcher::areControllersConnected() && buffer_size > 0){
         ControllerPatcher::setRumble(UController_Type_Gamepad,!!VPADBASEGetMotorOnRemainingCount(0));
 
         if(ControllerPatcher::setControllerDataFromHID(buffer) == CONTROLLER_PATCHER_ERROR_NONE){
@@ -116,7 +74,7 @@ DECL(s32, VPADRead, s32 chan, VPADData *buffer, u32 buffer_size, s32 *error) {
         }
     }
 
-    if(gButtonRemappingConfigDone){
+    if(ControllerPatcher::isButtonRemappingDone()){
         ControllerPatcher::buttonRemapping(buffer,result);
         //ControllerPatcher::printVPADButtons(buffer); //Leads to random crashes on app transitions.
     }
@@ -140,7 +98,9 @@ DECL(s32, WPADProbe, s32 chan, u32 * result ){
 
 DECL(wpad_connect_callback_t,WPADSetConnectCallback,s32 chan, wpad_connect_callback_t callback ){
     //log_printf("WPADSetConnectCallback chan %d %08X\n",chan,callback);
-    gWPADConnectCallback[chan] = callback;
+
+    ControllerPatcher::setWPADConnectCallback(chan,callback);
+
     if( (chan == 0 && ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro1)) ||
         (chan == 1 && ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro2)) ||
         (chan == 2 && ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro3)) ||
@@ -154,7 +114,9 @@ DECL(wpad_connect_callback_t,WPADSetConnectCallback,s32 chan, wpad_connect_callb
 
 DECL(wpad_extension_callback_t,WPADSetExtensionCallback,s32 chan, wpad_extension_callback_t callback ){
     //log_printf("WPADSetExtensionCallback chan %d %08X\n",chan,callback);
-    gExtensionCallback[chan] = callback;
+
+    ControllerPatcher::setKPADExtensionCallback(chan,callback);
+
     if((chan == 0 && ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro1)) ||
         (chan == 1 && ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro2)) ||
         (chan == 2 && ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro3)) ||
@@ -168,7 +130,9 @@ DECL(wpad_extension_callback_t,WPADSetExtensionCallback,s32 chan, wpad_extension
 
 DECL(wpad_connect_callback_t,KPADSetConnectCallback,s32 chan, wpad_connect_callback_t callback ){
     //log_printf("KPADSetConnectCallback chan %d %08X\n",chan,callback);
-    gKPADConnectCallback[chan] = callback;
+
+    ControllerPatcher::setKPADConnectedCallback(chan,callback);
+
     if( (chan == 0 && ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro1)) ||
         (chan == 1 && ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro2)) ||
         (chan == 2 && ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro3)) ||

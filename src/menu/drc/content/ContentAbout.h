@@ -18,10 +18,11 @@
 #define _CONTENT_ABOUT_H
 
 #include <vector>
-#include "gui/Gui.h"
+#include <gui/Gui.h>
+#include <language/gettext.h>
+
 #include "ContentHome.h"
 #include "ContentTemplate.h"
-#include "language/gettext.h"
 
 class ContentAbout : public ContentTemplate{
 public:

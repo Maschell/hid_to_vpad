@@ -1,3 +1,5 @@
+DO_LOGGING := 0
+
 #---------------------------------------------------------------------------------
 # Clear the implicit built in rules
 #---------------------------------------------------------------------------------
@@ -33,16 +35,7 @@ BUILD		:=	build
 BUILD_DBG	:=	$(TARGET)_dbg
 SOURCES		:=	src \
 				src/common \
-				src/controller_patcher \
-				src/controller_patcher/utils \
-				src/controller_patcher/network \
-				src/controller_patcher/patcher \
-				src/controller_patcher/config \
-				src/dynamic_libs \
-				src/fs \
-				src/game \
 				src/gui \
-				src/kernel \
                 src/language \
 				src/menu \
 				src/menu/tv \
@@ -50,12 +43,8 @@ SOURCES		:=	src \
 				src/menu/drc/content \
 				src/patcher \
 				src/resources \
-				src/sounds \
 				src/settings \
-				src/system \
-				src/utils \
-				src/video \
-				src/video/shaders
+
 DATA		:=	data \
 				data/images \
 				data/fonts \
@@ -68,8 +57,14 @@ INCLUDES	:=  src
 #---------------------------------------------------------------------------------
 CFLAGS	:=  -std=gnu11 -mrvl -mcpu=750 -meabi -mhard-float -ffast-math \
 		    -O3 -Wall -Wextra -Wno-unused-parameter -Wno-strict-aliasing $(INCLUDE)
-CXXFLAGS := -std=gnu++11 -mrvl -mcpu=750 -meabi -mhard-float -ffast-math -D_GNU_SOURCE  \
+CXXFLAGS := -std=gnu++11 -mrvl -mcpu=750 -meabi -mhard-float -ffast-math  -D_GNU_SOURCE  \
 		    -O3 -Wall -Wextra -Wno-unused-parameter -Wno-strict-aliasing $(INCLUDE)
+			
+ifeq ($(DO_LOGGING), 1)
+   CFLAGS += -D__LOGGING__
+   CXXFLAGS += -D__LOGGING__
+endif
+			
 ASFLAGS	:= -mregnames
 LDFLAGS	:= -nostartfiles -Wl,-Map,$(notdir $@).map,-wrap,malloc,-wrap,free,-wrap,memalign,-wrap,calloc,-wrap,realloc,-wrap,malloc_usable_size,-wrap,_malloc_r,-wrap,_free_r,-wrap,_realloc_r,-wrap,_calloc_r,-wrap,_memalign_r,-wrap,_malloc_usable_size_r,-wrap,valloc,-wrap,_valloc_r,-wrap,_pvalloc_r,--gc-sections
 
@@ -79,7 +74,8 @@ MAKEFLAGS += --no-print-directory
 #---------------------------------------------------------------------------------
 # any extra libraries we wish to link with the project
 #---------------------------------------------------------------------------------
-LIBS	:= -lgcc -lgd -lpng -ljpeg -lz -lfreetype -lmad -lvorbisidec
+LIBS	:= -lgui -lutils -ldynamiclibs -lcontrollerpatcher -lfreetype -lgd -lpng -ljpeg -lz  -lmad -lvorbisidec
+#  
 
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing
@@ -106,6 +102,7 @@ export DEPSDIR	:=	$(CURDIR)/$(BUILD)
 # automatically build a list of object files for our project
 #---------------------------------------------------------------------------------
 FILELIST	:=	$(shell bash ./filelist.sh)
+LANGUAGES	:=	$(shell bash ./updatelang.sh)
 CFILES		:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.c)))
 CPPFILES	:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.cpp)))
 sFILES		:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.s)))
@@ -133,7 +130,8 @@ export OFILES	:=	$(CPPFILES:.cpp=.o) $(CFILES:.c=.o) \
 export INCLUDE	:=	$(foreach dir,$(INCLUDES),-I$(CURDIR)/$(dir)) \
 					$(foreach dir,$(LIBDIRS),-I$(dir)/include) \
 					-I$(CURDIR)/$(BUILD) -I$(LIBOGC_INC) \
-					-I$(PORTLIBS)/include -I$(PORTLIBS)/include/freetype2
+					-I$(PORTLIBS)/include -I$(PORTLIBS)/include/freetype2\
+					-I$(PORTLIBS)/include/libutils -I$(PORTLIBS)/include/libgui
 
 #---------------------------------------------------------------------------------
 # build a list of library paths
@@ -147,12 +145,15 @@ export OUTPUT	:=	$(CURDIR)/$(TARGET)
 #---------------------------------------------------------------------------------
 $(BUILD):
 	@[ -d $@ ] || mkdir -p $@
+	#@$(MAKE) --no-print-directory -C $(CURDIR)/libcontrollerpatcher -f $(CURDIR)/libcontrollerpatcher/Makefile
+	#@$(MAKE) --no-print-directory -C $(CURDIR)/libcontrollerpatcher -f $(CURDIR)/libcontrollerpatcher/Makefile install
 	@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
-
+	
 #---------------------------------------------------------------------------------
 clean:
 	@echo clean ...
-	@rm -fr $(BUILD) $(OUTPUT).elf $(OUTPUT).bin $(BUILD_DBG).elf
+	@$(MAKE) --no-print-directory -C $(CURDIR)/libcontrollerpatcher -f $(CURDIR)/libcontrollerpatcher/Makefile clean
+	@rm -fr $(BUILD) $(OUTPUT).elf $(OUTPUT).bin $(BUILD_DBG).elf	
 
 #---------------------------------------------------------------------------------
 else
@@ -172,9 +173,6 @@ $(OUTPUT).elf:  $(OFILES)
 	$(Q)$(LD) -n -T $^ $(LDFLAGS) -o ../$(BUILD_DBG).elf  $(LIBPATHS) $(LIBS)
 	$(Q)$(OBJCOPY) -S -R .comment -R .gnu.attributes ../$(BUILD_DBG).elf $@
 
-../data/loader.bin:
-	$(MAKE) -C ../loader clean
-	$(MAKE) -C ../loader
 #---------------------------------------------------------------------------------
 %.a:
 #---------------------------------------------------------------------------------

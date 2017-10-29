@@ -17,10 +17,12 @@
 #ifndef _CONTENT_HELP_H
 #define _CONTENT_HELP_H
 
-#include "gui/Gui.h"
+#include <gui/Gui.h>
+#include <language/gettext.h>
+
 #include "ContentHome.h"
 #include "ContentTemplate.h"
-#include "language/gettext.h"
+
 
 class ContentHelp : public ContentTemplate{
 public:

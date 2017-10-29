@@ -52,3 +52,6 @@ wiiu/*
 hidtovpad.elf
 hidtovpad_dbg.elf
 hidtopad.cscope_file_list
+hidtopad.cbp
+hidtopad.layout
+hidtopad.cbp

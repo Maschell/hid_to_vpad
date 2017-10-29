@@ -19,10 +19,10 @@
 
 #include <vector>
 #include <queue>
-#include "gui/Gui.h"
+#include <gui/Gui.h>
+#include <system/CMutex.h>
+#include <controller_patcher/ControllerPatcherDefs.h>
 #include "gui/GuiConfigurationScreen.h"
-#include "system/CMutex.h"
-#include "controller_patcher/patcher/ControllerPatcherDefs.h"
 #include "InputGetterMenu.h"
 
 class CVideo;

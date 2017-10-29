@@ -15,14 +15,16 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ****************************************************************************/
+#include <utils/StringTools.h>
+#include <utils/logger.h>
+#include <dynamic_libs/os_functions.h>
+#include <dynamic_libs/socket_functions.h>
+#include <dynamic_libs/padscore_functions.h>
+
 #include "MainWindow.h"
-#include "dynamic_libs/os_functions.h"
-#include "dynamic_libs/socket_functions.h"
 #include "menu/tv/MainWindowTV.h"
 #include "menu/drc/MainWindowDRC.h"
 #include "Application.h"
-#include "utils/StringTools.h"
-#include "utils/logger.h"
 
 MainWindow * MainWindow::instance = NULL;
 
@@ -32,7 +34,7 @@ MainWindow::MainWindow(s32 w, s32 h)
 {
     for(s32 i = 0; i < 4; i++)
     {
-        std::string filename = strfmt("player%i_point.png", i+1);
+        std::string filename = StringTools::strfmt("player%i_point.png", i+1);
         pointerImgData[i] = Resources::GetImageData(filename.c_str());
         pointerImg[i] = new GuiImage(pointerImgData[i]);
         pointerImg[i]->setScale(1.5f);

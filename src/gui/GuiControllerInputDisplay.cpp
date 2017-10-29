@@ -14,10 +14,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ****************************************************************************/
+#include <utils/StringTools.h>
+#include <utils/logger.h>
+
 #include "GuiControllerInputDisplay.h"
 #include "controller_patcher/ControllerPatcher.hpp"
-#include "utils/StringTools.h"
-#include "utils/logger.h"
 
 GuiControllerInputDisplay::GuiControllerInputDisplay(UController_Type _controller_type): GuiFrame(441,324)
     , controller_type(_controller_type)
@@ -51,7 +52,7 @@ GuiControllerInputDisplay::GuiControllerInputDisplay(UController_Type _controlle
         memset(btn_cfg,0,sizeof(ButtonConfig));
         std::string * suffix = new std::string(iterator->first);
         btn_cfg->img.suffix = suffix;
-        std::string filename = strfmt("%s%s.png",prefix.c_str(),btn_cfg->img.suffix->c_str());
+        std::string filename = StringTools::strfmt("%s%s.png",prefix.c_str(),btn_cfg->img.suffix->c_str());
         btn_cfg->img.imagedata = Resources::GetImageData(filename.c_str());
         if(btn_cfg->img.imagedata == NULL){
             log_printf("Error, was null!\n");

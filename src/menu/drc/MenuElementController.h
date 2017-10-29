@@ -17,11 +17,11 @@
 #ifndef MENU_ELEMENT_CONTROLLER_H_
 #define MENU_ELEMENT_CONTROLLER_H_
 
+#include <controller_patcher/ControllerPatcherDefs.h>
+#include <utils/StringTools.h>
+#include <language/gettext.h>
+
 #include "MenuElement.h"
-#include "controller_patcher/patcher/ControllerPatcherDefs.h"
-#include "controller_patcher/utils/CPRetainVars.hpp"
-#include "utils/StringTools.h"
-#include "language/gettext.h"
 
 class MenuElementController : public MenuElement{
 	public:

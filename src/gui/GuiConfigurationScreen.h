@@ -17,8 +17,8 @@
 #ifndef GUICONFIGURATIONSCREEN_H_
 #define GUICONFIGURATIONSCREEN_H_
 
-#include "Gui.h"
-#include "sigslot.h"
+#include <gui/Gui.h>
+#include <gui/sigslot.h>
 
 class GuiConfigurationScreen : public GuiFrame
 {

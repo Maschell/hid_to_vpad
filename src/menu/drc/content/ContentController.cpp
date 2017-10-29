@@ -48,7 +48,7 @@ ContentController::ContentController(UController_Type controller_type_): Content
         case UController_Type_Pro4: { text = UController_Type_Pro4_Name; break; }
         default: break;
     }
-    notConnectedLabel2.setText(strfmt("%s\"%s\".",gettext("Press A to map a controller to "),text.c_str()).c_str());
+    notConnectedLabel2.setText(StringTools::strfmt("%s\"%s\".",gettext("Press A to map a controller to "),text.c_str()).c_str());
     notConnectedLabel2.setMaxWidth(800,GuiText::SCROLL_HORIZONTAL);
 
     headLine.setText(text.c_str());

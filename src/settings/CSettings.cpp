@@ -17,15 +17,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <fs/CFile.hpp>
+#include <fs/FSUtils.h>
+#include <utils/StringTools.h>
+#include <utils/logger.h>
+#include <language/gettext.h>
 
 #include "common/common.h"
 #include "CSettings.h"
 #include "SettingsEnums.h"
-#include "fs/CFile.hpp"
-#include "fs/fs_utils.h"
-#include "utils/StringTools.h"
-#include "utils/logger.h"
-#include "language/gettext.h"
 
 #define VERSION_LINE        "# HID to VPAD - Main settings file v"
 #define VALID_VERSION       2
@@ -109,7 +109,7 @@ bool CSettings::Load(){
         strBuffer.erase(position, 1);
     }
 
-	std::vector<std::string> lines = stringSplit(strBuffer, "\n");
+	std::vector<std::string> lines = StringTools::stringSplit(strBuffer, "\n");
 
 
 	if(lines.empty() || !ValidVersion(lines[0]))
@@ -117,7 +117,7 @@ bool CSettings::Load(){
 
 	for(u32 i = 0; i < lines.size(); ++i)
     {
-        std::vector<std::string> valueSplit = stringSplit(lines[i], "=");
+        std::vector<std::string> valueSplit = StringTools::stringSplit(lines[i], "=");
         if(valueSplit.size() != 2)
             continue;
 
@@ -201,7 +201,7 @@ bool CSettings::Save(){
     if(!bChanged)
         return true;
 
-    CreateSubfolder(configPath.c_str());
+    FSUtils::CreateSubfolder(configPath.c_str());
 
 	std::string filepath = configPath;
 	filepath += CONFIG_FILENAME;

@@ -17,12 +17,13 @@
 #ifndef _MAIN_WINDOW_DRC_H_
 #define _MAIN_WINDOW_DRC_H_
 
-#include "gui/Gui.h"
-#include "gui/GuiConfigurationScreen.h"
+#include <gui/Gui.h>
+#include <gui/GuiConfigurationScreen.h>
+#include <language/gettext.h>
+
 #include "MenuListDRC.h"
 #include "menu/MainWindow.h"
 #include "MainWindowContent.h"
-#include "language/gettext.h"
 
 class MainWindowDRC : public GuiConfigurationScreen, public sigslot::has_slots<>{
 public:

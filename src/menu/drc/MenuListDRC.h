@@ -17,14 +17,16 @@
 #ifndef _MENU_LIST_DRC_H_
 #define _MENU_LIST_DRC_H_
 
-#include "gui/Gui.h"
-#include "gui/GuiDragListener.h"
+#include <gui/Gui.h>
+#include <gui/GuiDragListener.h>
+#include <language/gettext.h>
+
 #include "MainWindowContent.h"
 #include "MenuListDRC.h"
 #include "MenuElementController.h"
 #include "MenuElementInfo.h"
 #include "MenuSeperator.h"
-#include "language/gettext.h"
+
 
 class MenuListDRC : public GuiFrame, public sigslot::has_slots<>{
 public:

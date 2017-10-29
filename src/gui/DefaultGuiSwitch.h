@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (C) 2015 Dimok
+ * Copyright (C) 2017 Maschell
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,32 +14,33 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ****************************************************************************/
-#ifndef _GUI_PARTICLE_IMAGE_H_
-#define _GUI_PARTICLE_IMAGE_H_
+#ifndef DEFAULT_GUI_SWTICH_H_
+#define DEFAULT_GUI_SWTICH_H_
 
-#include "GuiImage.h"
+#include <gui/GuiSwitch.h>
 
-class GuiParticleImage : public GuiImage, public sigslot::has_slots<>
+//!A simple switch
+class DefaultGuiSwitch : public GuiSwitch
 {
-public:
-    GuiParticleImage(s32 w, s32 h, u32 particleCount);
-    virtual ~GuiParticleImage();
+	public:
+		//!Constructor
+		//!\param checked Checked
+		DefaultGuiSwitch(bool checked,f32 scale = 1.0f);
+		//!Destructor
+		virtual ~DefaultGuiSwitch();
 
-    void draw(CVideo *pVideo);
-private:
-    f32 *posVertexs;
-    u8 *colorVertexs;
+	protected:
+        GuiImageData * switchbase_imgdata;
+        GuiImage switchbase_img;
 
-    typedef struct
-    {
-        glm::vec3 position;
-        glm::vec4 colors;
-        f32 radius;
-        f32 speed;
-        f32 direction;
-    } Particle;
+        GuiImageData * switchbase_highlighted_imgdata;
+        GuiImage switchbase_highlighted_img;
 
-    std::vector<Particle> particles;
+        GuiImageData * switchOn_imgdata;
+        GuiImage switchOn_img;
+
+        GuiImageData * switchOff_imgdata;
+        GuiImage switchOff_img;
 };
 
-#endif // _GUI_ICON_GRID_H_
+#endif

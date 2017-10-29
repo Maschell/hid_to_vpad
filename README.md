@@ -45,7 +45,14 @@ Do you have an other question? First take a look at:
 If you don't find an anwser, please open an issue.
 
 # Building
-In order to build this application, you need the custom liboGC and portlibs modified/created by dimok. You can find them in the "other" folder. Simply put the files in your devkit folder and run the Makefile of HID to VPAD. 
+In order to build this application you need serval libs:
+
+- [dynamic_libs](https://github.com/Maschell/dynamic_libs/tree/lib) for access to the functions.
+- [libutils](https://github.com/Maschell/libutils) for common functions.
+- [controller_patcher](https://github.com/Maschell/controller_patcher) to emulate the controllers.
+- [libgui](https://github.com/Maschell/libgui) for the gui elements.
+
+Install them (in this order) according to their README's. Don't forget the dependencies of the libs itself.
 
 # Credits
 - A big thanks goes out to <b>dimok</b> for creating the HBL, the dynamic libs and every stuff he made. The "environment" of this app is copied from ddd, turned out to be a "hello world" with useful extra stuff.  

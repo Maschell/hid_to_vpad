@@ -17,11 +17,10 @@
 #ifndef TV_BUTTON__CONTROLLER_H_
 #define TV_BUTTON__CONTROLLER_H_
 
-#include "controller_patcher/patcher/ControllerPatcherDefs.h"
-#include "controller_patcher/utils/CPRetainVars.hpp"
-#include "utils/StringTools.h"
-#include "gui/Gui.h"
-#include "language/gettext.h"
+#include <controller_patcher/ControllerPatcherDefs.h>
+#include <utils/StringTools.h>
+#include <gui/Gui.h>
+#include <language/gettext.h>
 
 class TVButtonController : public GuiButton{
 	public:

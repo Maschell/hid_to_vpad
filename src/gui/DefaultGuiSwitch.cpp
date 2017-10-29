@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (C) 2016 Maschell
+ * Copyright (C) 2017 Maschell
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,15 +14,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ****************************************************************************/
-#include "GuiSwitch.h"
-#include "GuiImage.h"
-#include "GuiImageData.h"
+#include "DefaultGuiSwitch.h"
 /**
- * Constructor for the GuiSwitch class.
+ * Constructor for the DefaultGuiSwitch class.
  */
 
-GuiSwitch::GuiSwitch(bool checked,f32 w, f32 h)
- : GuiToggle(checked,w,h)
+DefaultGuiSwitch::DefaultGuiSwitch(bool checked,f32 scale)
+ : GuiSwitch(checked)
  ,switchbase_imgdata(Resources::GetImageData("switchIconBase.png"))
  ,switchbase_img(switchbase_imgdata)
  ,switchbase_highlighted_imgdata(Resources::GetImageData("switchIconBaseHighlighted.png"))
@@ -32,43 +30,21 @@ GuiSwitch::GuiSwitch(bool checked,f32 w, f32 h)
  ,switchOff_imgdata(Resources::GetImageData("switchIconOff.png"))
  ,switchOff_img(switchOff_imgdata)
 {
-    f32 scale = 1.0;
-    if(switchbase_img.getHeight() > switchbase_img.getWidth()){
-        scale = height/switchbase_img.getHeight();
-    }else{
-        scale = width/switchbase_img.getWidth();
-    }
-
-    switchbase_img.setScale(scale);
-    switchbase_highlighted_img.setScale(scale);
-    switchOn_img.setScale(scale);
-    switchOff_img.setScale(scale);
-
-    switchOn_img.setParent(this);
-    switchOn_img.setAlignment(ALIGN_RIGHT);
-    //switchOn_img.setPosition((width/4.0),0);
-    switchOff_img.setParent(this);
-    switchOff_img.setAlignment(ALIGN_LEFT);
-    //switchOff_img.setPosition(-((width/4.0)),0);
-    setImage(&switchbase_img);
-    setIconOver(&switchbase_highlighted_img);
+    setScale(scale);
+    setSize(switchbase_img.getWidth(),
+        switchbase_img.getHeight());
+    this->setImageBackground(&switchbase_img);
+    this->setImageHighlighted(&switchbase_highlighted_img);
+    this->setImageOn(&switchOn_img);
+    this->setImageOff(&switchOff_img);
 }
 /**
- * Destructor for the GuiButton class.
+ * Destructor for the DefaultGuiSwitch class.
  */
-GuiSwitch::~GuiSwitch()
+DefaultGuiSwitch::~DefaultGuiSwitch()
 {
     Resources::RemoveImageData(switchbase_imgdata);
     Resources::RemoveImageData(switchbase_highlighted_imgdata);
     Resources::RemoveImageData(switchOn_imgdata);
     Resources::RemoveImageData(switchOff_imgdata);
-}
-
-void GuiSwitch::draw(CVideo *v){
-    GuiToggle::draw(v);
-    if(getValue()){
-        switchOn_img.draw(v);
-    }else{
-        switchOff_img.draw(v);
-    }
 }

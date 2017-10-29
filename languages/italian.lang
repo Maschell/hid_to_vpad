@@ -29,7 +29,7 @@ msgstr "Torna a HBL "
 msgid "Apply Patches"
 msgstr "Applica Patch"
 
-#: src/menu/drc/MainWindowDRC.cpp:48
+#: src/menu/drc/MainWindowDRC.cpp:47
 msgid "TCP Server running on: "
 msgstr "Server TCP in esec. su: "
 
@@ -38,18 +38,18 @@ msgid "Nothing attached"
 msgstr "Nulla assegnato"
 
 #: src/menu/drc/MenuElementController.cpp:160
-#: src/menu/tv/TVButtonController.cpp:38
-#: src/menu/tv/TVButtonController.cpp:172
+#: src/menu/tv/TVButtonController.cpp:41
+#: src/menu/tv/TVButtonController.cpp:175
 msgid "No device"
 msgstr "Nessun dispositivo"
 
 #: src/menu/drc/MenuElementController.cpp:169
-#: src/menu/tv/TVButtonController.cpp:181
+#: src/menu/tv/TVButtonController.cpp:184
 msgid "Real Pro Controller"
 msgstr "Pro Controller reale"
 
 #: src/menu/drc/MenuElementController.cpp:171
-#: src/menu/tv/TVButtonController.cpp:183
+#: src/menu/tv/TVButtonController.cpp:186
 msgid "Mouse / Keyboard"
 msgstr "Mouse / Tastiera"
 
@@ -70,7 +70,7 @@ msgstr "Aiuto"
 msgid "Network Client"
 msgstr "Network Client"
 
-#: src/menu/drc/MenuListDRC.cpp:42 src/menu/drc/content/ContentSettings.cpp:33
+#: src/menu/drc/MenuListDRC.cpp:42 src/menu/drc/content/ContentSettings.cpp:34
 msgid "Settings"
 msgstr "Impostazioni"
 
@@ -247,34 +247,34 @@ msgstr "È open source e puoi trovarlo qui:"
 msgid "https://github.com/QuarkTheAwesome/HIDtoVPADNetworkClient"
 msgstr "https://github.com/QuarkTheAwesome/HIDtoVPADNetworkClient"
 
-#: src/menu/drc/content/ContentSettings.cpp:45
-#: src/menu/drc/content/ContentSettings.cpp:50
+#: src/menu/drc/content/ContentSettings.cpp:46
+#: src/menu/drc/content/ContentSettings.cpp:51
 msgid "Language"
 msgstr "Lingua"
 
-#: src/menu/drc/content/ContentSettings.cpp:46
-#: src/menu/drc/content/ContentSettings.cpp:51
+#: src/menu/drc/content/ContentSettings.cpp:47
+#: src/menu/drc/content/ContentSettings.cpp:52
 msgid "Rumble"
 msgstr "Vibrazione"
 
-#: src/menu/drc/content/ContentSettings.cpp:47
-#: src/menu/drc/content/ContentSettings.cpp:52
+#: src/menu/drc/content/ContentSettings.cpp:48
+#: src/menu/drc/content/ContentSettings.cpp:53
 msgid "Music"
 msgstr "Musica"
 
-#: src/menu/drc/content/ContentSettings.cpp:48
-#: src/menu/drc/content/ContentSettings.cpp:53
+#: src/menu/drc/content/ContentSettings.cpp:49
+#: src/menu/drc/content/ContentSettings.cpp:54
 msgid "Network Controller"
 msgstr ""
 
-#: src/menu/drc/content/ContentSettings.cpp:74
+#: src/menu/drc/content/ContentSettings.cpp:75
 msgid "<Default>"
 msgstr "<Default>"
 
-#: src/menu/tv/TVControllerBanner.cpp:41
+#: src/menu/tv/TVControllerBanner.cpp:40
 msgid "Press       to return to HBL"
 msgstr "Premi       per tornare a HBL"
 
-#: src/menu/tv/TVControllerBanner.cpp:44
+#: src/menu/tv/TVControllerBanner.cpp:43
 msgid "Press       to apply patches"
 msgstr "Premi       per applicare patch"

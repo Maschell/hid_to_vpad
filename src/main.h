@@ -1,12 +1,12 @@
 #ifndef _MAIN_H_
 #define _MAIN_H_
 
-#include <gctypes.h>
-
 /* Main */
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+#include <dynamic_libs/os_types.h>
 
 //! C wrapper for our C++ functions
 s32 Menu_Main(void);

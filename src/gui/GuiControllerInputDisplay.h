@@ -17,12 +17,11 @@
 #ifndef GUI_CONTROLLER_INPUT_DISPLAY_H_
 #define GUI_CONTROLLER_INPUT_DISPLAY_H_
 
-#include "Gui.h"
-#include "dynamic_libs/vpad_functions.h"
-#include "dynamic_libs/padscore_functions.h"
-#include "controller_patcher/patcher/ControllerPatcherDefs.h"
+#include <gui/Gui.h>
+#include <dynamic_libs/vpad_functions.h>
+#include <dynamic_libs/padscore_functions.h>
+#include <controller_patcher/ControllerPatcherDefs.h>
 
-#include <gctypes.h>
 #include <map>
 class GuiControllerInputDisplay : public GuiFrame{
     public:

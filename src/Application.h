@@ -18,9 +18,10 @@
 #ifndef _APPLICATION_H
 #define _APPLICATION_H
 
+#include <video/CVideo.h>
+#include <system/CThread.h>
+
 #include "menu/MainWindow.h"
-#include "video/CVideo.h"
-#include "system/CThread.h"
 
 #define APPLICATION_CLOSE_APPLY    1
 #define APPLICATION_CLOSE_MIIMAKER 2

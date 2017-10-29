@@ -14,14 +14,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ****************************************************************************/
-#include "controller_patcher/ControllerPatcher.hpp"
-#include "controller_patcher/utils/CPRetainVars.hpp"
+#include <controller_patcher/ControllerPatcher.hpp>
+#include <gui/GuiElement.h>
+#include <utils/logger.h>
+#include <language/gettext.h>
+#include <dynamic_libs/padscore_functions.h>
+
 #include "InputGetterMenu.h"
 #include "Application.h"
-#include "gui/GuiElement.h"
-#include "utils/logger.h"
-#include "language/gettext.h"
-#include "dynamic_libs/padscore_functions.h"
 
 CThread * InputGetterMenu::pThread = NULL;
 

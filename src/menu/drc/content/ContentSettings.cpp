@@ -14,20 +14,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ****************************************************************************/
+#include <fs/DirList.h>
+#include <utils/StringTools.h>
+
 #include "ContentSettings.h"
-#include "fs/DirList.h"
 #include "settings/CSettings.h"
 #include "common/common.h"
 #include "Application.h"
-#include "utils/StringTools.h"
 
 ContentSettings::ContentSettings():ContentTemplate()
     , touchTrigger(GuiTrigger::CHANNEL_1, GuiTrigger::VPAD_TOUCH)
     , wpadTouchTrigger(GuiTrigger::CHANNEL_2 | GuiTrigger::CHANNEL_3 | GuiTrigger::CHANNEL_4 | GuiTrigger::CHANNEL_5, GuiTrigger::BUTTON_A)
     , languageSelectBox("",NULL)
-    , rumbleSwitch(CSettings::instance()->getValueAsBool(CSettings::RumbleActivated),90.0f,38.0f)
-    , musicSwitch(CSettings::instance()->getValueAsBool(CSettings::MusicActivated),90.0f,38.0f)
-    , networkControllerSwitch(CSettings::instance()->getValueAsBool(CSettings::NetworkControllerActivated),90.0f,38.0f)
+    , rumbleSwitch(CSettings::instance()->getValueAsBool(CSettings::RumbleActivated),2.0f)
+    , musicSwitch(CSettings::instance()->getValueAsBool(CSettings::MusicActivated),2.0f)
+    , networkControllerSwitch(CSettings::instance()->getValueAsBool(CSettings::NetworkControllerActivated),4.0f)
     , buttonClickSound(Resources::GetSound("settings_click_2.mp3"))
     {
     headLine.setText(gettext("Settings"));
@@ -103,7 +104,7 @@ ContentSettings::ContentSettings():ContentTemplate()
         frame->setAlignment(ALIGN_TOP_CENTER);
         frame->setSize(getWidth()*0.80f,frameheight);
 
-        GuiText * text = new GuiText(strfmt("%s:",name.c_str()).c_str());
+        GuiText * text = new GuiText(StringTools::strfmt("%s:",name.c_str()).c_str());
         text->setColor(glm::vec4(0.3f,0.3f,0.3f,1.0f));
         text->setFontSize(40);
         text->setAlignment(ALIGN_LEFT);

@@ -21,9 +21,10 @@
 
 #include <string>
 #include <stdio.h>
-#include <gctypes.h>
+
 #include <vector>
 #include "SettingsEnums.h"
+#include <dynamic_libs/os_types.h>
 
 class CSettings
 {

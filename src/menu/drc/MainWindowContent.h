@@ -17,11 +17,11 @@
 #ifndef _MAIN_WINDOW_CONTENT_H_
 #define _MAIN_WINDOW_CONTENT_H_
 
-#include "gui/Gui.h"
-#include "system/AsyncDeleter.h"
+#include <gui/Gui.h>
+#include <system/AsyncDeleter.h>
 #include "MainWindowContent.h"
 #include "content/ContentTemplate.h"
-#include "language/gettext.h"
+#include <language/gettext.h>
 
 class MainWindowContent : public GuiFrame, public sigslot::has_slots<>{
 public:

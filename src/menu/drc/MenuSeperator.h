@@ -17,9 +17,7 @@
 #ifndef MENU_SEPERATOR_H_
 #define MENU_SEPERATOR_H_
 
-#include "gui/GuiElement.h"
-#include "gui/GuiText.h"
-#include "gui/GuiImage.h"
+#include <gui/Gui.h>
 
 class MenuSeperator : public GuiElement
 {

@@ -1,24 +1,15 @@
 /****************************************************************************
- * Loadiine resource files.
+ * Resource files.
  * This file is generated automatically.
  * Includes 111 files.
  *
  * NOTE:
  * Any manual modification of this file will be overwriten by the generation.
- ****************************************************************************/
-#ifndef _FILELIST_H_
-#define _FILELIST_H_
-
-#include <gctypes.h>
-
-typedef struct _RecourceFile
-{
-	const char *filename;
-	const u8   *DefaultFile;
-	const u32  &DefaultFileSize;
-	u8		   *CustomFile;
-	u32		    CustomFileSize;
-} RecourceFile;
+ *****************************************************************************/
+#include <resources/filelist.h>
+#include <utils/logger.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 extern const u8 aboutIcon_png[];
 extern const u32 aboutIcon_png_size;
@@ -353,7 +344,7 @@ extern const u32 TwitterIcon_png_size;
 extern const u8 windowSplitter_png[];
 extern const u32 windowSplitter_png_size;
 
-static RecourceFile RecourceList[] =
+ResourceFile ResourceList[] =
 {
 	{"aboutIcon.png", aboutIcon_png, aboutIcon_png_size, NULL, 0},
 	{"bgMusic.mp3", bgMusic_mp3, bgMusic_mp3_size, NULL, 0},
@@ -469,4 +460,4 @@ static RecourceFile RecourceList[] =
 	{NULL, NULL, 0, NULL, 0}
 };
 
-#endif
+ResourceFile * getResourceList(){ return ResourceList; }

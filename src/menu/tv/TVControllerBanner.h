@@ -18,8 +18,7 @@
 #define _TV_CONTROLLER_BANNER_H_
 #include <vector>
 #include "controller_patcher/ControllerPatcher.hpp"
-#include "gui/Gui.h"
-#include "gui/GuiFrame.h"
+#include <gui/Gui.h>
 #include "TVButtonController.h"
 
 class TVControllerBanner : public GuiFrame, public sigslot::has_slots<>

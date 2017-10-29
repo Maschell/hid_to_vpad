@@ -3,7 +3,7 @@
 # Automatic resource file list generation
 # Created by Dimok
 
-outFile="./src/resources/filelist.h"
+outFile="./src/resources/filelist.cpp"
 count_old=$(cat $outFile 2>/dev/null | tr -d '\n\n' | sed 's/[^0-9]*\([0-9]*\).*/\1/')
 
 count=0
@@ -29,29 +29,17 @@ fi
 if [ "$count_old" != "$count" ] || [ ! -f $outFile ]
 then
 
-echo "Generating filelist.h for $count files." >&2
+echo "Generating filelist.c for $count files." >&2
 cat <<EOF > $outFile
 /****************************************************************************
- * Loadiine resource files.
+ * Resource files.
  * This file is generated automatically.
  * Includes $count files.
  *
  * NOTE:
  * Any manual modification of this file will be overwriten by the generation.
- ****************************************************************************/
-#ifndef _FILELIST_H_
-#define _FILELIST_H_
-
-#include <gctypes.h>
-
-typedef struct _RecourceFile
-{
-	const char *filename;
-	const u8   *DefaultFile;
-	const u32  &DefaultFileSize;
-	u8		   *CustomFile;
-	u32		    CustomFileSize;
-} RecourceFile;
+ *****************************************************************************/
+#include <resources/filelist.h>
 
 EOF
 
@@ -64,7 +52,7 @@ do
 	echo '' >> $outFile
 done
 
-echo 'static RecourceFile RecourceList[] =' >> $outFile
+echo 'static ResourceFile ResourceList[] =' >> $outFile
 echo '{' >> $outFile
 
 for i in ${files[@]}
@@ -76,8 +64,7 @@ done
 
 echo -e '\t{NULL, NULL, 0, NULL, 0}' >> $outFile
 echo '};' >> $outFile
-
 echo '' >> $outFile
-echo '#endif' >> $outFile
-
+echo 'ResourceFile * getResourceList(){ return ResourceList; }' >> $outFile
+echo '' >> $outFile
 fi

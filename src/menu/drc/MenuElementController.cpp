@@ -16,7 +16,7 @@
  ****************************************************************************/
 #include "MenuElementController.h"
 #include "content/ContentController.h"
-#include "controller_patcher/config/ConfigValues.hpp"
+#include "controller_patcher/ControllerPatcherDefs.h"
 #include <vector>
 
 /**
@@ -135,7 +135,7 @@ MenuElementController::~MenuElementController()
 
 void MenuElementController::drawControllerName(CVideo *v,u16 vid,u16 pid){
     std::string titleString = ControllerPatcher::getIdentifierByVIDPID(vid,pid);
-    std::vector<std::string> result = CPStringTools::StringSplit(titleString, "\n");
+    std::vector<std::string> result = StringTools::stringSplit(titleString, "\n");
     if(result.size() == 1){
         controllerNameLabelMiddle.setText(result.at(0).c_str());
         controllerNameLabelMiddle.draw(v);

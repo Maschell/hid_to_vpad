@@ -14,18 +14,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ****************************************************************************/
+#include <fs/DirList.h>
+#include <fs/FSUtils.h>
+#include <system/AsyncDeleter.h>
+#include <utils/StringTools.h>
+
 #include "TVControllerBanner.h"
 #include "common/common.h"
 #include "Application.h"
-#include "fs/DirList.h"
-#include "fs/fs_utils.h"
-#include "system/AsyncDeleter.h"
-#include "controller_patcher/utils/CPRetainVars.hpp"
 #include "menu/drc/MenuListDRC.h"
 #include "menu/drc/MainWindowDRC.h"
 #include "menu/drc/content/ContentController.h"
-#include "utils/StringTools.h"
-
 
 TVControllerBanner::TVControllerBanner(s32 w, s32 h)
     : GuiFrame(w, h)

@@ -17,13 +17,14 @@
  ****************************************************************************/
 #include "Application.h"
 #include "common/common.h"
-#include "dynamic_libs/os_functions.h"
-#include "gui/FreeTypeGX.h"
-#include "gui/VPadController.h"
-#include "gui/WPadController.h"
-#include "resources/Resources.h"
-#include "sounds/SoundHandler.hpp"
-#include "utils/logger.h"
+#include <dynamic_libs/os_functions.h>
+#include <gui/FreeTypeGX.h>
+#include <gui/VPadController.h>
+#include <gui/WPadController.h>
+#include <resources/Resources.h>
+#include <sounds/SoundHandler.hpp>
+#include <utils/logger.h>
+#include <dynamic_libs/os_types.h>
 #include "settings/CSettings.h"
 
 Application *Application::applicationInstance = NULL;
