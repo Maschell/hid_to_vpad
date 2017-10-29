@@ -20,10 +20,11 @@
 #include <map>
 
 #include <gui/Gui.h>
-#include <gui/DefaultGuiCheckbox.h>
-#include <gui/DefaultGuiSwitch.h>
-#include "ContentTemplate.h"
 #include <language/gettext.h>
+
+#include "gui/DefaultGuiCheckbox.h"
+#include "gui/DefaultGuiSwitch.h"
+#include "ContentTemplate.h"
 
 class ContentSettings : public ContentTemplate{
 public:
