@@ -19,7 +19,7 @@
  * Constructor for the DefaultGuiCheckBox class.
  */
 
-DefaultGuiCheckBox::DefaultGuiCheckBox(bool checked,f32 scale)
+DefaultGuiCheckBox::DefaultGuiCheckBox(bool checked)
  : GuiCheckBox(checked)
  ,checkbox_imgdata(Resources::GetImageData("checkbox.png"))
  ,checkbox_img(checkbox_imgdata)
@@ -28,9 +28,7 @@ DefaultGuiCheckBox::DefaultGuiCheckBox(bool checked,f32 scale)
  ,highlighted_imgdata(Resources::GetImageData("checkbox_highlighted.png"))
  ,highlighted_img(highlighted_imgdata)
 {
-    setScale(scale);
-    setSize(checkbox_img.getWidth(),
-            checkbox_img.getHeight());
+    setSize(checkbox_img.getWidth(),checkbox_img.getHeight());
     this->setImageBackground(&checkbox_img);
     this->setImageSelected(&checkbox_selected_img);
     this->setImageHighlighted(&highlighted_img);

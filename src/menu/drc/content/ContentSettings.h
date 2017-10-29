@@ -24,6 +24,7 @@
 
 #include "mygui/DefaultGuiCheckBox.h"
 #include "mygui/DefaultGuiSwitch.h"
+#include "mygui/DefaultSelectBox.h"
 #include "ContentTemplate.h"
 
 class ContentSettings : public ContentTemplate{
@@ -34,7 +35,7 @@ public:
 private:
     GuiTrigger touchTrigger;
     GuiTrigger wpadTouchTrigger;
-    GuiSelectBox languageSelectBox;
+    DefaultSelectBox languageSelectBox;
 
     std::map<std::string,std::string> languagesNames;
 
@@ -44,7 +45,7 @@ private:
 
     DefaultGuiSwitch rumbleSwitch;
     DefaultGuiSwitch musicSwitch;
-    DefaultGuiCheckBox networkControllerSwitch;
+    DefaultGuiSwitch networkControllerSwitch;
 
     GuiSound *buttonClickSound;
 

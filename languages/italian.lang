@@ -247,27 +247,27 @@ msgstr "È open source e puoi trovarlo qui:"
 msgid "https://github.com/QuarkTheAwesome/HIDtoVPADNetworkClient"
 msgstr "https://github.com/QuarkTheAwesome/HIDtoVPADNetworkClient"
 
-#: src/menu/drc/content/ContentSettings.cpp:46
-#: src/menu/drc/content/ContentSettings.cpp:51
+#: src/menu/drc/content/ContentSettings.cpp:50
+#: src/menu/drc/content/ContentSettings.cpp:55
 msgid "Language"
 msgstr "Lingua"
 
-#: src/menu/drc/content/ContentSettings.cpp:47
-#: src/menu/drc/content/ContentSettings.cpp:52
+#: src/menu/drc/content/ContentSettings.cpp:51
+#: src/menu/drc/content/ContentSettings.cpp:56
 msgid "Rumble"
 msgstr "Vibrazione"
 
-#: src/menu/drc/content/ContentSettings.cpp:48
-#: src/menu/drc/content/ContentSettings.cpp:53
+#: src/menu/drc/content/ContentSettings.cpp:52
+#: src/menu/drc/content/ContentSettings.cpp:57
 msgid "Music"
 msgstr "Musica"
 
-#: src/menu/drc/content/ContentSettings.cpp:49
-#: src/menu/drc/content/ContentSettings.cpp:54
+#: src/menu/drc/content/ContentSettings.cpp:53
+#: src/menu/drc/content/ContentSettings.cpp:58
 msgid "Network Controller"
 msgstr ""
 
-#: src/menu/drc/content/ContentSettings.cpp:75
+#: src/menu/drc/content/ContentSettings.cpp:79
 msgid "<Default>"
 msgstr "<Default>"
 

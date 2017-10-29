@@ -25,7 +25,7 @@ class DefaultGuiSwitch : public GuiSwitch
 	public:
 		//!Constructor
 		//!\param checked Checked
-		DefaultGuiSwitch(bool checked,f32 scale = 1.0f);
+		DefaultGuiSwitch(bool checked);
 		//!Destructor
 		virtual ~DefaultGuiSwitch();
 

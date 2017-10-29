@@ -11,19 +11,10 @@ extern "C" {
 #define SD_PATH                     "sd:"
 #define WIIU_PATH                   "/wiiu"
 
-// none dynamic libs
-#define LIB_LOADER              0x1001
-
-#ifndef MEM_BASE
-#define MEM_BASE                    (0x00800000)
-#endif
-
 #define ELF_DATA_ADDR               (*(volatile u32*)(MEM_BASE + 0x1300 + 0x00))
 #define ELF_DATA_SIZE               (*(volatile u32*)(MEM_BASE + 0x1300 + 0x04))
 #define MAIN_ENTRY_ADDR             (*(volatile u32*)(MEM_BASE + 0x1400 + 0x00))
 #define OS_FIRMWARE                 (*(volatile u32*)(MEM_BASE + 0x1400 + 0x04))
-
-#define OS_SPECIFICS                ((OsSpecifics*)(MEM_BASE + 0x1500))
 
 #ifndef EXIT_SUCCESS
 #define EXIT_SUCCESS                0

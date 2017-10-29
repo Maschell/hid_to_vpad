@@ -19,7 +19,7 @@
  * Constructor for the DefaultGuiSwitch class.
  */
 
-DefaultGuiSwitch::DefaultGuiSwitch(bool checked,f32 scale)
+DefaultGuiSwitch::DefaultGuiSwitch(bool checked)
  : GuiSwitch(checked)
  ,switchbase_imgdata(Resources::GetImageData("switchIconBase.png"))
  ,switchbase_img(switchbase_imgdata)
@@ -30,9 +30,7 @@ DefaultGuiSwitch::DefaultGuiSwitch(bool checked,f32 scale)
  ,switchOff_imgdata(Resources::GetImageData("switchIconOff.png"))
  ,switchOff_img(switchOff_imgdata)
 {
-    setScale(scale);
-    setSize(switchbase_img.getWidth(),
-        switchbase_img.getHeight());
+    setSize(switchbase_img.getWidth(),switchbase_img.getHeight());
     this->setImageBackground(&switchbase_img);
     this->setImageHighlighted(&switchbase_highlighted_img);
     this->setImageOn(&switchOn_img);

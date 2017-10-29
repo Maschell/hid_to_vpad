@@ -14,28 +14,32 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ****************************************************************************/
-#ifndef DEFAULT_GUI_CHECKBOX_H_
-#define DEFAULT_GUI_CHECKBOX_H_
+#ifndef DEFAULT_GUI_SELECTBOX_H_
+#define DEFAULT_GUI_SELECTBOX_H_
 
-#include <gui/GuiCheckBox.h>
+#include <gui/GuiSelectBox.h>
 
-//!A simple CheckBox
-class DefaultGuiCheckBox : public GuiCheckBox{
+//!A simple select box with default values.
+class DefaultSelectBox : public GuiSelectBox{
 	public:
 		//!Constructor
 		//!\param checked Checked
-		DefaultGuiCheckBox(bool checked);
+		DefaultSelectBox(std::string caption, GuiFrame *parent = NULL);
 		//!Destructor
-		virtual ~DefaultGuiCheckBox();
+		virtual ~DefaultSelectBox();
+
 	protected:
-       GuiImageData * checkbox_imgdata;
-       GuiImage checkbox_img;
+        GuiImageData * topBackgroundImg_imgdata;
+        GuiImage topBackgroundImg_img;
 
-       GuiImageData * checkbox_selected_imgdata;
-       GuiImage checkbox_selected_img;
+        GuiImageData * topHighlightedImg_imgdata;
+        GuiImage topHighlightedImg_img;
 
-       GuiImageData * highlighted_imgdata;
-       GuiImage highlighted_img;
+        GuiImageData * valueImageData;
+        GuiImageData * valueSelectedImageData;
+        GuiImageData * valueHighlightedImageData;
+
+        GuiSound * buttonClickSound;
 };
 
 #endif
