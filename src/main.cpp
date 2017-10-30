@@ -5,6 +5,7 @@
 #include <controller_patcher/ControllerPatcher.hpp>
 
 #include <dynamic_libs/os_functions.h>
+#include <dynamic_libs/ax_functions.h>
 #include <dynamic_libs/gx2_functions.h>
 #include <dynamic_libs/syshid_functions.h>
 #include <dynamic_libs/vpad_functions.h>

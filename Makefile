@@ -74,7 +74,7 @@ MAKEFLAGS += --no-print-directory
 #---------------------------------------------------------------------------------
 # any extra libraries we wish to link with the project
 #---------------------------------------------------------------------------------
-LIBS	:= -lgui -lutils -ldynamiclibs -lcontrollerpatcher -lfreetype -lgd -lpng -ljpeg -lz  -lmad -lvorbisidec
+LIBS	:= -lgui -lutils -lcontrollerpatcher -ldynamiclibs -lfreetype -lgd -lpng -ljpeg -lz  -lmad -lvorbisidec
 #  
 
 #---------------------------------------------------------------------------------
