@@ -20,7 +20,7 @@
  */
 
 DefaultGuiSwitch::DefaultGuiSwitch(bool checked)
- : GuiSwitch(checked)
+ : GuiSwitch(NULL,checked)
  ,switchbase_imgdata(Resources::GetImageData("switchIconBase.png"))
  ,switchbase_img(switchbase_imgdata)
  ,switchbase_highlighted_imgdata(Resources::GetImageData("switchIconBaseHighlighted.png"))

@@ -22,9 +22,8 @@
 #include <gui/Gui.h>
 #include <language/gettext.h>
 
-#include "mygui/DefaultGuiCheckBox.h"
-#include "mygui/DefaultGuiSwitch.h"
-#include "mygui/DefaultSelectBox.h"
+#include "custom/gui/DefaultGuiSwitch.h"
+#include "custom/gui/DefaultGuiSelectBox.h"
 #include "ContentTemplate.h"
 
 class ContentSettings : public ContentTemplate{
@@ -35,7 +34,7 @@ public:
 private:
     GuiTrigger touchTrigger;
     GuiTrigger wpadTouchTrigger;
-    DefaultSelectBox languageSelectBox;
+    DefaultGuiSelectBox languageSelectBox;
 
     std::map<std::string,std::string> languagesNames;
 

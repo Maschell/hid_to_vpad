@@ -20,8 +20,7 @@
 #include <gui/Gui.h>
 #include <gui/sigslot.h>
 
-class GuiConfigurationScreen : public GuiFrame
-{
+class GuiConfigurationScreen : public GuiFrame{
 public:
     GuiConfigurationScreen(s32 w, s32 h) : GuiFrame(w, h) {}
     virtual ~GuiConfigurationScreen() {}

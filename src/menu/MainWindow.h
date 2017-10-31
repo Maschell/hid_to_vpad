@@ -22,7 +22,7 @@
 #include <gui/Gui.h>
 #include <system/CMutex.h>
 #include <controller_patcher/ControllerPatcherDefs.h>
-#include "mygui/GuiConfigurationScreen.h"
+#include "custom/gui/GuiConfigurationScreen.h"
 #include "InputGetterMenu.h"
 
 class CVideo;

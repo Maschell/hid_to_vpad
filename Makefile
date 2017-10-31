@@ -35,7 +35,7 @@ BUILD		:=	build
 BUILD_DBG	:=	$(TARGET)_dbg
 SOURCES		:=	src \
 				src/common \
-				src/mygui \
+				src/custom/gui \
                 src/language \
 				src/menu \
 				src/menu/tv \

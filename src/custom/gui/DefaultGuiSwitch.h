@@ -20,8 +20,7 @@
 #include <gui/GuiSwitch.h>
 
 //!A simple switch
-class DefaultGuiSwitch : public GuiSwitch
-{
+class DefaultGuiSwitch : public GuiSwitch{
 	public:
 		//!Constructor
 		//!\param checked Checked
@@ -30,16 +29,16 @@ class DefaultGuiSwitch : public GuiSwitch
 		virtual ~DefaultGuiSwitch();
 
 	protected:
-        GuiImageData * switchbase_imgdata;
+        GuiImageData * switchbase_imgdata = NULL;
         GuiImage switchbase_img;
 
-        GuiImageData * switchbase_highlighted_imgdata;
+        GuiImageData * switchbase_highlighted_imgdata = NULL;
         GuiImage switchbase_highlighted_img;
 
-        GuiImageData * switchOn_imgdata;
+        GuiImageData * switchOn_imgdata = NULL;
         GuiImage switchOn_img;
 
-        GuiImageData * switchOff_imgdata;
+        GuiImageData * switchOff_imgdata = NULL;
         GuiImage switchOff_img;
 };
 

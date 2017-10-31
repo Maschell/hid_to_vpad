@@ -20,7 +20,7 @@
 #include <gui/Gui.h>
 #include <language/gettext.h>
 
-#include "mygui/GuiConfigurationScreen.h"
+#include "custom/gui/GuiConfigurationScreen.h"
 #include "MenuListDRC.h"
 #include "menu/MainWindow.h"
 #include "MainWindowContent.h"

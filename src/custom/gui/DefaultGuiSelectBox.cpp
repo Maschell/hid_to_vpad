@@ -14,13 +14,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ****************************************************************************/
-#include "DefaultSelectBox.h"
+#include "DefaultGuiSelectBox.h"
 /**
- * Constructor for the DefaultSelectBox class.
+ * Constructor for the DefaultGuiSelectBox class.
  */
 
-DefaultSelectBox::DefaultSelectBox(std::string caption, GuiFrame *parent)
- : GuiSelectBox(caption,parent)
+DefaultGuiSelectBox::DefaultGuiSelectBox(std::string caption, GuiFrame *parent)
+ : GuiSelectBox(NULL,caption)
  ,topBackgroundImg_imgdata(Resources::GetImageData("gameSettingsButton.png"))
  ,topBackgroundImg_img(topBackgroundImg_imgdata)
  ,topHighlightedImg_imgdata(Resources::GetImageData("gameSettingsButtonSelected.png"))
@@ -39,9 +39,9 @@ DefaultSelectBox::DefaultSelectBox(std::string caption, GuiFrame *parent)
     this->setSoundClick(buttonClickSound);
 }
 /**
- * Destructor for the DefaultSelectBox class.
+ * Destructor for the DefaultGuiSelectBox class.
  */
-DefaultSelectBox::~DefaultSelectBox()
+DefaultGuiSelectBox::~DefaultGuiSelectBox()
 {
     Resources::RemoveImageData(topBackgroundImg_imgdata);
     Resources::RemoveImageData(topHighlightedImg_imgdata);
