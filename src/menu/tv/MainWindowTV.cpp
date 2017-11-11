@@ -76,6 +76,7 @@ MainWindowTV::~MainWindowTV()
     remove(&controllerConfigurationTV);
     remove(&twitterLogoImage);
     remove(&logoImage);
+    remove(&githubLogoImage);
     remove(&twitterLabel);
     remove(&githubLabel);
     remove(&backgroundImage);

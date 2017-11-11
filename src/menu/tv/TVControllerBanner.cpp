@@ -111,7 +111,9 @@ TVControllerBanner::~TVControllerBanner(){
     remove(&proController2);
     remove(&proController3);
     remove(&proController4);
-    remove(&homebutton_img);
+    remove(&gamepad);
+    remove(&exitHomeFrame);
+    remove(&exitPlusFrame);
 }
 
 void TVControllerBanner::OnButtonClicked(GuiButton *button, const GuiController *controller, GuiTrigger *trigger){

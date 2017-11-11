@@ -35,7 +35,6 @@ MainWindowContent::MainWindowContent(s32 w, s32 h)
     bgImageColor.setImageColor((GX2Color){  248, 249, 248, 255 }, 2);
     bgImageColor.setImageColor((GX2Color){  248, 249, 248, 255 }, 3);
 
-
     homebutton_img.setPosition(-70,0);
 
     exitHome.setPosition(60,0);
@@ -80,7 +79,6 @@ void MainWindowContent::SetScreen(ContentTemplate * new_content){
     RemoveScreen();
     if(new_content){
         //while(content != NULL); //hopefully this shit don't kill us.
-
         content = new_content;
         append(content);
 
@@ -89,6 +87,7 @@ void MainWindowContent::SetScreen(ContentTemplate * new_content){
 }
 
 void MainWindowContent::RemoveScreen(){
+    DEBUG_FUNCTION_LINE("%08X\n",content);
     remove(content);
     delete content;
     content = NULL;
@@ -101,5 +100,8 @@ void MainWindowContent::OnCloseEffectFinish(GuiElement *element){
 MainWindowContent::~MainWindowContent(){
     remove(&footerFrame);
     remove(&bgImageColor);
+    Resources::RemoveImageData(footer_imgdata);
+    Resources::RemoveImageData(homebutton_imgdata);
+    Resources::RemoveImageData(plusbutton_imgdata);
     RemoveScreen();
 }

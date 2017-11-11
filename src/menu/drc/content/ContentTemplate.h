@@ -40,7 +40,7 @@ public:
         append(&bgImageColor);
     }
 
-    virtual ~ContentTemplate() {}
+    virtual ~ContentTemplate() {remove(&bgImageColor);}
 protected:
     GuiImage bgImageColor;
 };

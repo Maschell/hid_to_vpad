@@ -140,8 +140,11 @@ ContentController::ContentController(UController_Type controller_type_): Content
 }
 
 ContentController::~ContentController(){
-    remove(&bgImageColor);
     remove(&headLine);
+    remove(&notConnectedFrame);
+    remove(&connectedFrame);
+    remove(&DPADButtons);
+    Resources::RemoveImageData(not_connected_imgdata);
 }
 
 UController_Type ContentController::getControllerType(){

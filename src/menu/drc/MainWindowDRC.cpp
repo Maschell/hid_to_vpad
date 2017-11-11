@@ -70,7 +70,11 @@ void MainWindowDRC::process(){
 }
 
 MainWindowDRC::~MainWindowDRC(){
+     remove(&windowSplitter_img);
      remove(&menuList);
      remove(&content);
+     remove(&versionText);
+     remove(&ipAddress);
+     Resources::RemoveImageData(windowSplitter_imgdata);
 }
 

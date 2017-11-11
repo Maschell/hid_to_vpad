@@ -135,6 +135,7 @@ ContentSettings::ContentSettings():ContentTemplate()
 
 ContentSettings::~ContentSettings(){
     remove(&headLine);
+    remove(&settingsFrame);
     Resources::RemoveSound(buttonClickSound);
 
     if(bChanged){

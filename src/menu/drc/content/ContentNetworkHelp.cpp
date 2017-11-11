@@ -180,10 +180,9 @@ ContentNetworkHelp::ContentNetworkHelp(): ContentTemplate(){
 }
 
 ContentNetworkHelp::~ContentNetworkHelp(){
-    remove(&bgImageColor);
     remove(&headLine);
 
-     for(u32 i = 0; i < helpText.size(); ++i){
+    for(u32 i = 0; i < helpText.size(); ++i){
         remove(helpText[i]);
         delete helpText[i];
     }

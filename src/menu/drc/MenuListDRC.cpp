@@ -86,6 +86,16 @@ MenuListDRC::MenuListDRC(s32 w, s32 h,MainWindowContent * _contentWindow)
     dpad_selection_changed = true;
 }
 
+MenuListDRC::~MenuListDRC(){
+    remove(&bgImageColor);
+    remove(&VPADDrag);
+    remove(&DPADButtons);
+
+    for (std::vector<GuiElement*>::iterator it = listElementsAll.begin() ; it != listElementsAll.end(); ++it){
+        remove(*it);
+    }
+
+}
 
 void MenuListDRC::setState(s32 i, s32 c){
     GuiFrame::setState(i,c);
@@ -245,21 +255,4 @@ MenuElement * MenuListDRC::getButtonElementByController(UController_Type control
         };
         default: return NULL;
     }
-}
-
-MenuListDRC::~MenuListDRC(){
-    remove(&bgImageColor);
-    remove(&homeSeperator);
-    remove(&elementHome);
-    remove(&controllerSeperator);
-    remove(&elementGamePad);
-    remove(&elementProController1);
-    remove(&elementProController2);
-    remove(&elementProController3);
-    remove(&elementProController4);
-    remove(&otherSeperator);
-    remove(&elementNetworkHelp);
-    remove(&elementHelp);
-    remove(&elementSettings);
-    remove(&elementAbout);
 }

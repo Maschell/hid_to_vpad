@@ -87,15 +87,19 @@ ContentHome::ContentHome():ContentTemplate()
 }
 
 ContentHome::~ContentHome(){
-    //Resources::RemoveImageData(logoImageData);  <-- will reduce lag. Will be deleted at the end anyway
-    remove(&bgImageColor);
-    remove(&logoImage);
+    // will reduce lag. Will be deleted at the end anyway
+    Resources::RemoveImageData(logoImageData);
+    Resources::RemoveImageData(twitterLogoImageData);
+    Resources::RemoveImageData(githubLogoImageData);
+
     remove(&welcomeHeadLineLabel);
     remove(&welcomeTextLabel);
     remove(&welcomeTextLabel2);
     remove(&welcomeTextLabel3);
+    remove(&logoImage);
     remove(&twitterLogoImage);
     remove(&githubLogoImage);
+
     remove(&twitterLabel);
     remove(&URLLabel);
     remove(&URL2Label);

@@ -161,7 +161,6 @@ ContentAbout::ContentAbout(): ContentTemplate(){
 }
 
 ContentAbout::~ContentAbout(){
-    remove(&bgImageColor);
     remove(&headLine);
     for(u32 i = 0; i < aboutText.size(); ++i){
         remove(aboutText[i]);

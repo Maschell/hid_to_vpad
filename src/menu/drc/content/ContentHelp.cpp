@@ -130,7 +130,6 @@ ContentHelp::ContentHelp(): ContentTemplate(){
 }
 
 ContentHelp::~ContentHelp(){
-    remove(&bgImageColor);
     remove(&headLine);
 
      for(u32 i = 0; i < helpText.size(); ++i){

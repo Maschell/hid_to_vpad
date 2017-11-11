@@ -5,6 +5,7 @@
 #include <controller_patcher/ControllerPatcher.hpp>
 
 #include <dynamic_libs/os_functions.h>
+#include <dynamic_libs/fs_functions.h>
 #include <dynamic_libs/ax_functions.h>
 #include <dynamic_libs/gx2_functions.h>
 #include <dynamic_libs/syshid_functions.h>
@@ -17,7 +18,7 @@
 #include <fs/FSUtils.h>
 #include <fs/sd_fat_devoptab.h>
 #include <system/memory.h>
-#include <kernel/kernel_functions.h>
+#include <system/exception_handler.h>
 #include <language/gettext.h>
 #include <utils/StringTools.h>
 
@@ -44,6 +45,8 @@ extern "C" s32 Menu_Main(void){
     InitVPadFunctionPointers();
     InitProcUIFunctionPointers();
 
+    setup_os_exceptions();
+
     if(OSGetTitleID()  == 0x00050000101a5f00L || // Shantae and the Pirate's Curse USA (reason: crashes when pressing HOME, Pro Controller not recognized)
         OSGetTitleID() == 0x00050000101F7F00L || // Shantae and the Pirate's Curse JAP (シャンティ -海賊の呪い-) (reason: crashes when pressing HOME, Pro Controller not recognized)
         OSGetTitleID() == 0x00050000101a9500L){  // Shantae and the Pirate's Curse EUR (reason: crashes when pressing HOME, Pro Controller not recognized)
@@ -64,8 +67,6 @@ extern "C" s32 Menu_Main(void){
     InitSysFunctionPointers();
     InitPadScoreFunctionPointers();
     InitAXFunctionPointers();
-
-    SetupKernelCallback();
 
     log_init();
     DEBUG_FUNCTION_LINE("HID to VPAD %s - %s %s - by Maschell\n\n",APP_VERION,__DATE__,__TIME__);
