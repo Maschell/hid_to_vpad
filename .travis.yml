@@ -1,90 +1,55 @@
 language: c
-
 sudo: false
 
-branches:
-  except:
-    - /^*-v[0-9]/
-    - /^build-[0-9a-z\-]*/
+os:
+  - linux
 
-notifications:
-  email: false
+env:
+  global:
+    - DEVKITPRO=$HOME/devkitPro
+    - DEVKITPPC=${DEVKITPRO}/devkitPPC
 
 cache:
-  apt: true
   directories:
-  - "/home/travis/devkitPro"
-
-before_cache:
-- rm -rf $DEVKITPRO/*.7z
-- rm -rf $DEVKITPRO/*.bz2
-- rm -rf $DEVKITPRO/examples
+    - ${DEVKITPRO}
 
 addons:
   apt:
     packages:
     - p7zip-full
-    - zip
+	- zip
 
 before_install:
-- export DEVKITPRO=/home/travis/devkitPro
-- export DEVKITPPC=${DEVKITPRO}/devkitPPC
-- export DEVKITTMP=${DEVKITPRO}/tmp
-- mkdir -p $DEVKITPRO
-- mkdir -p $DEVKITPRO/portlibs
-- mkdir -p $DEVKITTMP
-- cd $DEVKITPRO
-- wget -N https://raw.githubusercontent.com/Maschell/hid_to_vpad/master/other/devkitPPCupdatePPCr29.pl
+  - mkdir -p "${DEVKITPRO}"
+  - wget http://download.sourceforge.net/devkitpro/devkitPPC_r29-1-x86_64-linux.tar.bz2 -O devkitPPC-linux.tar.bz2
+  - wget https://github.com/Maschell/dynamic_libs/archive/lib.tar.gz -O dynamic_libs.tar.gz
+  - wget https://github.com/Maschell/libutils/archive/master.tar.gz -O libutils.tar.gz
+  - wget https://github.com/Maschell/libgui/archive/master.tar.gz -O libgui.tar.gz
+  - wget https://github.com/Maschell/controller_patcher/archive/master.tar.gz -O controller_patcher.tar.gz
+  - wget https://github.com/Maschell/controller_patcher_configs/archive/master.tar.gz -O controller_patcher_configs.tar.gz
 
 install:
-- cd $DEVKITPRO
-- perl devkitPPCupdatePPCr29.pl
-- cd $DEVKITTMP
-- git clone https://github.com/Maschell/dynamic_libs.git -b lib
-- cd dynamic_libs/libs
-- 7z x -y portlibs.zip
-- cp -R portlibs/* $DEVKITPRO
-- cd $DEVKITTMP/dynamic_libs
-- make -j8
-- make install
-- cd $DEVKITTMP
-- rm -rf *
-- git clone https://github.com/Maschell/libutils.git
-- cd libutils
-- make -j8
-- make install
-- cd $DEVKITTMP
-- rm -rf *
-- git clone https://github.com/Maschell/libgui.git
-- cd libgui/libs
-- 7z x -y portlibs.zip
-- cp -R portlibs/* $DEVKITPRO
-- cd $DEVKITTMP/libgui
-- make -j8
-- make install
-- cd $DEVKITTMP
-- rm -rf *
-- git clone https://github.com/Maschell/controller_patcher.git
-- cd controller_patcher
-- make -j8
-- make install
-- cd $DEVKITTMP
-- rm -rf *
-- cd $DEVKITPRO
-
-before_script:
-- cd $TRAVIS_BUILD_DIR/
+  - tar -xjf devkitPPC-linux.tar.bz2 -C ${DEVKITPRO}/
+  - tar -xzvf dynamic_libs.tar.gz
+  - tar -xzvf libutils.tar.gz
+  - tar -xzvf libgui.tar.gz
+  - tar -xzvf controller_patcher.tar.gz
+  - tar -xzvf controller_patcher_configs.tar.gz
+  - 7z x -y ./dynamic_libs-lib/libs/portlibs.zip -o${DEVKITPRO}
+  - 7z x -y ./libgui-master/libs/portlibs.zip -o${DEVKITPRO}
+  - (cd dynamic_libs-lib && make -j8 && make install)
+  - (cd libutils-master && make -j8 && make install)
+  - (cd libgui-master && make -j8 && make install)
+  - (cd controller_patcher-master && make -j8 && make install)
 
 script:
 - make -j8
 
 before_deploy:
-- cd $TRAVIS_BUILD_DIR/
 - mkdir -p "wiiu/apps/hidtovpad"
 - mkdir -p "wiiu/apps/hidtovpad/languages"
 - mkdir -p "wiiu/controller"
-- git clone https://github.com/Maschell/controller_patcher_configs.git
-- cp ./controller_patcher_configs/*.ini ./wiiu/controller
+- cp ./controller_patcher_configs-master/*.ini ./wiiu/controller
 - cp ./languages/*.lang ./wiiu/apps/hidtovpad/languages
 - commit="$(git rev-parse --short=7 HEAD)"
 - chmod +x gitrev.sh
@@ -102,7 +67,6 @@ before_deploy:
 - git push --quiet https://$GITHUBKEY@github.com/Maschell/hid_to_vpad $GIT_TAG > /dev/null 2>&1
 - chmod +x ftpupload.sh
 - ./ftpupload.sh
-- cd $TRAVIS_BUILD_DIR/
 
 deploy:
   provider: releases
