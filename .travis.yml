@@ -17,7 +17,7 @@ addons:
   apt:
     packages:
     - p7zip-full
-	- zip
+    - zip
 
 before_install:
   - mkdir -p "${DEVKITPRO}"
