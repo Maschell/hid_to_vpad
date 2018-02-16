@@ -131,13 +131,7 @@ void InputGetterMenu::GetInputs(CThread *thread, void *arg){
                         pad_result.vidpid.vid = hiddata[i].device_info.vidpid.vid;
                         pad_result.vidpid.pid = hiddata[i].device_info.vidpid.pid;
                         pad_result.active = 1;
-                        pad_result.type = CM_Type_Controller;
-
-                        if(pad_result.vidpid.vid == HID_KEYBOARD_VID && pad_result.vidpid.pid == HID_KEYBOARD_PID){
-                            pad_result.type = CM_Type_Keyboard;
-                        }else if(pad_result.vidpid.vid == HID_MOUSE_VID && pad_result.vidpid.pid == HID_MOUSE_PID){
-                            pad_result.type = CM_Type_Mouse;
-                        }
+                        pad_result.type = hiddata[i].type;
 
                         gotPress = 1;
                         log_printf("%04X %04X (PAD: %d) pressed a buttons %08X\n",hiddata[i].device_info.vidpid.vid,hiddata[i].device_info.vidpid.pid,j,hiddata[i].button_data[j].btn_h);

@@ -87,7 +87,6 @@ void MainWindowContent::SetScreen(ContentTemplate * new_content){
 }
 
 void MainWindowContent::RemoveScreen(){
-    DEBUG_FUNCTION_LINE("%08X\n",content);
     remove(content);
     delete content;
     content = NULL;
