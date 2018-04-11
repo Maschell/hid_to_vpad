@@ -15,7 +15,7 @@ msgstr ""
 
 #: src/menu/InputGetterMenu.cpp:34
 msgid "Press any button on the USB-Controller you want to use."
-msgstr ""
+msgstr "Press any button on the USB controller you want to use."
 
 #: src/menu/InputGetterMenu.cpp:35
 msgid "Press B to disable the mapping"
@@ -140,7 +140,7 @@ msgstr ""
 
 #: src/menu/drc/content/ContentHelp.cpp:76
 msgid "I have no idea how create a own config!"
-msgstr ""
+msgstr "I have no idea how create my own config!"
 
 #: src/menu/drc/content/ContentHelp.cpp:83
 msgid "You're lucky! There is a whole wiki about creating them:"
@@ -152,7 +152,7 @@ msgstr ""
 
 #: src/menu/drc/content/ContentHelp.cpp:104
 msgid "If you find a bug, please open an issue on github"
-msgstr ""
+msgstr "If you find a bug, please open an issue on GitHub"
 
 #: src/menu/drc/content/ContentHelp.cpp:111
 msgid "Could you add feature XYZ? Please!"
@@ -160,7 +160,7 @@ msgstr ""
 
 #: src/menu/drc/content/ContentHelp.cpp:118
 msgid "Maybe.It depends on the request, I can't promise anything."
-msgstr ""
+msgstr "Maybe. It depends on the request, I can't promise anything."
 
 #: src/menu/drc/content/ContentHelp.cpp:124
 msgid "Just open an issue and I'll try to do my best."
@@ -172,7 +172,7 @@ msgstr ""
 
 #: src/menu/drc/content/ContentHome.cpp:23
 msgid "HID to VPAD allows you to use your USB controller on your WiiU. Currently you can emulate the Gamepad or a Pro Controller."
-msgstr ""
+msgstr "HID to VPAD allows you to use your USB controller on your Wii U. Currently you can emulate the Gamepad or a Pro Controller."
 
 #: src/menu/drc/content/ContentHome.cpp:24
 msgid "Before you use your controller, you may need to provide a valid config. More information and config files can be found in the help section or on gbatemp.net (gbatemp.net/threads/424127/)."
