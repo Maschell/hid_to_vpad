@@ -31,7 +31,7 @@ msgstr "Benytt patchene"
 
 #: src/menu/drc/MainWindowDRC.cpp:47
 msgid "TCP Server running on: "
-msgstr "TCP-tjeneren kjører på:"
+msgstr "TCP-tjeneren kjører på: "
 
 #: src/menu/drc/MenuElementController.cpp:43
 msgid "Nothing attached"
@@ -80,7 +80,7 @@ msgstr "Om"
 
 #: src/menu/drc/content/ContentController.cpp:29
 msgid "Currently no device is connected."
-msgstr "For øyeblikket er ingen enheter koblet til"
+msgstr "For øyeblikket er ingen enheter koblet til."
 
 #: src/menu/drc/content/ContentController.cpp:33
 msgid "Device connected. You can test it by pressing buttons."
@@ -108,11 +108,11 @@ msgstr "Trykk X for å legge til en mus."
 
 #: src/menu/drc/content/ContentController.cpp:39
 msgid "Keyboard connected."
-msgstr "Tastatur tilkoblet"
+msgstr "Tastatur tilkoblet."
 
 #: src/menu/drc/content/ContentController.cpp:40
 msgid "Mouse connected."
-msgstr "Mus tilkoblet"
+msgstr "Mus tilkoblet."
 
 #: src/menu/drc/content/ContentController.cpp:51
 msgid "Press A to map a controller to "
@@ -140,7 +140,7 @@ msgstr "https://github.com/Maschell/controller_patcher_configs"
 
 #: src/menu/drc/content/ContentHelp.cpp:76
 msgid "I have no idea how create a own config!"
-msgstr "Jeg har ingen anelse hvordan jeg lager min egen config"
+msgstr "Jeg har ingen anelse hvordan jeg lager min egen config!"
 
 #: src/menu/drc/content/ContentHelp.cpp:83
 msgid "You're lucky! There is a whole wiki about creating them:"
@@ -168,7 +168,7 @@ msgstr "Bare åpne en sak (Issue) og jeg skal prøve mitt beste."
 
 #: src/menu/drc/content/ContentHome.cpp:22
 msgid "Welcome to HID to VPAD!"
-msgstr "Velkommen til HID to VPAD"
+msgstr "Velkommen til HID to VPAD!"
 
 #: src/menu/drc/content/ContentHome.cpp:23
 msgid "HID to VPAD allows you to use your USB controller on your WiiU. Currently you can emulate the Gamepad or a Pro Controller."
@@ -196,11 +196,11 @@ msgstr "HID to VPAD. På denne måten kan f.eks. XInput- og HID-Bluetooth-enhete
 
 #: src/menu/drc/content/ContentNetworkHelp.cpp:61
 msgid "can be used. It connects to your console over your local network."
-msgstr "bli brukt. Den kobler til konsollen din over ditt lokale nettverk"
+msgstr "bli brukt. Den kobler til konsollen din over ditt lokale nettverk."
 
 #: src/menu/drc/content/ContentNetworkHelp.cpp:68
 msgid "How do I use it?"
-msgstr "Hvordan bruker jeg den"
+msgstr "Hvordan bruker jeg den?"
 
 #: src/menu/drc/content/ContentNetworkHelp.cpp:75
 msgid "Enter the IP (upper right corner!) of your console and press connect."
@@ -216,7 +216,7 @@ msgstr "er koblet til med USB. Du kan finne en detaljert anvisning her:"
 
 #: src/menu/drc/content/ContentNetworkHelp.cpp:96
 msgid "http://gbatemp.net/threads/hid-to-vpad.424127/"
-msgstr "http://gbatemp.net/threads/hid-to-vpad.424127/"
+msgstr "https://gbatemp.net/threads/hid-to-vpad.424127/"
 
 #: src/menu/drc/content/ContentNetworkHelp.cpp:105
 msgid "Is there any input lag?"
