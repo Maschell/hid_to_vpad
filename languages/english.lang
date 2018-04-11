@@ -215,7 +215,7 @@ msgid "connected via USB. You can find a detailed guide here:"
 msgstr ""
 
 #: src/menu/drc/content/ContentNetworkHelp.cpp:96
-msgid "http://gbatemp.net/threads/hid-to-vpad.424127/"
+msgid "https://gbatemp.net/threads/hid-to-vpad.424127/"
 msgstr ""
 
 #: src/menu/drc/content/ContentNetworkHelp.cpp:105
