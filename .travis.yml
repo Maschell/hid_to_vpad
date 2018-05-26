@@ -1,46 +1,48 @@
-language: c
-sudo: false
+language: cpp
 
-os:
-  - linux
+os: linux
+sudo: false
+dist: trusty
 
 env:
   global:
-    - DEVKITPRO=$HOME/devkitPro
-    - DEVKITPPC=${DEVKITPRO}/devkitPPC
+    - DEVKITPRO=/opt/devkitpro    
+    - DEVKITPPC=/opt/devkitpro/devkitPPC
+    - PORTLIBREPOS=$HOME/portlibrepos
 
 cache:
   directories:
-    - ${DEVKITPRO}
+    - "$HOME/.local"
+    - "$PORTLIBREPOS"
+    - "$DEVKITPRO"
 
 addons:
   apt:
     packages:
     - p7zip-full
-    - zip
 
 before_install:
+  - mkdir -p "${PORTLIBREPOS}"
   - mkdir -p "${DEVKITPRO}"
-  - wget https://downloads.devkitpro.org/devkitPPC_r29-1-x86_64-linux.tar.bz2 -O devkitPPC-linux.tar.bz2
-  - wget https://github.com/Maschell/dynamic_libs/archive/lib.tar.gz -O dynamic_libs.tar.gz
-  - wget https://github.com/Maschell/libutils/archive/master.tar.gz -O libutils.tar.gz
-  - wget https://github.com/Maschell/libgui/archive/master.tar.gz -O libgui.tar.gz
-  - wget https://github.com/Maschell/controller_patcher/archive/master.tar.gz -O controller_patcher.tar.gz
-  - wget https://github.com/Maschell/controller_patcher_configs/archive/master.tar.gz -O controller_patcher_configs.tar.gz
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then wget https://github.com/devkitPro/pacman/releases/download/devkitpro-pacman-1.0.1/devkitpro-pacman.deb -O /tmp/devkitpro-pacman.deb; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo dpkg -i /tmp/devkitpro-pacman.deb; fi
+  - yes | sudo dkp-pacman -Syu devkitPPC
+  - yes | sudo dkp-pacman -Syu general-tools
 
-install:
-  - tar -xjf devkitPPC-linux.tar.bz2 -C ${DEVKITPRO}/
-  - tar -xzvf dynamic_libs.tar.gz
-  - tar -xzvf libutils.tar.gz
-  - tar -xzvf libgui.tar.gz
-  - tar -xzvf controller_patcher.tar.gz
-  - tar -xzvf controller_patcher_configs.tar.gz
-  - 7z x -y ./dynamic_libs-lib/libs/portlibs.zip -o${DEVKITPRO}
-  - 7z x -y ./libgui-master/libs/portlibs.zip -o${DEVKITPRO}
-  - (cd dynamic_libs-lib && make -j8 && make install)
-  - (cd libutils-master && make -j8 && make install)
-  - (cd libgui-master && make -j8 && make install)
-  - (cd controller_patcher-master && make -j8 && make install)
+  install:
+  - cd $PORTLIBREPOS
+  - ((git clone https://github.com/Maschell/dynamic_libs.git -b lib && (7z x -y ./dynamic_libs/libs/portlibs.zip -o${DEVKITPRO})) || (cd dynamic_libs && git pull))
+  - (git clone https://github.com/Maschell/libutils.git || (cd libutils && git pull))   
+  - ((git clone https://github.com/Maschell/libgui.git && (7z x -y ./libgui/libs/portlibs.zip -o${DEVKITPRO})) || (cd libgui && git pull))   
+  - (git clone https://github.com/Maschell/controller_patcher.git || (cd controller_patcher && git pull))
+  - (git clone https://github.com/Maschell/controller_patcher_configs.git || (cd controller_patcher_configs && git pull))
+  - (cd dynamic_libs && ((make -j8 | grep -c "built ... ") && make install && echo "installed" ) || (echo "no need for make install" && make))
+  - (cd libutils && ((make -j8 | grep -c "built ... ") && make install && echo "installed" ) || (echo "no need for make install" && make))
+  - (cd libgui && ((make -j8 | grep -c "built ... ") && make install) || echo "no need for make install")
+  - (cd controller_patcher && ((make -j8 | grep -c "built ... ") && make install && echo "installed" ) || (echo "no need for make install" && make))
+
+before_script:
+  - cd $TRAVIS_BUILD_DIR/
 
 script:
 - make -j8
@@ -49,7 +51,7 @@ before_deploy:
 - mkdir -p "wiiu/apps/hidtovpad"
 - mkdir -p "wiiu/apps/hidtovpad/languages"
 - mkdir -p "wiiu/controller"
-- cp ./controller_patcher_configs-master/*.ini ./wiiu/controller
+- cp ./controller_patcher_configs/*.ini ./wiiu/controller
 - cp ./languages/*.lang ./wiiu/apps/hidtovpad/languages
 - commit="$(git rev-parse --short=7 HEAD)"
 - chmod +x gitrev.sh
