@@ -20,7 +20,7 @@ addons:
   apt:
     packages:
     - p7zip-full
-
+    
 before_install:
   - mkdir -p "${PORTLIBREPOS}"
   - mkdir -p "${DEVKITPRO}"
@@ -29,7 +29,7 @@ before_install:
   - yes | sudo dkp-pacman -Syu devkitPPC
   - yes | sudo dkp-pacman -Syu general-tools
 
-  install:
+install:
   - cd $PORTLIBREPOS
   - ((git clone https://github.com/Maschell/dynamic_libs.git -b lib && (7z x -y ./dynamic_libs/libs/portlibs.zip -o${DEVKITPRO})) || (cd dynamic_libs && git pull))
   - (git clone https://github.com/Maschell/libutils.git || (cd libutils && git pull))   
