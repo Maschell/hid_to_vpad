@@ -8,10 +8,10 @@ msgstr ""
 "PO-Revision-Date: 2017-04-13 16:51+0200\n"
 "Last-Translator: Victormr21\n"
 "Language-Team: Spanish\n"
-"Language: sp\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: sp\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: src/menu/InputGetterMenu.cpp:34

@@ -8,10 +8,10 @@ msgstr ""
 "PO-Revision-Date: 2017-05-09 19:59+0200\n"
 "Last-Translator: jlozes\n"
 "Language-Team: French\n"
-"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
 
 #: src/menu/InputGetterMenu.cpp:34
 msgid "Press any button on the USB-Controller you want to use."
