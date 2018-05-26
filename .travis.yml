@@ -51,7 +51,7 @@ before_deploy:
 - mkdir -p "wiiu/apps/hidtovpad"
 - mkdir -p "wiiu/apps/hidtovpad/languages"
 - mkdir -p "wiiu/controller"
-- cp ./controller_patcher_configs/*.ini ./wiiu/controller
+- cp $PORTLIBREPOS/controller_patcher_configs/*.ini ./wiiu/controller
 - cp ./languages/*.lang ./wiiu/apps/hidtovpad/languages
 - commit="$(git rev-parse --short=7 HEAD)"
 - chmod +x gitrev.sh
