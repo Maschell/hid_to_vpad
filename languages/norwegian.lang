@@ -1,246 +1,246 @@
-# English translations for HID to VPAD.
+# Norwegian translations for HID to VPAD.
 # This file is distributed under the same license as the PACKAGE package.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-08 17:13+0200\n"
+"POT-Creation-Date: 2018-04-11 15:16+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Last-Translator: Imre Kristoffer Eilertsen <imreeil42@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: Norwegian \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: src/menu/InputGetterMenu.cpp:34
 msgid "Press any button on the USB-Controller you want to use."
-msgstr "Press any button on the USB controller you want to use."
+msgstr "Trykk enhver knapp på USB-kontrolleren du ønsker å bruke."
 
 #: src/menu/InputGetterMenu.cpp:35
 msgid "Press B to disable the mapping"
-msgstr ""
+msgstr "Trykk B for å deaktivere kartleggingen"
 
 #: src/menu/drc/MainWindowContent.cpp:28
 msgid "Exit to HBL  "
-msgstr ""
+msgstr "Avslutt til HBL  "
 
 #: src/menu/drc/MainWindowContent.cpp:31
 msgid "Apply Patches"
-msgstr ""
+msgstr "Benytt patchene"
 
 #: src/menu/drc/MainWindowDRC.cpp:47
 msgid "TCP Server running on: "
-msgstr ""
+msgstr "TCP-tjeneren kjører på: "
 
 #: src/menu/drc/MenuElementController.cpp:43
 msgid "Nothing attached"
-msgstr ""
+msgstr "Ingenting er tilkoblet"
 
 #: src/menu/drc/MenuElementController.cpp:160
 #: src/menu/tv/TVButtonController.cpp:41
 #: src/menu/tv/TVButtonController.cpp:175
 msgid "No device"
-msgstr ""
+msgstr "Ingen enhet"
 
 #: src/menu/drc/MenuElementController.cpp:169
 #: src/menu/tv/TVButtonController.cpp:184
 msgid "Real Pro Controller"
-msgstr ""
+msgstr "Ekte Pro Controller"
 
 #: src/menu/drc/MenuElementController.cpp:171
 #: src/menu/tv/TVButtonController.cpp:186
 msgid "Mouse / Keyboard"
-msgstr ""
+msgstr "Mus/Tastatur"
 
 #: src/menu/drc/MenuListDRC.cpp:31 src/menu/drc/MenuListDRC.cpp:32
 msgid "Home"
-msgstr ""
+msgstr "Hjem"
 
 #: src/menu/drc/MenuListDRC.cpp:39
 msgid "Other"
-msgstr ""
+msgstr "Andre"
 
 #: src/menu/drc/MenuListDRC.cpp:40 src/menu/drc/content/ContentHelp.cpp:20
 msgid "Help"
-msgstr ""
+msgstr "Hjelp"
 
 #: src/menu/drc/MenuListDRC.cpp:41
 #: src/menu/drc/content/ContentNetworkHelp.cpp:20
 msgid "Network Client"
-msgstr ""
+msgstr "Nettverksklient"
 
 #: src/menu/drc/MenuListDRC.cpp:42 src/menu/drc/content/ContentSettings.cpp:34
 msgid "Settings"
-msgstr ""
+msgstr "Innstillinger"
 
 #: src/menu/drc/MenuListDRC.cpp:43
 msgid "About"
-msgstr ""
+msgstr "Om"
 
 #: src/menu/drc/content/ContentController.cpp:29
 msgid "Currently no device is connected."
-msgstr ""
+msgstr "For øyeblikket er ingen enheter koblet til."
 
 #: src/menu/drc/content/ContentController.cpp:33
 msgid "Device connected. You can test it by pressing buttons."
-msgstr ""
+msgstr "Enheten er tilkoblet. Du kan teste den ut ved å trykke på knapper."
 
 #: src/menu/drc/content/ContentController.cpp:34
 msgid "Press A to remap to a new controller."
-msgstr ""
+msgstr "Trykk A for å tilegne til en ny kontroller."
 
 #: src/menu/drc/content/ContentController.cpp:35
 msgid "Mouse connected. You can test it by pressing buttons."
-msgstr ""
+msgstr "Musen er tilkoblet. Du kan teste den ut ved å trykke på knapper."
 
 #: src/menu/drc/content/ContentController.cpp:36
 msgid "Keyboard connected. You can test it by pressing buttons."
-msgstr ""
+msgstr "Tastaturet er tilkoblet. Du kan teste den ut ved å trykke på knapper."
 
 #: src/menu/drc/content/ContentController.cpp:37
 msgid "Press X to add a Keyboard."
-msgstr ""
+msgstr "Trykk X for å legge til et tastatur."
 
 #: src/menu/drc/content/ContentController.cpp:38
 msgid "Press X to add a Mouse."
-msgstr ""
+msgstr "Trykk X for å legge til en mus."
 
 #: src/menu/drc/content/ContentController.cpp:39
 msgid "Keyboard connected."
-msgstr ""
+msgstr "Tastatur tilkoblet."
 
 #: src/menu/drc/content/ContentController.cpp:40
 msgid "Mouse connected."
-msgstr ""
+msgstr "Mus tilkoblet."
 
 #: src/menu/drc/content/ContentController.cpp:51
 msgid "Press A to map a controller to "
-msgstr ""
+msgstr "Trykk A for å tilegne en kontroller til "
 
 #: src/menu/drc/content/ContentHelp.cpp:39
 msgid "My controller is not working!"
-msgstr ""
+msgstr "Kontrolleren min virker ikke!"
 
 #: src/menu/drc/content/ContentHelp.cpp:46
 msgid "Make sure you have a valid config in the folder \"sd:/wiiu/controller\""
-msgstr ""
+msgstr "Sørg for at du har en gyldig config-fil i mappen \"sd:/wiiu/controller\""
 
 #: src/menu/drc/content/ContentHelp.cpp:54
 msgid "Where do I get the config files from?"
-msgstr ""
+msgstr "Hvor får jeg config-filene ifra?"
 
 #: src/menu/drc/content/ContentHelp.cpp:61
 msgid "You can create them by yourself or download them from "
-msgstr ""
+msgstr "Du kan lage dem selv eller laste dem ned fra "
 
 #: src/menu/drc/content/ContentHelp.cpp:69
 msgid "https://github.com/Maschell/controller_patcher_configs"
-msgstr ""
+msgstr "https://github.com/Maschell/controller_patcher_configs"
 
 #: src/menu/drc/content/ContentHelp.cpp:76
 msgid "I have no idea how create a own config!"
-msgstr "I have no idea how create my own config!"
+msgstr "Jeg har ingen anelse hvordan jeg lager min egen config!"
 
 #: src/menu/drc/content/ContentHelp.cpp:83
 msgid "You're lucky! There is a whole wiki about creating them:"
-msgstr ""
+msgstr "Du har flaks! Det finnes en hel wiki om å lage dem:"
 
 #: src/menu/drc/content/ContentHelp.cpp:97
 msgid "XYZ is not working!"
-msgstr ""
+msgstr "XYZ virker ikke!"
 
 #: src/menu/drc/content/ContentHelp.cpp:104
 msgid "If you find a bug, please open an issue on github"
-msgstr "If you find a bug, please open an issue on GitHub"
+msgstr "Hvis du finner en bug, vennligst åpne en sak (Issue) på GitHub"
 
 #: src/menu/drc/content/ContentHelp.cpp:111
 msgid "Could you add feature XYZ? Please!"
-msgstr ""
+msgstr "Kan dere legge til XYZ-egenskapen? Vær så snill!"
 
 #: src/menu/drc/content/ContentHelp.cpp:118
 msgid "Maybe.It depends on the request, I can't promise anything."
-msgstr "Maybe. It depends on the request, I can't promise anything."
+msgstr "Kanskje. Det avhenger på forespørselen, og jeg kan ikke love noe."
 
 #: src/menu/drc/content/ContentHelp.cpp:124
 msgid "Just open an issue and I'll try to do my best."
-msgstr ""
+msgstr "Bare åpne en sak (Issue) og jeg skal prøve mitt beste."
 
 #: src/menu/drc/content/ContentHome.cpp:22
 msgid "Welcome to HID to VPAD!"
-msgstr ""
+msgstr "Velkommen til HID to VPAD!"
 
 #: src/menu/drc/content/ContentHome.cpp:23
 msgid "HID to VPAD allows you to use your USB controller on your WiiU. Currently you can emulate the Gamepad or a Pro Controller."
-msgstr "HID to VPAD allows you to use your USB controller on your Wii U. Currently you can emulate the Gamepad or a Pro Controller."
+msgstr "HID to VPAD tillater deg å bruke USB-kontrolleren din på din Wii U. For øyeblikket kan du emulere Gamepad-en eller en Pro Controller."
 
 #: src/menu/drc/content/ContentHome.cpp:24
 msgid "Before you use your controller, you may need to provide a valid config. More information and config files can be found in the help section or on gbatemp.net (gbatemp.net/threads/424127/)."
-msgstr ""
+msgstr "Før du bruker kontrolleren din, kan du måtte sørge for en gyldig config-fil. Mere informasjon samt config-filer kan bli funnet i hjelpeseksjonen eller på gbatemp.net (gbatemp.net/threads/424127/)."
 
 #: src/menu/drc/content/ContentHome.cpp:25
 msgid "To map a device, select a controller from the list on the left hand side."
-msgstr ""
+msgstr "For å kartlegge en enhet, velg en kontroller fra listen på venstre side."
 
 #: src/menu/drc/content/ContentNetworkHelp.cpp:39
 msgid "What is the Network Client?"
-msgstr ""
+msgstr "Hva er nettverksklienten?"
 
 #: src/menu/drc/content/ContentNetworkHelp.cpp:46
 msgid "It allows you to use your controller connected to your Computer with"
-msgstr ""
+msgstr "Den tillater deg å bruke kontrolleren som er koblet til PCen din med"
 
 #: src/menu/drc/content/ContentNetworkHelp.cpp:54
 msgid "HID to VPAD. This way for example XInput- and HID-Bluetooth-Devices"
-msgstr ""
+msgstr "HID to VPAD. På denne måten kan f.eks. XInput- og HID-Bluetooth-enheter"
 
 #: src/menu/drc/content/ContentNetworkHelp.cpp:61
 msgid "can be used. It connects to your console over your local network."
-msgstr ""
+msgstr "bli brukt. Den kobler til konsollen din over ditt lokale nettverk."
 
 #: src/menu/drc/content/ContentNetworkHelp.cpp:68
 msgid "How do I use it?"
-msgstr ""
+msgstr "Hvordan bruker jeg den?"
 
 #: src/menu/drc/content/ContentNetworkHelp.cpp:75
 msgid "Enter the IP (upper right corner!) of your console and press connect."
-msgstr ""
+msgstr "Skriv inn IP-adressen (Øvre høyre hjørne!) til konsollen og trykk på Koble til."
 
 #: src/menu/drc/content/ContentNetworkHelp.cpp:82
 msgid "If everything worked correctly, use the controller just like one"
-msgstr ""
+msgstr "Hvis alt virket riktig, bruk kontrolleren akkurat som en som"
 
 #: src/menu/drc/content/ContentNetworkHelp.cpp:89
 msgid "connected via USB. You can find a detailed guide here:"
-msgstr ""
+msgstr "er koblet til med USB. Du kan finne en detaljert anvisning her:"
 
 #: src/menu/drc/content/ContentNetworkHelp.cpp:96
-msgid "https://gbatemp.net/threads/hid-to-vpad.424127/"
-msgstr ""
+msgid "http://gbatemp.net/threads/hid-to-vpad.424127/"
+msgstr "https://gbatemp.net/threads/hid-to-vpad.424127/"
 
 #: src/menu/drc/content/ContentNetworkHelp.cpp:105
 msgid "Is there any input lag?"
-msgstr ""
+msgstr "Er det noen inndataforsinkelser?"
 
 #: src/menu/drc/content/ContentNetworkHelp.cpp:112
 msgid "With a connection via Ethernet, you shouldn't notice any lag."
-msgstr ""
+msgstr "Med en Ethernet-tilkobling, burde du ikke merke noen forsinkelser."
 
 #: src/menu/drc/content/ContentNetworkHelp.cpp:119
 msgid "Wi-Fi may lead to some issues or lag, but it heavily depends on the"
-msgstr ""
+msgstr "Wi-Fi kan føre til noen problemer eller forsinkelser, men det avhenger veldig på"
 
 #: src/menu/drc/content/ContentNetworkHelp.cpp:126
 msgid "quality of your signal. If it's possible, connect everything via Ethernet."
-msgstr ""
+msgstr "signalkvaliteten din. Hvis det er mulig, så koble til alt gjennom Ethernet."
 
 #: src/menu/drc/content/ContentNetworkHelp.cpp:133
 msgid "Where can I get it?"
-msgstr ""
+msgstr "Hvor kan jeg få den?"
 
 #: src/menu/drc/content/ContentNetworkHelp.cpp:140
 msgid "It's open source and you can find it here: "
-msgstr ""
+msgstr "Den er friprog og du kan finne den her: "
 
 #: src/menu/drc/content/ContentNetworkHelp.cpp:147
 msgid "https://github.com/QuarkTheAwesome/HIDtoVPADNetworkClient"
@@ -249,31 +249,31 @@ msgstr ""
 #: src/menu/drc/content/ContentSettings.cpp:50
 #: src/menu/drc/content/ContentSettings.cpp:55
 msgid "Language"
-msgstr ""
+msgstr "Språk"
 
 #: src/menu/drc/content/ContentSettings.cpp:51
 #: src/menu/drc/content/ContentSettings.cpp:56
 msgid "Rumble"
-msgstr ""
+msgstr "Risting"
 
 #: src/menu/drc/content/ContentSettings.cpp:52
 #: src/menu/drc/content/ContentSettings.cpp:57
 msgid "Music"
-msgstr ""
+msgstr "Musikk"
 
 #: src/menu/drc/content/ContentSettings.cpp:53
 #: src/menu/drc/content/ContentSettings.cpp:58
 msgid "Network Controller"
-msgstr ""
+msgstr "Nettverkskontroller"
 
 #: src/menu/drc/content/ContentSettings.cpp:79
 msgid "<Default>"
-msgstr ""
+msgstr "<Standard>"
 
 #: src/menu/tv/TVControllerBanner.cpp:40
 msgid "Press       to return to HBL"
-msgstr ""
+msgstr "Trykk        for å gå tilbake til HBL"
 
 #: src/menu/tv/TVControllerBanner.cpp:43
 msgid "Press       to apply patches"
-msgstr ""
+msgstr "Trykk       for å benytte patchene"
