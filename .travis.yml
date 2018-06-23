@@ -14,7 +14,6 @@ env:
 cache:
   directories:
     - "$HOME/.local"
-    - "$PORTLIBREPOS"
     - "$DEVKITPRO"
 
 addons:
@@ -68,8 +67,6 @@ before_deploy:
 - commitMessage="$(echo -e "-\n" && echo "HID to VPAD nightly WUPS build. Not a stable release. Expect bugs!" && echo -e "Commitlog:")"
 - git tag $GIT_TAG -a -m "$commitMessage" -m "$commitLog"
 - git push --quiet https://$GITHUBKEY@github.com/Maschell/hid_to_vpad $GIT_TAG > /dev/null 2>&1
-- chmod +x ftpupload.sh
-- ./ftpupload.sh
 
 deploy:
   provider: releases
