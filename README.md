@@ -30,14 +30,14 @@ In combination with the Network Client, more controllers are supported. You can 
 
 # FAQ
 
-### What about XBOX controller
-The Xbox controller are no HID devices. But it can be used in combination with the [Network Client](http://gbatemp.net/threads/hid-to-vpad-network-client.466150/)!
+### What about XBOX controllers?
+Xbox controllers are not HID devices. But it can be used in combination with the [Network Client](http://gbatemp.net/threads/hid-to-vpad-network-client.466150/)!
 
 ### Is my controller supported?
 Take a  look at this [repo](https://github.com/Maschell/controller_patcher_configs)
 
 ### ???
-Do you have an other question? First take a look at:
+Do you have another question? First take a look at:
 - the [controller_patcher repo](https://github.com/Maschell/controller_patcher)
 - the thread on [gbatemp](http://gbatemp.net/threads/hid-to-vpad.424127/)
 - the [wiki](https://github.com/Maschell/controller_patcher/wiki)  
@@ -47,7 +47,7 @@ If you don't find an anwser, please open an issue.
 # Building
 In order to build this application you need serval libs:
 
-- [wut] (https://github.com/decaf-emu/wut)
+- [wut](https://github.com/decaf-emu/wut)
 - [libutilswut](https://github.com/Maschell/libutils/tree/wut) for common functions.
 - [lcontrollerpatcherwut](https://github.com/Maschell/controller_patcher/tree/wut) to emulate the controllers.
 
