@@ -1,12 +1,12 @@
 [Current Stable Release](https://github.com/Maschell/hid_to_vpad/releases/latest) | [Nightly builds](https://github.com/Maschell/hid_to_vpad/releases) | [Issue Tracker](https://github.com/Maschell/hid_to_vpad/issues) | [Support Thread](https://gbatemp.net/threads/hid-to-vpad.424127/)
-# HID to VPAD  [![Build Status](https://api.travis-ci.org/Maschell/hid_to_vpad.svg?branch=master)](https://travis-ci.org/Maschell/hid_to_vpad)
+# HID to VPAD  (WUPS plugin) [![Build Status](https://api.travis-ci.org/Maschell/hid_to_vpad.svg?branch=wups)](https://travis-ci.org/Maschell/hid_to_vpad)
 
 
-This is a little tool that let you use a hid device on the WiiU. <br />
-It's based on the [controller_patcher](https://github.com/Maschell/controller_patcher) engine. 
+This is a plugin for the [Wii U Plugin System (WUPS)](https://github.com/Maschell/WiiUPluginSystem/) that let you use a HID device on the WiiU. <br />
+It's based on the [controller_patcher](https://github.com/Maschell/controller_patcher/tree/wut) engine. 
 
 ## Usage
-Start the .elf with the homebrew launcher. A GUI will open where you can assign your controller. You can attach and detach devices at any time. To change the mapping, open the Mii Maker.
+Start place the .mod file into the WUPS plugin folder `sd:/wiiu/plugins` and start the plugin loader.
 
 Place the config files into the following folder:
 ```
@@ -47,10 +47,9 @@ If you don't find an anwser, please open an issue.
 # Building
 In order to build this application you need serval libs:
 
-- [dynamic_libs](https://github.com/Maschell/dynamic_libs/tree/lib) for access to the functions.
-- [libutils](https://github.com/Maschell/libutils) for common functions.
-- [controller_patcher](https://github.com/Maschell/controller_patcher) to emulate the controllers.
-- [libgui](https://github.com/Maschell/libgui) for the gui elements.
+- [wut] (https://github.com/decaf-emu/wut)
+- [libutilswut](https://github.com/Maschell/libutils/tree/wut) for common functions.
+- [lcontrollerpatcherwut](https://github.com/Maschell/controller_patcher/tree/wut) to emulate the controllers.
 
 Install them (in this order) according to their README's. Don't forget the dependencies of the libs itself.
 
