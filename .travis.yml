@@ -62,6 +62,7 @@ before_deploy:
 - cp $PORTLIBREPOS/controller_patcher_configs/*.ini ./wiiu/controller
 - commit="$(git rev-parse --short=7 HEAD)"
 - cp hidtovpad.mod wiiu/plugins/
+- chmod +x gitrev.sh
 - versiontag="$(./gitrev.sh)"
 - zip -r hid_to_vpad_$versiontag.zip wiiu
 - git config --global user.email "builds@travis-ci.com"
