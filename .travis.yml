@@ -64,7 +64,7 @@ before_deploy:
 - cp hidtovpad.mod wiiu/plugins/
 - chmod +x gitrev.sh
 - versiontag="$(./gitrev.sh)"
-- zip -r hid_to_vpad_$versiontag.zip wiiu
+- zip -r hid_to_vpad_WUPS_$versiontag.zip wiiu
 - git config --global user.email "builds@travis-ci.com"
 - git config --global user.name "Travis CI"
 - export GIT_TAG=HIDtoVPAD-WUPS-$versiontag
