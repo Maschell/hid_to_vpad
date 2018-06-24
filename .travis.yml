@@ -57,8 +57,7 @@ script:
 - make -j8
 
 before_deploy:
-- mkdir -p "wiiu/apps/hidtovpad"
-- mkdir -p "wiiu/apps/hidtovpad/languages"
+- mkdir -p "wiiu/plugins"
 - mkdir -p "wiiu/controller"
 - cp $PORTLIBREPOS/controller_patcher_configs/*.ini ./wiiu/controller
 - commit="$(git rev-parse --short=7 HEAD)"
