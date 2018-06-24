@@ -33,9 +33,13 @@ before_install:
 install:  
   - 7z x -y $(ls | grep "linux") -o${WUT_ROOT}
   - cd $PORTLIBREPOS
-  - (git clone https://github.com/Maschell/controller_patcher_configs.git || (cd controller_patcher_configs && git pull))
+  - git clone https://github.com/Maschell/WiiUPluginSystem.git
+  - git clone https://github.com/Maschell/controller_patcher_configs.git
   - git clone https://github.com/Maschell/libutils.git -b wut
   - git clone https://github.com/Maschell/controller_patcher.git -b wut
+  - cd WiiUPluginSystem
+  - make && make install
+  - cd $PORTLIBREPOS  
   - cd libutils
   - mkdir build && cd build
   - cmake -DCMAKE_TOOLCHAIN_FILE=$WUT_ROOT/share/wut.toolchain.cmake -DCMAKE_INSTALL_PREFIX=$WUT_ROOT ../
