@@ -41,7 +41,7 @@ install:
   - cmake -DCMAKE_TOOLCHAIN_FILE=$WUT_ROOT/share/wut.toolchain.cmake -DCMAKE_INSTALL_PREFIX=$WUT_ROOT ../
   - make install
   - cd $PORTLIBREPOS
-  - cd libutils
+  - cd controller_patcher
   - mkdir build && cd build
   - cmake -DCMAKE_TOOLCHAIN_FILE=$WUT_ROOT/share/wut.toolchain.cmake -DCMAKE_INSTALL_PREFIX=$WUT_ROOT ../
   - make install
