@@ -33,6 +33,7 @@ ON_APPLICATION_START(args){
     ControllerPatcher::disableControllerMapping();
     DEBUG_FUNCTION_LINE("Starting HID to VPAD network server\n");
     ControllerPatcher::startNetworkServer();
+    ControllerPatcher::disableWiiUEnergySetting();
 }
 
 ON_APP_STATUS_CHANGED(status){
@@ -44,6 +45,7 @@ ON_APP_STATUS_CHANGED(status){
         ControllerPatcher::stopNetworkServer();
         DEBUG_FUNCTION_LINE("Calling resetCallbackData\n");
         ControllerPatcher::resetCallbackData();
+        ControllerPatcher::restoreWiiUEnergySetting();
     }
 }
 
