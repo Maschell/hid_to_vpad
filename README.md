@@ -5,6 +5,14 @@
 This is a plugin for the [Wii U Plugin System (WUPS)](https://github.com/Maschell/WiiUPluginSystem/) that let you use a HID device on the WiiU. <br />
 It's based on the [controller_patcher](https://github.com/Maschell/controller_patcher/tree/wut) engine. 
 
+# Wii U Plugin System
+This is a plugin for the [Wii U Plugin System (WUPS)](https://github.com/Maschell/WiiUPluginSystem/). To be able to use this plugin you have to place the resulting `.mod` file in to the following folder:
+
+```
+sd:/wiiu/plugins
+```
+When the file is placed on the SDCard you can load it with [plugin loader](https://github.com/Maschell/WiiUPluginSystem/).
+
 ## Usage
 Start place the .mod file into the WUPS plugin folder `sd:/wiiu/plugins` and start the plugin loader.
 
