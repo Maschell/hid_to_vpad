@@ -1,4 +1,6 @@
 #include <wups.h>
+#include <wups/config.h>
+#include <wups/config/WUPSConfigItemBoolean.h>
 #include <string.h>
 #include <controller_patcher/ControllerPatcher.hpp>
 #include <utils/logger.h>
@@ -18,7 +20,34 @@ WUPS_FS_ACCESS()
 #define WIIU_PATH 					"/wiiu"
 #define DEFAULT_HID_TO_VPAD_PATH 	SD_PATH WIIU_PATH "/apps/hidtovpad"
 
-DEINITIALIZE_PLUGIN(){
+void rumbleChanged(bool newValue) {
+    DEBUG_FUNCTION_LINE("rumbleChanged %d \n",newValue);
+    ControllerPatcher::setRumbleActivated(newValue);
+}
+
+void networkClient(bool newValue) {
+    DEBUG_FUNCTION_LINE("Trigger network %d\n",newValue);
+    ControllerPatcher::setNetworkControllerActivated(newValue);
+    if(newValue) {
+        ControllerPatcher::startNetworkServer();
+    } else {
+        ControllerPatcher::stopNetworkServer();
+    }
+}
+
+WUPS_GET_CONFIG() {
+    WUPSConfig* config = new WUPSConfig("HID to VPAD");
+    WUPSConfigCategory* catOther = config->addCategory("Other");
+
+    //                    item Type             config id           displayed name              default value  onChangeCallback.
+    catOther->addItem(new WUPSConfigItemBoolean("rumble",           "Enable rumble",            ControllerPatcher::isRumbleActivated(), rumbleChanged));
+    catOther->addItem(new WUPSConfigItemBoolean("networkclient",    "Enable network client",    true,          networkClient));
+
+    return config;
+}
+
+
+DEINITIALIZE_PLUGIN() {
     //CursorDrawer::destroyInstance();
     ControllerPatcher::DeInit();
 	ControllerPatcher::stopNetworkServer();
