@@ -48,7 +48,7 @@ LIBDIRS             := $(WUPSDIR) $(WUT_ROOT)
 #---------------------------------------------------------------------------------
 # any extra libraries we wish to link with the project
 #---------------------------------------------------------------------------------
-LIBS                := -lwups -lcontrollerpatcherwut -lutilswut  -lcoreinit -lnsysnet -lnsyshid -lvpadbase
+LIBS                := -lwups -lcontrollerpatcherwut -lutilswut  -lcoreinit -lnsysnet -lnsyshid -lvpadbase -lvpad -lpadscore
 
 #---------------------------------------------------------------------------------
 # Will be added to the final lib paths
