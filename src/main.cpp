@@ -20,12 +20,12 @@ WUPS_FS_ACCESS()
 #define WIIU_PATH                   "/wiiu"
 #define DEFAULT_HID_TO_VPAD_PATH    SD_PATH WIIU_PATH "/apps/hidtovpad"
 
-void rumbleChanged(bool newValue) {
+void rumbleChanged(WUPSConfigItemBoolean * item, bool newValue) {
     DEBUG_FUNCTION_LINE("rumbleChanged %d \n",newValue);
     ControllerPatcher::setRumbleActivated(newValue);
 }
 
-void networkClient(bool newValue) {
+void networkClient(WUPSConfigItemBoolean * item, bool newValue) {
     DEBUG_FUNCTION_LINE("Trigger network %d\n",newValue);
     ControllerPatcher::setNetworkControllerActivated(newValue);
     if(newValue) {
