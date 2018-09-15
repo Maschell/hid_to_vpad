@@ -21,6 +21,9 @@ Place the config files into the following folder:
 sd:/wiiu/controller
 ```
 
+To set the controller mapping you need to open the WUPS configuration menu. When the plugin is loaded and active, you can open the menu via the button combo **L, DPAD DOWN and MINUS**.  
+(Note: The config menu only opens at places where the home menu is allowed).
+
 ## Supported devices
 The official GC Adapter, PS3/PS4 Pad, Mouse, Keyboard have built in support. Other devices can be added when a valid config file in provided.  
 Check out the [controller_patcher](https://github.com/Maschell/controller_patcher) repository for more details.  
