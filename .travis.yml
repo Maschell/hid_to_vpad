@@ -41,4 +41,4 @@ deploy:
   on:
     repo: Maschell/hid_to_vpad
     tags: false
-    all_branches: false
+    all_branches: true
