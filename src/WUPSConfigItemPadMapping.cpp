@@ -19,12 +19,14 @@
 #include <controller_patcher/ControllerPatcher.hpp>
 #include <coreinit/debug.h>
 #include <padscore/wpad.h>
+#include <set>
 #include <stdio.h>
 #include <string.h>
 #include <utils/StringTools.h>
 #include <utils/logger.h>
 #include <vector>
 #include <vpad/input.h>
+#include <wups/config_api.h>
 
 // At this point the VPADRead function is already patched. But we want to use the original function (note: this could be patched by a different plugin)
 typedef int32_t (*VPADReadFunction)(VPADChan chan, VPADStatus *buffer, uint32_t buffer_size, VPADReadError *error);
@@ -71,11 +73,16 @@ void checkForInput(ConfigItemPadMapping *item) {
     VPADStatus vpad_data = {};
     VPADReadError error;
 
+    // Only accept a press that starts after we began waiting. A device that already reports a held
+    // button (e.g. a wireless receiver with no controller paired) would otherwise be bound instantly.
+    std::set<uint64_t> heldLastPoll;
+    bool firstPoll = true;
+
     bool unmap = false;
     while (!gotPress) {
         real_VPADRead(VPAD_CHAN_0, &vpad_data, 1, &error);
-        if (error != VPAD_READ_SUCCESS) {
-            if (vpad_data.hold == VPAD_BUTTON_X || vpad_data.hold == VPAD_BUTTON_HOME) {
+        if (error == VPAD_READ_SUCCESS) {
+            if (vpad_data.hold == VPAD_BUTTON_X) {
                 unmap = true;
                 break;
             }
@@ -85,26 +92,28 @@ void checkForInput(ConfigItemPadMapping *item) {
         }
 
         int32_t result = ControllerPatcher::gettingInputAllDevices(hiddata, inputsize);
-        if (result > 0) {
-            for (int32_t i = 0; i < result; i++) {
-                for (int32_t j = 0; j < HID_MAX_PADS_COUNT; j++) {
-                    if (hiddata[i].button_data[j].btn_h != 0) {
-                        pad_result.pad        = j;
-                        pad_result.vidpid.vid = hiddata[i].device_info.vidpid.vid;
-                        pad_result.vidpid.pid = hiddata[i].device_info.vidpid.pid;
-                        pad_result.active     = 1;
-                        pad_result.type       = hiddata[i].type;
-
-                        gotPress = true;
-                        DEBUG_FUNCTION_LINE("%04X %04X (PAD: %d) pressed a buttons %08X", pad_result.vidpid.vid, pad_result.vidpid.pid, pad_result.pad, hiddata[i].button_data[j].btn_h);
-                        break;
-                    }
+        std::set<uint64_t> heldNow;
+        for (int32_t i = 0; i < result; i++) {
+            for (int32_t j = 0; j < HID_MAX_PADS_COUNT; j++) {
+                if (hiddata[i].button_data[j].btn_h == 0) {
+                    continue;
                 }
-                if (gotPress) {
-                    break;
+                uint64_t key = ((uint64_t) hiddata[i].device_info.slotdata.hidmask << 8) | (uint64_t) j;
+                heldNow.insert(key);
+                if (!gotPress && !firstPoll && heldLastPoll.count(key) == 0) {
+                    pad_result.pad        = j;
+                    pad_result.vidpid.vid = hiddata[i].device_info.vidpid.vid;
+                    pad_result.vidpid.pid = hiddata[i].device_info.vidpid.pid;
+                    pad_result.active     = 1;
+                    pad_result.type       = hiddata[i].type;
+
+                    gotPress = true;
+                    DEBUG_FUNCTION_LINE("%04X %04X (PAD: %d) pressed a buttons %08X", pad_result.vidpid.vid, pad_result.vidpid.pid, pad_result.pad, hiddata[i].button_data[j].btn_h);
                 }
             }
         }
+        heldLastPoll = heldNow;
+        firstPoll    = false;
     }
     if (gotPress) {
         ControllerPatcher::resetControllerMapping(item->controllerType);
@@ -218,7 +227,7 @@ extern "C" bool WUPSConfigItemPadMapping_AddToCategory(WUPSConfigCategoryHandle 
     item->state          = CONFIG_ITEM_PAD_MAPPING_STATE_NONE;
     memset(&item->mappedPadInfo, 0, sizeof(item->mappedPadInfo));
 
-    WUPSConfigCallbacks_t callbacks = {
+    WUPSConfigAPIItemCallbacksV1 callbacks = {
             .getCurrentValueDisplay         = &WUPSConfigItemPadMapping_getCurrentValueDisplay,
             .getCurrentValueSelectedDisplay = &WUPSConfigItemPadMapping_getCurrentValueDisplaySelected,
             .onSelected                     = &WUPSConfigItemPadMapping_onSelected,
@@ -228,12 +237,22 @@ extern "C" bool WUPSConfigItemPadMapping_AddToCategory(WUPSConfigCategoryHandle 
             .onButtonPressed                = &WUPSConfigItemPadMapping_onButtonPressed,
             .onDelete                       = &WUPSConfigItemPadMapping_onDelete};
 
-    if (WUPSConfigItem_Create(&item->handle, configID, displayName, callbacks, item) < 0) {
+    WUPSConfigAPIItemOptionsV1 options = {
+            .configId    = configID,
+            .displayName = displayName,
+            .context     = item,
+            .callbacks   = callbacks};
+
+    WUPSConfigAPICreateItemOptions itemOptions;
+    itemOptions.version = WUPS_API_ITEM_OPTION_VERSION_V1;
+    itemOptions.data.v1 = options;
+
+    if (WUPSConfigAPI_Item_CreateEx(itemOptions, &item->handle) != WUPSCONFIG_API_RESULT_SUCCESS) {
         free(item);
         return false;
     }
 
-    if (WUPSConfigCategory_AddItem(cat, item->handle) < 0) {
+    if (WUPSConfigAPI_Category_AddItem(cat, item->handle) != WUPSCONFIG_API_RESULT_SUCCESS) {
         return false;
     }
     return true;

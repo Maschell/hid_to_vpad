@@ -21,6 +21,7 @@
 #include <coreinit/cache.h>
 #include <coreinit/debug.h>
 #include <coreinit/thread.h>
+#include <padscore/kpad.h>
 
 extern bool gConfigMenuOpen;
 DECL_FUNCTION(int32_t, VPADRead, VPADChan chan, VPADStatus *buffer, uint32_t buffer_size, VPADReadError *error) {
@@ -180,6 +181,41 @@ DECL_FUNCTION(void, WPADRead, WPADChan chan, WPADStatusProController *data) {
     }
 }
 
+DECL_FUNCTION(int32_t, KPADRead, KPADChan chan, KPADStatus *data, uint32_t size) {
+    if (gConfigMenuOpen) {
+        return real_KPADRead(chan, data, size);
+    }
+    if (data != nullptr && size > 0 &&
+        ((chan == WPAD_CHAN_0 && ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro1)) ||
+         (chan == WPAD_CHAN_1 && ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro2)) ||
+         (chan == WPAD_CHAN_2 && ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro3)) ||
+         (chan == WPAD_CHAN_3 && ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro4)))) {
+        if (ControllerPatcher::setProControllerDataFromHID((void *) data, chan) == CONTROLLER_PATCHER_ERROR_NONE) {
+            return 1;
+        }
+    }
+    return real_KPADRead(chan, data, size);
+}
+
+DECL_FUNCTION(int32_t, KPADReadEx, KPADChan chan, KPADStatus *data, uint32_t size, KPADError *error) {
+    if (gConfigMenuOpen) {
+        return real_KPADReadEx(chan, data, size, error);
+    }
+    if (data != nullptr && size > 0 &&
+        ((chan == WPAD_CHAN_0 && ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro1)) ||
+         (chan == WPAD_CHAN_1 && ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro2)) ||
+         (chan == WPAD_CHAN_2 && ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro3)) ||
+         (chan == WPAD_CHAN_3 && ControllerPatcher::isControllerConnectedAndActive(UController_Type_Pro4)))) {
+        if (ControllerPatcher::setProControllerDataFromHID((void *) data, chan) == CONTROLLER_PATCHER_ERROR_NONE) {
+            if (error) {
+                *error = KPAD_ERROR_OK;
+            }
+            return 1;
+        }
+    }
+    return real_KPADReadEx(chan, data, size, error);
+}
+
 DECL_FUNCTION(void, WPADControlMotor, WPADChan chan, uint32_t status) {
     if (gConfigMenuOpen) {
         real_WPADControlMotor(chan, status);
@@ -203,6 +239,8 @@ WUPS_MUST_REPLACE(KPADSetConnectCallback, WUPS_LOADER_LIBRARY_PADSCORE, KPADSetC
 WUPS_MUST_REPLACE(WPADSetConnectCallback, WUPS_LOADER_LIBRARY_PADSCORE, WPADSetConnectCallback);
 WUPS_MUST_REPLACE(WPADSetExtensionCallback, WUPS_LOADER_LIBRARY_PADSCORE, WPADSetExtensionCallback);
 WUPS_MUST_REPLACE(WPADRead, WUPS_LOADER_LIBRARY_PADSCORE, WPADRead);
+WUPS_MUST_REPLACE(KPADRead, WUPS_LOADER_LIBRARY_PADSCORE, KPADRead);
+WUPS_MUST_REPLACE(KPADReadEx, WUPS_LOADER_LIBRARY_PADSCORE, KPADReadEx);
 WUPS_MUST_REPLACE(WPADGetDataFormat, WUPS_LOADER_LIBRARY_PADSCORE, WPADGetDataFormat);
 WUPS_MUST_REPLACE(WPADSetDataFormat, WUPS_LOADER_LIBRARY_PADSCORE, WPADSetDataFormat);
 WUPS_MUST_REPLACE(WPADControlMotor, WUPS_LOADER_LIBRARY_PADSCORE, WPADControlMotor);

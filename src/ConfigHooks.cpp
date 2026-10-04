@@ -22,57 +22,47 @@
 #include <coreinit/debug.h>
 #include <wups.h>
 #include <wups/config/WUPSConfigItemBoolean.h>
+#include <wups/config_api.h>
+#include <wups/storage.h>
 
 bool runNetworkClient = true;
-
 
 void loadMapping(const std::string &persistedValue, UController_Type type);
 
 void ConfigLoad() {
-    WUPS_OpenStorage();
-
     bool rumble = false;
+    WUPSStorageAPI::GetOrStoreDefault("rumble", rumble, false);
+    DEBUG_FUNCTION_LINE("Set rumble to %d", rumble);
+    ControllerPatcher::setRumbleActivated(rumble);
 
-    if (WUPS_GetBool(nullptr, "rumble", &rumble) == WUPS_STORAGE_ERROR_SUCCESS) {
-        DEBUG_FUNCTION_LINE("Set rumble to %d", rumble);
-        ControllerPatcher::setRumbleActivated(rumble);
-    } else {
-        WUPS_StoreBool(nullptr, "rumble", ControllerPatcher::isRumbleActivated());
-    }
-
-    if (WUPS_GetBool(nullptr, "networkclient", &runNetworkClient) != WUPS_STORAGE_ERROR_SUCCESS) {
-        WUPS_StoreBool(nullptr, "networkclient", runNetworkClient);
-    }
+    WUPSStorageAPI::GetOrStoreDefault("networkclient", runNetworkClient, true);
 
     char buffer[512];
-    if (WUPS_GetString(nullptr, "gamepadmapping", buffer, sizeof(buffer)) == WUPS_STORAGE_ERROR_SUCCESS) {
-        std::string stringWrapper = buffer;
-        loadMapping(stringWrapper, UController_Type_Gamepad);
-    }
 
-    if (WUPS_GetString(nullptr, "pro1", buffer, sizeof(buffer)) == WUPS_STORAGE_ERROR_SUCCESS) {
-        std::string stringWrapper = buffer;
-        loadMapping(stringWrapper, UController_Type_Pro1);
+    buffer[0] = '\0';
+    if (WUPSStorageAPI_GetString(nullptr, "gamepadmapping", buffer, sizeof(buffer), nullptr) == WUPS_STORAGE_ERROR_SUCCESS && buffer[0] != '\0') {
+        loadMapping(std::string(buffer), UController_Type_Gamepad);
     }
-    if (WUPS_GetString(nullptr, "pro2", buffer, sizeof(buffer)) == WUPS_STORAGE_ERROR_SUCCESS) {
-        std::string stringWrapper = buffer;
-        loadMapping(stringWrapper, UController_Type_Pro2);
+    buffer[0] = '\0';
+    if (WUPSStorageAPI_GetString(nullptr, "pro1", buffer, sizeof(buffer), nullptr) == WUPS_STORAGE_ERROR_SUCCESS && buffer[0] != '\0') {
+        loadMapping(std::string(buffer), UController_Type_Pro1);
     }
-    if (WUPS_GetString(nullptr, "pro3", buffer, sizeof(buffer)) == WUPS_STORAGE_ERROR_SUCCESS) {
-        std::string stringWrapper = buffer;
-        loadMapping(stringWrapper, UController_Type_Pro3);
+    buffer[0] = '\0';
+    if (WUPSStorageAPI_GetString(nullptr, "pro2", buffer, sizeof(buffer), nullptr) == WUPS_STORAGE_ERROR_SUCCESS && buffer[0] != '\0') {
+        loadMapping(std::string(buffer), UController_Type_Pro2);
     }
-    if (WUPS_GetString(nullptr, "pro4", buffer, sizeof(buffer)) == WUPS_STORAGE_ERROR_SUCCESS) {
-        std::string stringWrapper = buffer;
-        loadMapping(stringWrapper, UController_Type_Pro4);
+    buffer[0] = '\0';
+    if (WUPSStorageAPI_GetString(nullptr, "pro3", buffer, sizeof(buffer), nullptr) == WUPS_STORAGE_ERROR_SUCCESS && buffer[0] != '\0') {
+        loadMapping(std::string(buffer), UController_Type_Pro3);
     }
-
-    WUPS_CloseStorage();
+    buffer[0] = '\0';
+    if (WUPSStorageAPI_GetString(nullptr, "pro4", buffer, sizeof(buffer), nullptr) == WUPS_STORAGE_ERROR_SUCCESS && buffer[0] != '\0') {
+        loadMapping(std::string(buffer), UController_Type_Pro4);
+    }
 }
 
 void loadMapping(const std::string &persistedValue, UController_Type controllerType) {
     if (persistedValue.empty()) {
-        // No device mapped.
         return;
     }
     std::vector<std::string> result = StringTools::stringSplit(persistedValue, ",");
@@ -84,74 +74,92 @@ void loadMapping(const std::string &persistedValue, UController_Type controllerT
     mappedPadInfo.vidpid.vid = atoi(result.at(0).c_str());
     mappedPadInfo.vidpid.pid = atoi(result.at(1).c_str());
     mappedPadInfo.pad        = atoi(result.at(2).c_str());
-    mappedPadInfo.type       = CM_Type_Controller; //atoi(result.at(3).c_str());
+    mappedPadInfo.type       = CM_Type_Controller;
 
     ControllerPatcher::addControllerMapping(controllerType, mappedPadInfo);
 }
 
 void rumbleChanged(ConfigItemBoolean *item, bool newValue) {
-    DEBUG_FUNCTION_LINE("rumbleChanged %d ", newValue);
+    DEBUG_FUNCTION_LINE("rumbleChanged %d", newValue);
     ControllerPatcher::setRumbleActivated(newValue);
-    WUPS_StoreInt(nullptr, "rumble", newValue);
+    WUPSStorageAPI::Store("rumble", newValue);
 }
 
 void networkClientChanged(ConfigItemBoolean *item, bool newValue) {
     DEBUG_FUNCTION_LINE("Trigger network %d", newValue);
+    runNetworkClient = newValue;
     ControllerPatcher::setNetworkControllerActivated(newValue);
     if (newValue) {
         ControllerPatcher::startNetworkServer();
     } else {
         ControllerPatcher::stopNetworkServer();
     }
-    WUPS_StoreInt(nullptr, "networkclient", newValue);
+    WUPSStorageAPI::Store("networkclient", newValue);
 }
 
 void PadMappingUpdated(ConfigItemPadMapping *item) {
     ControllerPatcher::resetControllerMapping(item->controllerType);
     if (item->mappedPadInfo.active && item->mappedPadInfo.type == CM_Type_Controller) {
         auto res = StringTools::strfmt("%d,%d,%d,%d", item->mappedPadInfo.vidpid.vid, item->mappedPadInfo.vidpid.pid, item->mappedPadInfo.pad, item->mappedPadInfo.type);
-        WUPS_StoreString(nullptr, item->configId, res.c_str());
+        WUPSStorageAPI_StoreString(nullptr, item->configId, res.c_str());
         loadMapping(res, item->controllerType);
         return;
     }
-    WUPS_StoreString(nullptr, item->configId, "");
+    WUPSStorageAPI_StoreString(nullptr, item->configId, "");
 }
 
 bool gConfigMenuOpen = false;
-WUPS_CONFIG_CLOSED() {
-    gConfigMenuOpen = false;
-    // Save all changes
-    if (WUPS_CloseStorage() != WUPS_STORAGE_ERROR_SUCCESS) {
-        OSReport("Failed to close storage\n");
-    }
-}
 
-#define CONFIG_PadMapping_AddToCategory(__config__, category, config_id, display_name, controller_type, callback) \
-    if (!WUPSConfigItemPadMapping_AddToCategory(category, config_id, display_name, controller_type, callback)) {  \
-        WUPSConfig_Destroy(__config__);                                                                           \
-        return 0;                                                                                                 \
-    }
-
-WUPS_GET_CONFIG() {
-    WUPS_OpenStorage();
+WUPSConfigAPICallbackStatus configMenuOpenedCallback(WUPSConfigCategoryHandle root) {
     gConfigMenuOpen = true;
-
-    WUPSConfigHandle config;
-    WUPSConfig_CreateHandled(&config, "HID to VPAD");
 
     WUPSConfigCategoryHandle catMapping;
     WUPSConfigCategoryHandle catOther;
 
-    WUPSConfig_AddCategoryByNameHandled(config, "Mapping", &catMapping);
-    WUPSConfig_AddCategoryByNameHandled(config, "Other", &catOther);
-    WUPSConfigItemBoolean_AddToCategoryHandledEx(config, catOther, "rumble", "Rumble", ControllerPatcher::isRumbleActivated(), &rumbleChanged, "On", "Off");
-    WUPSConfigItemBoolean_AddToCategoryHandledEx(config, catOther, "networkclient", "Network Client", runNetworkClient, &networkClientChanged, "On", "Off");
+    if (WUPSConfigAPI_Category_Create({.name = "Mapping"}, &catMapping) != WUPSCONFIG_API_RESULT_SUCCESS) {
+        DEBUG_FUNCTION_LINE("Failed to create Mapping category");
+        return WUPSCONFIG_API_CALLBACK_RESULT_ERROR;
+    }
+    if (WUPSConfigAPI_Category_Create({.name = "Other"}, &catOther) != WUPSCONFIG_API_RESULT_SUCCESS) {
+        DEBUG_FUNCTION_LINE("Failed to create Other category");
+        return WUPSCONFIG_API_CALLBACK_RESULT_ERROR;
+    }
 
-    CONFIG_PadMapping_AddToCategory(config, catMapping, "gamepadmapping", "Gamepad", UController_Type_Gamepad, &PadMappingUpdated);
-    CONFIG_PadMapping_AddToCategory(config, catMapping, "pro1", "Pro Controller 1", UController_Type_Pro1, &PadMappingUpdated);
-    CONFIG_PadMapping_AddToCategory(config, catMapping, "pro2", "Pro Controller 2", UController_Type_Pro2, &PadMappingUpdated);
-    CONFIG_PadMapping_AddToCategory(config, catMapping, "pro3", "Pro Controller 3", UController_Type_Pro3, &PadMappingUpdated);
-    CONFIG_PadMapping_AddToCategory(config, catMapping, "pro4", "Pro Controller 4", UController_Type_Pro4, &PadMappingUpdated);
+    if (WUPSConfigItemBoolean_AddToCategoryEx(catOther, "rumble", "Rumble",
+                                              false, ControllerPatcher::isRumbleActivated(),
+                                              &rumbleChanged, "On", "Off") != WUPSCONFIG_API_RESULT_SUCCESS) {
+        DEBUG_FUNCTION_LINE("Failed to add rumble item");
+        return WUPSCONFIG_API_CALLBACK_RESULT_ERROR;
+    }
+    if (WUPSConfigItemBoolean_AddToCategoryEx(catOther, "networkclient", "Network Client",
+                                              true, runNetworkClient,
+                                              &networkClientChanged, "On", "Off") != WUPSCONFIG_API_RESULT_SUCCESS) {
+        DEBUG_FUNCTION_LINE("Failed to add networkclient item");
+        return WUPSCONFIG_API_CALLBACK_RESULT_ERROR;
+    }
 
-    return config;
+    if (!WUPSConfigItemPadMapping_AddToCategory(catMapping, "gamepadmapping", "Gamepad", UController_Type_Gamepad, &PadMappingUpdated) ||
+        !WUPSConfigItemPadMapping_AddToCategory(catMapping, "pro1", "Pro Controller 1", UController_Type_Pro1, &PadMappingUpdated) ||
+        !WUPSConfigItemPadMapping_AddToCategory(catMapping, "pro2", "Pro Controller 2", UController_Type_Pro2, &PadMappingUpdated) ||
+        !WUPSConfigItemPadMapping_AddToCategory(catMapping, "pro3", "Pro Controller 3", UController_Type_Pro3, &PadMappingUpdated) ||
+        !WUPSConfigItemPadMapping_AddToCategory(catMapping, "pro4", "Pro Controller 4", UController_Type_Pro4, &PadMappingUpdated)) {
+        DEBUG_FUNCTION_LINE("Failed to add pad mapping item");
+        return WUPSCONFIG_API_CALLBACK_RESULT_ERROR;
+    }
+
+    if (WUPSConfigAPI_Category_AddCategory(root, catMapping) != WUPSCONFIG_API_RESULT_SUCCESS) {
+        DEBUG_FUNCTION_LINE("Failed to add Mapping category to root");
+        return WUPSCONFIG_API_CALLBACK_RESULT_ERROR;
+    }
+    if (WUPSConfigAPI_Category_AddCategory(root, catOther) != WUPSCONFIG_API_RESULT_SUCCESS) {
+        DEBUG_FUNCTION_LINE("Failed to add Other category to root");
+        return WUPSCONFIG_API_CALLBACK_RESULT_ERROR;
+    }
+
+    return WUPSCONFIG_API_CALLBACK_RESULT_SUCCESS;
+}
+
+void configMenuClosedCallback() {
+    gConfigMenuOpen = false;
+    WUPSStorageAPI::SaveStorage();
 }

@@ -16,24 +16,28 @@
  ****************************************************************************/
 
 #include <wups.h>
+#include <wups/config_api.h>
 
 #include <controller_patcher/ControllerPatcher.hpp>
 #include <cstring>
 #include <utils/logger.h>
 
+WUPSConfigAPICallbackStatus configMenuOpenedCallback(WUPSConfigCategoryHandle root);
+void configMenuClosedCallback();
+
 WUPS_PLUGIN_NAME("HID to VPAD");
 WUPS_PLUGIN_DESCRIPTION("Enables HID devices as controllers on your Wii U");
-WUPS_PLUGIN_VERSION("0.1.1-alpha");
+WUPS_PLUGIN_VERSION("0.21-alpha");
 WUPS_PLUGIN_AUTHOR("Maschell");
 WUPS_PLUGIN_LICENSE("GPL");
 
 WUPS_USE_WUT_DEVOPTAB();
 WUPS_USE_STORAGE("hid_to_vpad");
 
-extern int32_t runNetworkClient;
+extern bool runNetworkClient;
 
 #define SD_PATH                          "fs:/vol/external01"
-#define WIIU_PATH                         "/wiiu"
+#define WIIU_PATH                        "/wiiu"
 #define DEFAULT_CONTROLLER_PATCHER_PATCH SD_PATH WIIU_PATH "/controller"
 
 void ConfigLoad();
@@ -56,6 +60,7 @@ ON_APPLICATION_START() {
 
 INITIALIZE_PLUGIN() {
     WHBLogUdpInit();
+    WUPSConfigAPI_Init({.name = "HID to VPAD"}, configMenuOpenedCallback, configMenuClosedCallback);
 }
 
 DEINITIALIZE_PLUGIN() {
